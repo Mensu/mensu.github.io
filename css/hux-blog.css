@@ -48,6 +48,9 @@
 .sidebar-container .short-about .list-inline > li {
   padding-left: 0px;
 }
+.list-inline a {
+  text-decoration: none;
+}
 body {
   /* Hux learn from
      *     TypeIsBeautiful,
@@ -362,6 +365,14 @@ pre code {
     transform: translate3d(0, 100%, 0);
   }
 }
+.go-top {
+  text-decoration: none;
+
+  position: fixed;
+  right: 5px;
+  bottom: 10px;
+  z-index: 5;
+}
 .intro-header {
   background: no-repeat center center;
   background-color: rgb(254, 190, 193);
@@ -433,11 +444,13 @@ pre code {
 .intro-header .post-heading h1 {
   font-size: 30px;
   margin-bottom: 24px;
+  
 }
 .intro-header .post-heading .subheading,
 .intro-header .post-heading .meta {
   line-height: 1.1;
   display: block;
+
 }
 .intro-header .post-heading .subheading {
   /* Hux learn from
@@ -464,6 +477,7 @@ pre code {
 @media only screen and (min-width: 768px) {
   .intro-header .post-heading h1 {
     font-size: 55px;
+    line-height: 70px;
   }
   .intro-header .post-heading .subheading {
     font-size: 30px;
@@ -555,6 +569,7 @@ footer {
 }
 footer a {
   color: #404040;
+  font-weight: bold;
 }
 footer .list-inline {
   margin: 0;
@@ -566,7 +581,8 @@ footer .copyright {
   margin-bottom: 0;
 }
 footer .copyright a {
-  color: #337ab7;
+  text-decoration: none;
+  color: #777;
 }
 footer .copyright a:hover,
 footer .copyright a:focus {
@@ -691,11 +707,6 @@ form .row:first-child .floating-label-form-group {
   cursor: not-allowed;
 }
 ::-moz-selection {
-  color: white;
-  text-shadow: none;
-  background: #0085a1;
-}
-::selection {
   color: white;
   text-shadow: none;
   background: #0085a1;
@@ -943,5 +954,5 @@ body {
   color: #fff;
 }
 .page-fullscreen footer .copyright a:hover {
-  color: #ddd;
+  color: rgba(0, 0, 0, 0.58);
 }

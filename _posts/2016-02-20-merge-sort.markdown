@@ -2,9 +2,9 @@
 layout: post
 title: "合并排序"
 description: "我对合并排序的理解"
-sub-title: "merge sort"
+subtitle: "merge sort"
 date: 2016-02-20
-header-img: "img/post-bg-js-module.jpg"
+header-img: ""
 author: "Mensu"
 tags:
     - 排序

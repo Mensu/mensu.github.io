@@ -28,8 +28,15 @@
                 <p class="copyright text-muted">
                   {% assign year = site.time | date: '%Y' %}
                     Copyright &copy; Mensu 2016 - {% if year > "2016" %}{{ year }}{% endif %}
-                    <br>
-                    Theme forked from <a href="http://huangxuan.me">Hux</a> |
+                    <br/>
+                    Theme edited by <a href="http://mensu.github.io">Mensu</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=Mensu&repo=mensu.github.io&type=star&count=true" >
+                    </iframe>
+                    <br/>
+                    forked from <a href="http://huangxuan.me">Hux</a> |
                     <iframe
                         style="margin-left: 2px; margin-bottom:-5px;"
                         frameborder="0" scrolling="0" width="91px" height="20px"
@@ -50,6 +57,48 @@
 <!-- Custom Theme JavaScript -->
 <script src="{{ "/js/hux-blog.min.js " | prepend: site.baseurl }}"></script>
 
+<!-- 多说公共JS代码 starts -->
+{% if site.duoshuo-username %}
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"{{site.duoshuo-username}}"};
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+{% endif %}
+<!-- 多说公共JS代码 ends -->
+
+<!-- disqus 公共JS代码 starts -->
+{% if site.disqus-username %}
+<script id="dsq-count-scr" src="//mensu.disqus.com/count.js" async></script>
+<div id="disqus_thread"></div>
+<script>
+    /**
+    * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+    * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+    */
+    var disqus_config = function () {
+    this.page.url = "{{site.url}}{{page.url}}"; // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = "{{page.id}}"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+
+    s.src = '//{{site.disqus-username}}.disqus.com/embed.js';
+
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+{% endif %}
+<!-- disqus 公共JS代码 ends -->
 
 <!-- async load function -->
 <script>

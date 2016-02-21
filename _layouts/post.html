@@ -24,7 +24,7 @@ layout: default
                     {% comment %} if page.subtitle {% endcomment %}
                     <h2 class="subheading">{{ page.subtitle }}</h2>
                     {% comment %} endif {% endcomment %}
-                    <span class="meta">Posted by {% if page.author %}{{ page.author }}{% else %}{{ site.title }}{% endif %} on {{ page.date | date: "%B %-d, %Y" }}</span>
+                    <span class="meta">by {% if page.author %}{{ page.author }}{% else %}{{ site.title }}{% endif %} on {{ page.date | date: "%B %-d, %Y" }}</span>
                 </div>
             </div>
         </div>
@@ -35,111 +35,40 @@ layout: default
 <article>
     <div class="container">
         <div class="row">
+            <div class="col-lg-8 col-lg-offset-2
+                            col-md-10 col-md-offset-1
+                            post-container">
 
-    <!-- Post Container -->
-            <div class="
-                col-lg-8 col-lg-offset-2
-                col-md-10 col-md-offset-1
-                post-container">
+    			{{ content }}
 
-				{{ content }}
-
-                <hr>
-
-                {% if site.duoshuo_share && site.duoshuo_username %}
-                <!-- 多说 Share start -->
-                </style>
-                <div class="ds-share"
-                    style="text-align: right"
-                    data-thread-key="{{page.id}}"
-                    data-title="{{page.title}}"
-                    data-url="{{site.url}}{{site.baseurl}}{{page.url}}"
-                    data-images=""
-                    data-content="| {{ site.SEOTitle }}" >
-                    <div class="ds-share-inline">
-                      <ul  class="ds-share-icons-16">
-                        <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
-                        <li><a class="ds-wechat flat" href="javascript:void(0);" data-service="wechat">微信</a></li>
-                        <li><a class="ds-weibo flat" href="javascript:void(0);" data-service="weibo">微博</a></li>
-                        <li> <a class="ds-twitter flat" href="javascript:void(0);" data-service="twitter">Twitter</a> </li>
-                      </ul>
-                      <div class="ds-share-icons-more">
-                      </div>
-                    </div>
-                <hr>
-                </div>
-                <!-- 多说 Share end-->
-                {% endif %}
-
-
-                <ul class="pager">
-                    {% if page.previous.url %}
-                    <li class="previous">
-                        <a href="{{ page.previous.url | prepend: site.baseurl | replace: '//', '/' }}" data-toggle="tooltip" data-placement="top" title="{{page.previous.title}}">&larr; Previous Post</a>
-                    </li>
-                    {% endif %}
-                    {% if page.next.url %}
-                    <li class="next">
-                        <a href="{{ page.next.url | prepend: site.baseurl | replace: '//', '/' }}" data-toggle="tooltip" data-placement="top" title="{{page.next.title}}">Next Post &rarr;</a>
-                    </li>
-                    {% endif %}
-                </ul>
-
-
-                {% if site.duoshuo_username %}
-                <!-- 多说评论框 start 
-                <div class="comment">
-                    <div class="ds-thread"
-                        data-thread-key="{{page.id}}"
-                        data-title="{{page.title}}"
-                        data-url="{{site.url}}{{site.baseurl}}{{page.url}}" >
-                    </div>
-                </div>
-                 多说评论框 end -->
-                <!-- 多说评论框 starts -->
-                <div class="ds-thread"
-                     data-thread-key="{{page.id}}"
-                     data-title="{{page.title}}"
-                     data-url="{{site.url}}{{site.baseurl}}{{page.url}}">
-                </div>
-                <!-- 多说评论框 ends -->
-                {% endif %}
-
-                {% if site.disqus_username %}
-                <!-- disqus 评论框 start -->
-                <div class="comment">
-                    <div id="disqus_thread" class="disqus-thread"></div>
-                </div>
-                <!-- disqus 评论框 end -->
-                {% endif %}
-
+                {% include comment.html %}
+                
             </div>
 
-    <!-- Sidebar Container -->
             <div class="
-                col-lg-8 col-lg-offset-2
-                col-md-10 col-md-offset-1
-                sidebar-container">
+                    col-lg-8 col-lg-offset-2
+                    col-md-10 col-md-offset-1
+                    sidebar-container">
 
                 <!-- Featured Tags -->
-                {% if site.featured-tags %}
+              {% if site.featured-tags %}
                 <section>
                     <hr class="hidden-sm hidden-xs">
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
-        				{% for tag in site.tags %}
+                        {% for tag in site.tags %}
                             {% if tag[1].size > {{site.featured-condition-size}} %}
-                				<a href="/tags/#{{ tag[0] }}" title="{{ tag[0] }}" rel="{{ tag[1].size }}">
+                                <a href="/tags/#{{ tag[0] }}" title="{{ tag[0] }}" rel="{{ tag[1].size }}">
                                     {{ tag[0] }}
                                 </a>
                             {% endif %}
-        				{% endfor %}
-        			</div>
+                        {% endfor %}
+                    </div>
                 </section>
-                {% endif %}
+              {% endif %}
 
                 <!-- Friends Blog -->
-                {% if site.friends %}
+              {% if site.friends %}
                 <hr>
                 <h5>FRIENDS</h5>
                 <ul class="list-inline">
@@ -147,89 +76,11 @@ layout: default
                         <li><a href="{{friend.href}}">{{friend.title}}</a></li>
                     {% endfor %}
                 </ul>
-                {% endif %}
+              {% endif %}
             </div>
         </div>
     </div>
 </article>
-
-{% if site.duoshuo_username %}
-<!-- 多说公共JS代码 starts
-<script type="text/javascript">
-    // dynamic User by Hux
-    var _user = '{{site.duoshuo_username}}';
-
-    // duoshuo comment query.
-    var duoshuoQuery = {short_name: _user };
-    (function() {
-        var ds = document.createElement('script');
-        ds.type = 'text/javascript';ds.async = true;
-        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-        ds.charset = 'UTF-8';
-        (document.getElementsByTagName('head')[0]
-         || document.getElementsByTagName('body')[0]).appendChild(ds);
-    })();
-</script>
- 多说公共JS代码 ends -->
-
-<!-- 多说公共JS代码 starts -->
-<script type="text/javascript">
-var duoshuoQuery = {short_name:"{{site.duoshuo_username}}"};
-    (function() {
-        var ds = document.createElement('script');
-        ds.type = 'text/javascript';ds.async = true;
-        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.unstable.js';
-        ds.charset = 'UTF-8';
-        (document.getElementsByTagName('head')[0] 
-         || document.getElementsByTagName('body')[0]).appendChild(ds);
-    })();
-</script>
-<!-- 多说公共JS代码 ends -->
-{% endif %}
-
-
-
-{% if site.disqus_username %}
-<!-- disqus 公共JS代码 starts -->
-<script id="dsq-count-scr" src="//mensu.disqus.com/count.js" async></script>
-<div id="disqus_thread"></div>
-<script>
-/**
-* RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
-* LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
-*/
-
-var disqus_config = function () {
-this.page.url = "{{site.url}}{{page.url}}"; // Replace PAGE_URL with your page's canonical URL variable
-this.page.identifier = "{{page.id}}"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
-};
-
-(function() { // DON'T EDIT BELOW THIS LINE
-var d = document, s = d.createElement('script');
-
-s.src = '//{{site.disqus_username}}.disqus.com/embed.js';
-
-s.setAttribute('data-timestamp', +new Date());
-(d.head || d.body).appendChild(s);
-})();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-<!--
-<script type="text/javascript">
-    /* * * CONFIGURATION VARIABLES * * */
-    var disqus_shortname = "{{site.disqus_username}}";
-    var disqus_identifier = "{{page.id}}";
-    var disqus_url = "{{site.url}}{{page.url}}";
-
-    (function() {
-        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();
-</script>
--->
-<!-- disqus 公共JS代码 ends -->
-{% endif %}
 
 
 {% if site.anchorjs %}

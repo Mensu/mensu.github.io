@@ -363,7 +363,7 @@ if (aftermerger != array) {
 else free(beforemerger);
 ~~~
 
-#模块搭建#
+# 模块搭建
 
 ~~~c
 /*----- 准备 -----*/
@@ -387,7 +387,7 @@ for (int seg = 1; seg < rightmost + 1; seg <<= 1) {
     // free
 ~~~
 
-#合并排序的代码#
+# 合并排序的代码
 
 ~~~c
 // C code

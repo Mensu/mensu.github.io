@@ -25,12 +25,13 @@ tags:
         3. [for循环](#for)
         4. [从左到右循环的代码](#section-12)
     3. [从上到下](#section-13)
-        1. [从上到下循环的代码](#section-14)
-    4. [合并排序的准备和善后](#section-15)
-        1. [准备](#section-16)
-        2. [善后](#section-17)
-3. [模块搭建](#section-18)
-4. [合并排序的代码](#section-19)
+       1. [迭代思路](#section-14)
+       2. [从上到下循环的代码](#section-15)
+4. [合并排序前后](#section-16)
+    1. [准备](#section-17)
+    2. [善后](#section-18)
+3. [模块搭建](#section-19)
+4. [合并排序的代码](#section-20)
 
 
 # 合并排序的核心部分
@@ -43,6 +44,7 @@ tags:
 队伍都按照**由弱到强**的顺序派出队员，每次都是1v1的个人赛，赢的人留在台上做擂主，输的人排入休息队伍【别问为啥&nbsp;\|･ω･｀)
 
 然后，输者的队伍继续派出队员，直到有一个队伍的人都派完了，才把另一个队伍的人按顺序接到输者休息队伍的后面
+
 这样以后，休息队伍就是按由弱到强的顺序排的啦
 
 
@@ -50,9 +52,10 @@ tags:
 下面的 beforemerger 数组里存有两个待合并的数组，分别是 1、2、4、5 和 3、5、6、7。aftermerger 储存排序后的数组。用 p1、p2、p 三个“指针”表示三个会移动的下标
 
 “指针”的说法只是为了形象地表示箭头，和C语言储存地址的指针无关
+
 可以刷新网页，从头看起哦
 
-<center>![an example for merge sort](http://img.blog.csdn.net/20160217232912916)</center>
+![an example for merge sort](http://img.blog.csdn.net/20160217232912916)
 
 从上面的例子，可以看出核心部分分为两个阶段：两个组的**交叉**填入阶段、剩下一个组剩余内容的**移入**阶段
 
@@ -167,7 +170,7 @@ end2 = 第二组末下标</p>
 
 要是我们把核心部分视为最小单位，那么迭代部分就是**从左到右（内）**和**从上到下（外）**的两层循环，举个栗子（可以刷新网页重头看起）：
 
-<center> ![an example for merge sort iteration](http://img.blog.csdn.net/20160217232950079)</center>
+ ![an example for merge sort iteration](http://img.blog.csdn.net/20160217232950079)
 
 先**从左到右循环核心部分**：两个两个小组用核心部分排序
 
@@ -285,15 +288,17 @@ for (int p = 0, p1, p2, end1, end2; p <= rightmost;) {
 
 ## 从上到下
 
+### 迭代思路
+
 从上到下循环的内容是上面从左到右的部分
 
 每进行一次从左到右，就会两组两组合并，得到一些更大的组。不考虑特殊情况的话，每一轮，每组的长度 seg 都会翻倍。最开始我们是一个数一组，seg = 1，这是初始条件。然后每轮 seg 翻倍，seg = seg * 2 。这便是每轮结束时要为下一轮做的事情
 
-那什么时候合并得只剩一个组——排序后的数组呢？不妨从另一个角度考虑：什么时候还得继续合并呢？当然是仍剩下多个小组的时候啦！此时每个小组长度必然小于原数组，这对应条件：seg < rightmost + 1。由此可以构造 for 循环：
+那什么时候合并得只剩一个组——排序后的数组呢？不妨从另一个角度考虑：什么时候还得继续合并呢？当然是仍剩下多个小组的时候啦！此时每个小组长度必然小于原数组，这对应条件：seg ≤ rightmost。由此可以构造 for 循环：
 
 ~~~c
 // C code
-for (int seg = 1; seg < rightmost + 1; seg <<= 1) {
+for (int seg = 1; seg <= rightmost; seg <<= 1) {
     //从左到右内循环
 }
 ~~~
@@ -317,7 +322,7 @@ temp = beforemerger, beforemerger = aftermerger, aftermerger = temp;
 ### 从上到下循环的代码
 ~~~c
 // C code
-for (int seg = 1; seg < rightmost + 1; seg <<= 1) {
+for (int seg = 1; seg <= rightmost; seg <<= 1) {
     /*----- 交换 beforemerger 和 aftermerger -----*/
     temp = beforemerger, beforemerger = aftermerger, aftermerger = temp;
     /*----- 从左到右内循环 -----*/
@@ -370,7 +375,7 @@ else free(beforemerger);
     // 三指针声明
     // 初始化
 /*----- 合并排序（从上到下外循环） -----*/
-for (int seg = 1; seg < rightmost + 1; seg <<= 1) {
+for (int seg = 1; seg <= rightmost; seg <<= 1) {
     // 交换 beforemerger 和 aftermerger
         
 	/*----- 从左到右内循环 -----*/
@@ -396,7 +401,7 @@ for (int seg = 1; seg < rightmost + 1; seg <<= 1) {
 void mergesort(int rightmost, int *array) {
     int *beforemerger, *aftermerger, *temp;
     beforemerger = malloc(sizeof(int) * (rightmost + 1)), aftermerger = array;
-    for (int seg = 1; seg < rightmost + 1; seg <<= 1) {
+    for (int seg = 1; seg <= rightmost; seg <<= 1) {
         temp = beforemerger, beforemerger = aftermerger, aftermerger = temp;
         for (int p = 0, p1, p2, end1, end2; p <= rightmost;) {
             p1 = p, p2 = p + seg;

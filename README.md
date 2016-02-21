@@ -1,9 +1,21 @@
-# HuxBlog Boilerplate
+# Thanks to
 
-##### This is the boilerplate of [Hux Blog](https://github.com/Huxpro/huxpro.github.io), all documents is over there!
+### · [Hux Blog](https://github.com/Huxpro/huxpro.github.io)
 
-#### [View Boilerplate &rarr;](http://huangxuan.me/huxblog-boilerplate/)
+from where this repository was forked. If you like his boilerplate, you might want to star [huxpro.github.io](https://github.com/Huxpro/huxpro.github.io)
 
-#### [View Live Hux Blog &rarr;](http://huangxuan.me)
+### · Github Pages
 
-## If you like Hux Blog, Please star [huxpro.github.io repo](https://github.com/Huxpro/huxpro.github.io) instead of this! Thank you!
+### · Jekyll
+
+### · Bootstrap
+
+# Boilerplate
+
+##### This sites uses the boilerplate provided by [Hux](http://huangxuan.me)
+##### [View Boilerplate &rarr;](http://huangxuan.me/huxblog-boilerplate/)
+
+-----
+
+# [My Blog &rarr;](http://mensu.github.io)
+

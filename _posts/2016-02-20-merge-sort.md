@@ -31,7 +31,8 @@ tags:
     1. [准备](#section-17)
     2. [善后](#section-18)
 3. [模块搭建](#section-19)
-4. [合并排序的代码](#section-20)
+4. [合并排序的代码](#origin)
+5. [参考文献](#section-20)
 
 
 # 合并排序的核心部分
@@ -220,14 +221,14 @@ end2 = ((end1 + seg > rightmost) ? rightmost : end1 + seg);
 
 ~~~c
 // C code
-end1 = (((p2 - 1 >= rightmost) ? rightmost : p2 - 1);
+end1 = ((p2 - 1 >= rightmost) ? rightmost : p2 - 1);
 ~~~
 
 不难发现，条件里的等号去掉也不会对结果造成影响
 
 ~~~c
 // C code
-end1 = (((p2 - 1 > rightmost) ? rightmost : p2 - 1);
+end1 = ((p2 - 1 > rightmost) ? rightmost : p2 - 1);
 ~~~
 
 然后，直接晋级，也就是说核心阶段里只想要执行这句话
@@ -254,7 +255,7 @@ end2 = ((end1 + seg > rightmost) ? rightmost : end1 + seg);
 // C code
 p1 = p;
 p2 = p + seg;
-end1 = (((p2 - 1 > rightmost) ? rightmost : p2 - 1);
+end1 = ((p2 - 1 > rightmost) ? rightmost : p2 - 1);
 end2 = ((end1 + seg > rightmost) ? rightmost : end1 + seg);
 ~~~
 
@@ -276,7 +277,7 @@ for (int p = 0, p1, p2, end1, end2; p <= rightmost;) {
     /*----- 小组指针初始化 -----*/
     p1 = p;
     p2 = p + seg;
-    end1 = (((p2 - 1 > rightmost) ? rightmost : p2 - 1);
+    end1 = ((p2 - 1 > rightmost) ? rightmost : p2 - 1);
     end2 = ((end1 + seg > rightmost) ? rightmost : end1 + seg);
     
     /*----- 核心部分 -----*/
@@ -294,7 +295,7 @@ for (int p = 0, p1, p2, end1, end2; p <= rightmost;) {
 
 每进行一次从左到右，就会两组两组合并，得到一些更大的组。不考虑特殊情况的话，每一轮，每组的长度 seg 都会翻倍。最开始我们是一个数一组，seg = 1，这是初始条件。然后每轮 seg 翻倍，seg = seg * 2 。这便是每轮结束时要为下一轮做的事情
 
-那什么时候合并得只剩一个组——排序后的数组呢？不妨从另一个角度考虑：什么时候还得继续合并呢？当然是仍剩下多个小组的时候啦！此时每个小组长度必然小于原数组，这对应条件：seg ≤ rightmost。由此可以构造 for 循环：
+那什么时候合并得只剩一个组——排序后的数组呢？不妨从另一个角度考虑：什么时候还得继续合并呢？当然是仍剩下多个小组的时候啦！此时每个小组长度必然小于原数组，这对应条件：`seg ≤ rightmost`。由此可以构造 for 循环：
 
 ~~~c
 // C code
@@ -328,7 +329,7 @@ for (int seg = 1; seg <= rightmost; seg <<= 1) {
     /*----- 从左到右内循环 -----*/
     for (int p = 0, p1, p2, end1, end2; p <= rightmost;) {
         p1 = p, p2 = p + seg;
-        end1 = (((p2 - 1 > rightmost) ? rightmost : p2 - 1);
+        end1 = ((p2 - 1 > rightmost) ? rightmost : p2 - 1);
         end2 = ((end1 + seg > rightmost) ? rightmost : end1 + seg);
         
         while (p1 <= end1 && p2 <= end2) aftermerger[p++] = (beforemerger[p1] <= beforemerger[p2]) ? beforemerger[p1++] : beforemerger[p2++];
@@ -392,7 +393,7 @@ for (int seg = 1; seg <= rightmost; seg <<= 1) {
     // free
 ~~~
 
-# 合并排序的代码
+# 合并排序的代码[^origin]
 
 ~~~c
 // C code
@@ -405,7 +406,7 @@ void mergesort(int rightmost, int *array) {
         temp = beforemerger, beforemerger = aftermerger, aftermerger = temp;
         for (int p = 0, p1, p2, end1, end2; p <= rightmost;) {
             p1 = p, p2 = p + seg;
-            end1 = (((p2 - 1 > rightmost) ? rightmost : p2 - 1);
+            end1 = ((p2 - 1 > rightmost) ? rightmost : p2 - 1);
             end2 = ((end1 + seg > rightmost) ? rightmost : end1 + seg);
             while (p1 <= end1 && p2 <= end2) aftermerger[p++] = (beforemerger[p1] <= beforemerger[p2]) ? beforemerger[p1++] : beforemerger[p2++];
             while (p1 <= end1) aftermerger[p++] = beforemerger[p1++];
@@ -419,3 +420,7 @@ void mergesort(int rightmost, int *array) {
     else free(beforemerger);
 }
 ~~~
+
+# 参考文献
+
+[^origin]: [归并排序 - 维基百科，自由的百科全书](https://zh.wikipedia.org/wiki/归并排序#C.E8.AA.9E.E8.A8.80)

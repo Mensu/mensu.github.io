@@ -48,6 +48,7 @@
   </div>
 </footer>
 
+
 <!-- jQuery -->
 <script src="{{ "/js/jquery.min.js " | prepend: site.baseurl }}"></script>
 
@@ -72,6 +73,57 @@ var duoshuoQuery = {short_name:"{{site.duoshuo-username}}"};
 </script>
 {% endif %}
 <!-- 多说公共JS代码 ends -->
+
+<script>
+// keep "like" button on the same line as "share to"
+var previousDistance_dsShare_dsThread = "0px", class_dsMeta_previousWidth = 0;
+var dsElementsReady = false;
+var class_dsShare, class_dsShareInline, class_dsThread, class_dsMeta;
+setInterval(function () {
+  // make sure elements needed have been properly gotten
+  if (!dsElementsReady) {
+    class_dsShare = document.getElementsByClassName("ds-share");
+    class_dsShareInline = document.getElementsByClassName("ds-share-inline"),
+    class_dsThread = document.getElementsByClassName("ds-thread");
+    class_dsMeta = document.getElementsByClassName("ds-meta");
+    if (typeof(class_dsMeta[0]) == "undefined" || typeof(class_dsShare[0]) == "undefined") return;
+    else dsElementsReady = true;
+    modifyShareTo();
+  }
+
+  // raise "like" button
+  var currentDistance_dsShare_dsThread = class_dsShareInline[0].offsetTop - class_dsThread[0].offsetTop - 5 + "px";
+  if (previousDistance_dsShare_dsThread != currentDistance_dsShare_dsThread) {
+    previousDistance_dsShare_dsThread = class_dsMeta[0].style.top = currentDistance_dsShare_dsThread;
+  }
+
+  // change the offset of "share to" as the width of "like" button changes
+  var class_dsMeta_currentWidth = class_dsMeta[0].clientWidth;
+  if (class_dsMeta_previousWidth != class_dsMeta_currentWidth) {
+    if (class_dsMeta_currentWidth > 0) class_dsShare[0].style.marginLeft = class_dsMeta_currentWidth + 20 + "px";
+    else class_dsShare[0].style.marginLeft = "0";
+    class_dsMeta_previousWidth = class_dsMeta_currentWidth;
+  }
+}, 60);
+
+function modifyShareTo() {
+  // make sure to get the "share to" element
+  var class_dsShareIcons = undefined;
+  while (typeof(class_dsShareIcons) == "undefined") class_dsShareIcons = document.getElementsByClassName("ds-share-icons-16");
+
+  // fix "undefined" problem
+  document.getElementsByClassName("ds-douban")[0].innerHTML = "豆瓣";
+  document.getElementsByClassName("ds-google")[0].innerHTML = "Google+";
+  document.getElementsByClassName("ds-youdao")[0].innerHTML = "有道云笔记";
+  
+  // remove sites that are not famous from "share to"
+  var sitesToBeRemoved = new Array("ds-sohu", "ds-renren", "ds-netease", "ds-kaixin", "ds-meilishuo", "ds-mogujie", "ds-baidu", "ds-taobao", "ds-wechat", "ds-diandian", "ds-huaban", "ds-duitang", "ds-pengyou", "ds-msn");
+  for (var i = 0; i < sitesToBeRemoved.length; i++) (function(name) {
+    var toBeRemoved = document.getElementsByClassName(name)[0].parentNode;
+  toBeRemoved.parentNode.removeChild(toBeRemoved);
+  }(sitesToBeRemoved[i]));
+}
+</script>
 
 <!-- disqus 公共JS代码 starts -->
 {% if site.disqus-username %}

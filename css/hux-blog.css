@@ -37,19 +37,28 @@
 }
 .sidebar-container .short-about img {
   width: 80%;
+
   display: block;
-  border-radius: 5px;
+  margin-left: auto;
+  margin-right: auto;
   margin-bottom: 20px;
+
+  border-radius: 5px;
 }
 .sidebar-container .short-about p {
   margin-top: 0px;
   margin-bottom: 20px;
 }
-.sidebar-container .short-about .list-inline > li {
-  padding-left: 0px;
+.sidebar-container .short-about .list-inline {
+  margin-left: 0;
+
+  text-align: center;
 }
-.list-inline a {
-  text-decoration: none;
+.list-inline a {  text-decoration: none;  }
+@media (min-width:992px) {
+  .sidebar-container hr.hr-below-something {
+    display: none;
+  }
 }
 body {
   /* Hux learn from
@@ -318,7 +327,7 @@ pre code {
     background: none;
   }
 }
-@media only screen and (min-width: 1170px) {
+@media only screen and (min-width: 768px) {
   .navbar-custom {
     -webkit-transition: background-color 0.3s;
     -moz-transition: background-color 0.3s;
@@ -571,6 +580,11 @@ hr.hr-below-something {
   visibility: hidden;
   margin-top: 15px;
 }
+.pseudo-ds-meta {
+  height: 30px;
+  width: 0;
+  display: inline-block;
+}
 footer {
   font-size: 20px;
   padding: 50px 0 65px;
@@ -595,6 +609,12 @@ footer .copyright a {
 footer .copyright a:hover,
 footer .copyright a:focus {
   color: #0085a1;
+}
+footer .copyright > iframe {
+  margin-bottom: -5px;
+  margin-left: 2px;
+  width: 91px;
+  height: 20px;
 }
 .floating-label-form-group {
   font-size: 14px;
@@ -689,7 +709,7 @@ form .row:first-child .floating-label-form-group {
   font-size: 13px;
   font-weight: 800;
   letter-spacing: 1px;
-  padding: 10px;
+  padding: 10px 15px;
   background-color: white;
   border-radius: 0;
 }

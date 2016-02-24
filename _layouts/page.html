@@ -9,10 +9,7 @@ layout: default
       <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
         <div class="site-heading">
           {% if page.index == "true" %}
-          <hgroup class="site-heading-index-small">
-            <h2>Mensu</h2>
-            <h1>思考のかけら</h1>
-          </hgroup>
+            <h1 class="site-heading-index-small">思考のかけら</h1>
           {% endif %}
           <h1 {% if page.index == "true" %}class="site-heading-index"{% endif %}>{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</h1>
           <span class="subheading">{{ page.description }}</span>

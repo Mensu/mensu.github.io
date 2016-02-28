@@ -1,8 +1,8 @@
 ---
 layout: post
-title: "基于 Github Pages + Jekyll 的网站开发环境的搭建"
+title: "基于 GitHub Pages + Jekyll 的网站开发环境的搭建"
 description: "自己搭建本网站时的经验"
-subtitle: "establish the development environment for websites based on Github Pages and Jekyll"
+subtitle: "establish the development environment for websites based on GitHub Pages and Jekyll"
 create-date: 2016-02-26
 update-date: 2016-02-28
 header-img: ""
@@ -21,8 +21,8 @@ tags:
 4. [安装 Ruby](#ruby)
 5. [安装 Gem](#gem)
 6. [安装 Git](#git)
-7. [Git 和 Github 的准备工作](#git--github-)
-   1. [安装 Github Desktop](#github-desktop)
+7. [Git 和 GitHub 的准备工作](#git--github-)
+   1. [安装 GitHub Desktop](#github-desktop)
    2. [添加 SSH key](#ssh-key)
 8. [进入调试环境](#section-4)
 9. [kramdown 语法](#kramdown-)
@@ -30,7 +30,7 @@ tags:
 
 # 适用人群
 
-- 打算在 [Github Pages](https://pages.github.com){:target="_blank"} 上用 Markdown 写博客，建立个人博客网站，所以想在本地搭建相应调试环境的人
+- 打算在 [GitHub Pages](https://pages.github.com){:target="_blank"} 上用 Markdown 写博客，建立个人博客网站，所以想在本地搭建相应调试环境的人
 - 使用 Mac 或 Windows 的操作系统
 
 # 需要安装的东西
@@ -42,7 +42,7 @@ Gem——jekyll、jekyll-paginate
 
 - Liquid ：用来制作 html 文件的模板
 - HTML、CSS、JavaScript ：之类的网页前端语言
-- kramdown ：Github Pages 上的 Markdown 
+- kramdown ：GitHub Pages 上的 Markdown 
 - cmd / 终端的语法
 - 一定的电脑操作能力，如打开指定路径的文件夹、通过安装包安装软件、修改系统的环境变量
 
@@ -114,7 +114,7 @@ gem install jekyll jekyll-paginate
 
 ![gem install jekyll jekyll-paginate in Windows](http://7xrahq.com1.z0.glb.clouddn.com/establish-development-environment-gem-install-jekyll-and-jekyll-paginate-in-Windows.png)
 
-- jekyll 是用来依照模板生成网站的，是 Github Pages 的基础
+- jekyll 是用来依照模板生成网站的，是 GitHub Pages 的基础
 - jekyll-paginate 是 paginate 属性用的，可以用来显示文章列表、文章摘要
 
 # 安装 Git
@@ -128,44 +128,44 @@ C:\Program Files\Git\binC:\Program Files\Git\mingw64\libexec\git-core
 
 ![add the paths above to the environment variable Path in Windows](http://7xrahq.com1.z0.glb.clouddn.com/establish-development-environment-add-the-paths-above-to-the-environment-variable-Path-in-Windows.png)
 
-# Git 和 Github 的准备工作
+# Git 和 GitHub 的准备工作
 
-我们可以用 Git 命令来操作，也可以用 Github Desktop 的图形化界面。我比较懒，选后者。
+我们可以用 Git 命令来操作，也可以用 GitHub Desktop 的图形化界面。我比较懒，选后者。
 
-## 安装 Github Desktop
+## 安装 GitHub Desktop
 
 Mac 下：
 
-- 在 [Github Pages](https://pages.github.com){:target="_blank"} 中的 “What git client are you using?” 下选择 “I don't know”，下面就会出现下载按钮，下载完安装即可
+- 在 [GitHub Pages](https://pages.github.com){:target="_blank"} 中的 “What git client are you using?” 下选择 “I don't know”，下面就会出现下载按钮，下载完安装即可
 
-![get download button of Github Desktop for Mac](http://7xrahq.com1.z0.glb.clouddn.com/establish-development-environment-get-download-button-of-Github-Desktop-for-Mac.png)
+![get download button of GitHub Desktop for Mac](http://7xrahq.com1.z0.glb.clouddn.com/establish-development-environment-get-download-button-of-GitHub-Desktop-for-Mac.png)
 
 Windows 下：
 
 - 用 IE 打开 https://github-windows.s3.amazonaws.com/GitHub.application 这个网址，等它慢慢下载、安装即可
 
-![download Github Desktop in Windows](http://7xrahq.com1.z0.glb.clouddn.com/establish-development-environment-download-Github-Desktop-in-Windows.png)
+![download GitHub Desktop in Windows](http://7xrahq.com1.z0.glb.clouddn.com/establish-development-environment-download-GitHub-Desktop-in-Windows.png)
 
 ## 添加 SSH key
 
-如果使用的是 Github Desktop，这一步就可以省略了。参见
+如果使用的是 GitHub Desktop，这一步就可以省略了。参见
 
 1. [Generating a new SSH key and adding it to the ssh-agent](https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent){:target="_blank"}
 2. [Adding a new SSH key to your GitHub account](https://help.github.com/articles/adding-a-new-ssh-key-to-your-github-account){:target="_blank"}
 
-简单来说，首先要先有个 Github 账号，记住注册时用的用户名和邮箱 
+简单来说，首先要先有个 GitHub 账号，记住注册时用的用户名和邮箱 
 
 在 **Git Bash** / 终端 下输入（在 Windows 下粘贴要 右键-粘贴）
 
 ~~~git
-git config --global user.name "Github 用户名"
-git config --global user.email "注册 Github 时用的邮箱"
+git config --global user.name "GitHub 用户名"
+git config --global user.email "注册 GitHub 时用的邮箱"
 ~~~
 
 接下来生成 SSH key
 
 ~~~plain
-ssh-keygen -t rsa -b 4096 -C "注册 Github 时用的邮箱"
+ssh-keygen -t rsa -b 4096 -C "注册 GitHub 时用的邮箱"
 ~~~
 
 然后下面三个问题，全部回车，如果看不懂的话
@@ -200,9 +200,9 @@ clip < %userprofile%\.ssh\id_rsa.pub
 
 ![copy SSH key to clipborad in Windows manually](http://7xrahq.com1.z0.glb.clouddn.com/establish-development-environment-copy-SSH-key-to-clipborad-in-Windows-manually.png)
 
-最后上 [Github 设置](https://github.com/settings/ssh){:target="_blank"}，在 Settings - SSH keys 页面中，点击 New SSH key，添加剪贴板里的内容即可
+最后上 [GitHub 设置](https://github.com/settings/ssh){:target="_blank"}，在 Settings - SSH keys 页面中，点击 New SSH key，添加剪贴板里的内容即可
 
-![add SSH key on Github Settings](http://7xrahq.com1.z0.glb.clouddn.com/establish-development-environment-settings.png)
+![add SSH key on GitHub Settings](http://7xrahq.com1.z0.glb.clouddn.com/establish-development-environment-settings.png)
 
 # 进入调试环境
 
@@ -482,9 +482,9 @@ kramdown:
   syntax_highlighter: rouge
 ~~~
 
-第一行 指定使用 Github 默认的 Markdown 解释器 kramdown  
-第三行 `input: GFM` 指定使用 Github Flavored Markdown  
-第四行 `syntax_highlighter: rouge` 指定使用 Github 默认的语法高亮器
+第一行 指定使用 GitHub 默认的 Markdown 解释器 kramdown  
+第三行 `input: GFM` 指定使用 GitHub Flavored Markdown  
+第四行 `syntax_highlighter: rouge` 指定使用 GitHub 默认的语法高亮器
 
 ~~~yaml
 gems: [jekyll-paginate]

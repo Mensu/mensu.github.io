@@ -266,7 +266,7 @@ jekyll serve
 >quote
 ~~~
 
-&ensp;
+一定要空一行
 
 - 标题：#空格标题内容
 
@@ -275,9 +275,9 @@ jekyll serve
 ## h2
 ~~~
 
-&ensp;
+空格是必须的
 
-- 换行：空开一行或者在上一行的末尾加两个空格，两种方式效果不同
+- 换行：空开一行或者在上一行的末尾加两个空格
 
 ~~~markdown
 the first line
@@ -290,15 +290,13 @@ the first line空格空格
 a second line
 ~~~
 
-&ensp;
+两种方式效果不同
 
 - 链接：在链接后面加 `{:target="_blank"}` 实现从新窗口打开链接
 
 ~~~markdown
 ![a link](http://google.com){:target="_blank"}
 ~~~
-
-&ensp;
 
 - 没有 [TOC]
 
@@ -312,7 +310,7 @@ Jekyll 这玩意用到了 Liquid（用大括号围起来的语句），可以制
 
 整个 repository 包括但不限于：
 
-- _includes 文件夹：配合 `{% raw %}{% include xx %}{% endraw %}` 语句（像 C 里的 #include ），例如
+- _includes 文件夹：配合 `{% raw %}{% include xx %}{% endraw %}` 语句，例如
 
 ~~~html
 <!-- /index.html 中 -->
@@ -351,6 +349,8 @@ Jekyll 这玩意用到了 Liquid（用大括号围起来的语句），可以制
 </body>
 </html>
 ~~~
+
+蛮像 C 里的 #include 语句
 
 - _layouts 文件夹：存放网页模板，配合 layout 属性使用，例如
 
@@ -406,9 +406,11 @@ layout: post-A
 </html>
 ~~~
 
+模板里的 `{% raw %}{{ content }}{% endraw %}` 放的是使用这个模板的 html 文件
+
 - _posts 文件夹：想用 Markdown 写博客，就可以把写好的 md 文件放在这里。里面的 md 文件会自动生成相应网页。注意，命名是有要求的
 
-命名为 2016-02-27-article-1.md 的文件  
+>命名为 2016-02-27-article-1.md 的文件  
 将会生成 /2016/02/27/article-1.html
 
 - 局部变量
@@ -433,7 +435,7 @@ create-date: 2016-02-27
 <!-- /_layouts/post-A.html 中 -->
 <html>
   <head>
-    <title>{% raw %}{{ page.title }}{% endraw %} | My Blog</title>
+    <title>{% raw %}{{ page.title }}{% endraw %} | GitHub Pages</title>
   </head>
   <body>
     <article>
@@ -445,6 +447,8 @@ create-date: 2016-02-27
 </html>
 <!-- END -->
 ~~~
+
+最后 \<title\> 元素 就变成了 `<title>My Blog | GitHub Pages</title>`
 
 - _config.yml：设置一些全局变量，通过 `site.变量名` 访问；设置一些参数。下面是一些例子
 

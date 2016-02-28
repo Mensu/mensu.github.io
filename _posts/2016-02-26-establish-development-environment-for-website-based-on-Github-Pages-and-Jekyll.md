@@ -24,9 +24,9 @@ tags:
 7. [Git 和 Github 的准备工作](#git--github-)
    1. [安装 Github Desktop](#github-desktop)
    2. [添加 SSH key](#ssh-key)
-8. [进入调试环境](#seciton-4)
-9. [kramdown 语法](#kramdown)
-10. [Liquid 常用语法](#liquid)
+8. [进入调试环境](#section-4)
+9. [kramdown 语法](#kramdown-)
+10. [Liquid 常用语法](#liquid-)
 
 # 适用人群
 

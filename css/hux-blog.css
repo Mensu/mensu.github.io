@@ -585,6 +585,7 @@ pre code {
   border-bottom-right-radius: 5px;
   border-bottom-left-radius: 5px;
 }
+
 hr.hr-below-something {
   visibility: hidden;
   margin-top: 15px;
@@ -701,9 +702,9 @@ form .row:first-child .floating-label-form-group {
 }
 .pager {
   position: relative;
-  z-index: 2;
+  z-index: 3;
   
-  margin: 20px 0 0 !important;
+  margin: 20px 0 0;
   padding: 0px !important;
 }
 .pager li > a,
@@ -888,6 +889,9 @@ body {
   max-width: 100%;
   height: auto;
   margin: 1.5em auto 1.6em auto;
+}
+.post-container .pager-top {
+  margin-top: 70px;
 }
 /* Hux Optimize UserExperience */
 .navbar-default .navbar-toggle:focus,

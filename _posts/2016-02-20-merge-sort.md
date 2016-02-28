@@ -11,7 +11,7 @@ tags:
     - 排序
 ---
 
-The article was posted on <i>{{ page.create-date | date: "%Y-%m-%-d" }}</i> for the first time.
+> The article was posted on **{{ page.create-date | date: "%Y-%m-%-d" }}** for the first time.
 
 # 目录
 1. [合并排序的核心部分](#section-1)
@@ -432,4 +432,4 @@ void mergesort(int rightmost, int *array) {
 
 # 参考文献
 
-[^origin]: [归并排序 - 维基百科，自由的百科全书](https://zh.wikipedia.org/wiki/归并排序#C.E8.AA.9E.E8.A8.80)
+[^origin]: [归并排序 - 维基百科，自由的百科全书](https://zh.wikipedia.org/wiki/归并排序#C.E8.AA.9E.E8.A8.80){:target="_blank"}

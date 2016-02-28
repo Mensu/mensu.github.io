@@ -206,7 +206,7 @@ clip < %userprofile%\.ssh\id_rsa.pub
 
 # 进入调试环境
 
-首先，要确保有一个名为 用户名.github.io 的 repository 。可以 fork 别人的网站，也可以自己建一个。记得把它 clone 到本地
+首先，要确保有一个名为 **用户名.github.io** 的 repository 。可以 fork 别人的，也可以自己建一个。记得把它 clone 到本地
 
 然后打开 cmd / 终端，用 cd 命令等方式访问这个本地文件夹，输入
 
@@ -266,12 +266,16 @@ jekyll serve
 >quote
 ~~~
 
+&ensp;
+
 - 标题：#空格标题内容
 
 ~~~markdown
 # h1
 ## h2
 ~~~
+
+&ensp;
 
 - 换行：空开一行或者在上一行的末尾加两个空格，两种方式效果不同
 
@@ -286,11 +290,15 @@ the first line空格空格
 a second line
 ~~~
 
+&ensp;
+
 - 链接：在链接后面加 `{:target="_blank"}` 实现从新窗口打开链接
 
 ~~~markdown
 ![a link](http://google.com){:target="_blank"}
 ~~~
+
+&ensp;
 
 - 没有 [TOC]
 

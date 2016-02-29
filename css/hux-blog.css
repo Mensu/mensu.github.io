@@ -377,8 +377,8 @@ pre code {
 /* learn from www.zhihu.com */
 #backtotop {
   position: fixed;
-  bottom: 15px;
-  right: 20px;
+  bottom: 5px;
+  right: 40px;
   z-index: 2;
 }
 #backtotop .backtotop-btn {
@@ -418,7 +418,7 @@ pre code {
   background-color: #7D7D7D;
 }
 #backtotop .backtotop-btn:hover .vertical-stick {  background-color: #bbb;  }
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 400px) {
   #backtotop .backtotop-btn {
     width: 38px;
     height: 38px;

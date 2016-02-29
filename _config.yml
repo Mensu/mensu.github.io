@@ -11,14 +11,14 @@ manager: Mensu
 #authors' information
 #use site.authors[page.author].name to access the author's name
 authors:
-  - Mensu:
-      - name: Mensu
-        email: yxshw55@qq.com
-        website: http://mensu.github.io
-        github: Mensu
-        weibo: yxshw55
-        twitter: mensuhamesu
-        QQ: 805495207
+  Mensu:
+    name: Mensu
+    email: yxshw55@qq.com
+    website: http://mensu.github.io
+    github: Mensu
+    weibo: yxshw55
+    twitter: mensuhamesu
+    QQ: 805495207
 
 SNS: 
   - site: github

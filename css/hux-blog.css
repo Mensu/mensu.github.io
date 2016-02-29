@@ -374,18 +374,70 @@ pre code {
     transform: translate3d(0, 100%, 0);
   }
 }
-.go-top {
-  text-decoration: none;
-
+/* learn from www.zhihu.com */
+#backtotop {
   position: fixed;
-  right: 5px;
-  bottom: 5px;
+  bottom: 15px;
+  right: 20px;
   z-index: 2;
 }
+#backtotop .backtotop-btn {
+  position: relative;
+
+  width: 18px;
+  height: 18px;
+  border-radius: 3px;
+
+  background-color: #E4E4E4;
+  cursor: pointer;
+}
+#backtotop .backtotop-btn:hover {  background-color: #e2e2e2;  }
+#backtotop .arrow-upward, #backtotop .vertical-stick {
+  position: absolute;
+  right: 0;
+  left: 0;
+  margin: auto;
+}
+#backtotop .arrow-upward {
+  top: -1px;
+
+  width: 0;
+  height: 0;
+  
+  border: 5px solid transparent;
+  border-bottom-color: #7D7D7D;
+}
+#backtotop .backtotop-btn:hover .arrow-upward {  border-bottom-color: #bbb;  }
+#backtotop .vertical-stick {
+  top: 7px;
+
+  width: 4px;
+  height: 7px;
+  
+  border-radius: 1px;
+  background-color: #7D7D7D;
+}
+#backtotop .backtotop-btn:hover .vertical-stick {  background-color: #bbb;  }
+@media screen and (min-width: 768px) {
+  #backtotop .backtotop-btn {
+    width: 38px;
+    height: 38px;
+  }
+  #backtotop .arrow-upward {
+    border: 9px solid transparent;
+    border-bottom-color: #7D7D7D;
+  }
+  #backtotop .vertical-stick {
+    top: 15px;
+
+    width: 8px;
+    height: 14px;
+  }
+} 
 .intro-header {
   background: no-repeat center center;
-  background-color: rgb(254, 190, 193);
-  background-image: linear-gradient(rgba(255, 255, 255, 0) 60%, rgba(185, 38, 192, 0.34)), linear-gradient(70deg, rgba(50, 48, 182, 0.56) 32%, rgba(210, 23, 49, 0.58));
+  background-color: rgb(255, 94, 102);;
+  background-image: linear-gradient(rgba(255, 255, 255, 0) 60%, rgba(187, 2, 195, 0.34)), linear-gradient(70deg, rgba(22, 20, 187, 0.56) 32%, rgba(222, 100, 117, 0.58));
   background-attachment: scroll;
   -webkit-background-size: cover;
   -moz-background-size: cover;

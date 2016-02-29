@@ -4,7 +4,7 @@ title: "基于 GitHub Pages + Jekyll 的网站开发环境的搭建"
 description: "自己搭建本网站时的经验"
 subtitle: "establish the development environment for websites based on GitHub Pages and Jekyll"
 create-date: 2016-02-26
-update-date: 2016-02-28
+update-date: 2016-02-29
 header-img: ""
 author: "Mensu"
 tags:
@@ -130,7 +130,7 @@ C:\Program Files\Git\binC:\Program Files\Git\mingw64\libexec\git-core
 
 # Git 和 GitHub 的准备工作
 
-我们可以用 Git 命令来操作，也可以用 GitHub Desktop 的图形化界面。我比较懒，选后者。
+我们可以用 Git 命令来操作，也可以用 GitHub Desktop 的图形化界面。我比较懒，选后者
 
 ## 安装 GitHub Desktop
 
@@ -285,7 +285,7 @@ the first line
 a second line
 ~~~
 
-~~~
+~~~markdown
 the first line空格空格
 a second line
 ~~~
@@ -295,8 +295,10 @@ a second line
 - 链接：在链接后面加 `{:target="_blank"}` 实现从新窗口打开链接
 
 ~~~markdown
-![a link](http://google.com){:target="_blank"}
+![google](https://www.google.com){:target="_blank"}
 ~~~
+
+大括号要紧跟小括号
 
 - 没有 [TOC]
 
@@ -464,24 +466,41 @@ title: My Blog
 
 ~~~yaml
 authors:
-  - Mensu:
-      - name: Mensu
-        email: yxshw55@qq.com
-        website: http://mensu.github.io
-        github: Mensu
-        weibo: yxshw55
-        twitter: mensuhamesu
+  Mensu:
+    name: Mensu
+    email: yxshw55@qq.com
+    website: http://mensu.github.io
+    github: Mensu
+    weibo: yxshw55
+    twitter: mensuhamesu
 ~~~
   
-数据结构，通过 `site.authors.Mensu.name` 得到 "Mensu"。或者在 for 循环
+数据结构，通过 `site.authors.Mensu.name` 得到 "Mensu"
+
+或者这种用于循环的数据结构：
+
+~~~yaml
+SNS: 
+  - site: github
+    username: Mensu
+    url: https://github.com/Mensu
+
+  - site: weibo
+    username: yxshw55
+    url: http://weibo.com/yxshw55
+
+  - site: twitter
+    username: mensuhamesu
+    url: https://twitter.com/mensuhamesu
+~~~
 
 ~~~liquid
-{% raw %}{% for item in site.authors.Mensu %}
-  {{ item.email }}
+{% raw %}{% for onesite in SNS %}
+  {{ onesite.url }}
 {% endfor %}{% endraw %}
 ~~~
 
-中，通过 `item.email` 获得 "yxshw55@qq.com"
+即可通过 `onesite.url` 访问 “https://github.com/Mensu” 这些 url 了
 
 具体参见 [jekyllrb.com/docs/variables](https://jekyllrb.com/docs/variables/){:target="_blank"}
 

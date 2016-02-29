@@ -378,7 +378,7 @@ pre code {
 #backtotop {
   position: fixed;
   bottom: 5px;
-  right: 40px;
+  right: 30px;
   z-index: 2;
 }
 #backtotop .backtotop-btn {
@@ -418,7 +418,7 @@ pre code {
   background-color: #7D7D7D;
 }
 #backtotop .backtotop-btn:hover .vertical-stick {  background-color: #bbb;  }
-@media screen and (min-width: 400px) {
+@media screen and (min-width: 550px) {
   #backtotop .backtotop-btn {
     width: 38px;
     height: 38px;

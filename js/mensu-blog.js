@@ -42,6 +42,7 @@ function modifyShareOn() {
   // fix "undefined" problem
   document.getElementsByClassName("ds-douban")[0].innerHTML = "Douban";
   document.getElementsByClassName("ds-youdao")[0].innerHTML = "Youdao CloudNote";
+  document.getElementsByClassName("ds-more")[0].innerHTML = "Share on";
 }
 
 

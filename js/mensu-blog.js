@@ -68,3 +68,15 @@ else {
     
   });
 }
+
+/* gif view again */
+var viewAgains = document.getElementsByClassName("view-again");
+for (var i = 0; i < viewAgains.length; i++) {
+  var viewAgain = viewAgains[i];
+  viewAgain.addEventListener('click', function() {
+    var img = this.parentNode.nextElementSibling.firstChild;
+    var imgSrc = img.src;
+    img.src = "https://www.baidu.com/img/bd_logo1.png";
+    img.src = imgSrc;
+  }, false);
+}

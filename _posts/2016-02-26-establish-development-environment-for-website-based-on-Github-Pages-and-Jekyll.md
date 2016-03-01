@@ -4,14 +4,14 @@ title: "基于 GitHub Pages + Jekyll 的网站开发环境的搭建"
 description: "自己搭建本网站时的经验"
 subtitle: "establish the development environment for websites based on GitHub Pages and Jekyll"
 create-date: 2016-02-26
-update-date: 2016-02-29
+update-date: 2016-03-01
 header-img: ""
 author: "Mensu"
 tags:
     - 搭建开发环境
 ---
 
-> The article was posted on **{{ page.create-date | date: "%Y-%m-%-d" }}** for the first time.
+> The article was initially posted on **{{ page.create-date | date: "%Y-%m-%-d" }}**.
 
 # 目录
 
@@ -450,7 +450,7 @@ create-date: 2016-02-27
 <!-- END -->
 ~~~
 
-最后 \<title\> 元素 就变成了 `<title>My Blog | GitHub Pages</title>`
+最后 \<title\> 元素 就变成了 `<title>My first Article | GitHub Pages</title>`
 
 - _config.yml：设置一些全局变量，通过 `site.变量名` 访问；设置一些参数。下面是一些例子
 

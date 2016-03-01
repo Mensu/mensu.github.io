@@ -101,7 +101,7 @@ a img:focus {
   cursor: zoom-in;
 }
 article {
-  overflow-x: hidden;
+  /*overflow-x: hidden;*/
 }
 blockquote {
   color: #808080;
@@ -637,7 +637,11 @@ pre code {
   border-bottom-right-radius: 5px;
   border-bottom-left-radius: 5px;
 }
-
+a.view-again {
+  text-decoration: none;
+  font-weight: normal;
+  color: black;
+}
 hr.hr-below-something {
   visibility: hidden;
   margin-top: 15px;
@@ -754,10 +758,10 @@ form .row:first-child .floating-label-form-group {
 }
 .pager {
   position: relative;
-  z-index: 3;
+  z-index: 1;
   
   margin: 20px 0 0;
-  padding: 0px !important;
+  padding: 0px;
 }
 .pager li > a,
 .pager li > span {
@@ -943,7 +947,7 @@ body {
   margin: 1.5em auto 1.6em auto;
 }
 .post-container .pager-top {
-  margin-top: 70px;
+  /*margin-top: 70px;*/
 }
 /* Hux Optimize UserExperience */
 .navbar-default .navbar-toggle:focus,

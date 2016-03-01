@@ -4,14 +4,14 @@ title: "合并排序"
 description: "我对合并排序的理解"
 subtitle: "merge sort"
 create-date: 2016-02-20
-update-date: 2016-02-28
+update-date: 2016-03-01
 header-img: ""
 author: "Mensu"
 tags:
     - 排序
 ---
 
-> The article was posted on **{{ page.create-date | date: "%Y-%m-%-d" }}** for the first time.
+> The article was initially posted on **{{ page.create-date | date: "%Y-%m-%-d" }}**.
 
 # 目录
 1. [合并排序的核心部分](#section-1)
@@ -56,7 +56,7 @@ tags:
 
 “指针”的说法只是为了形象地表示箭头，和C语言储存地址的指针无关
 
-可以刷新网页，从头看起哦
+<a class="view-again" href="javascript:;">从头看起 <i class="fa fa-refresh"></i></a>
 
 ![an example for merge sort](http://7xrahq.com1.z0.glb.clouddn.com/merge-sort-merge-sort.gif)
 
@@ -171,7 +171,9 @@ end2 = 第二组末下标</p>
 
 假如一开始就把一个无序的数组分成很多个小组，**例如，每个数自成一组，**按上面的想法合并这些内部有序的小组，再合并得到的内部有序的大组，这样下去，最终便可以把原数组变成内部有序的大组，即通过合并排序给整个数组排了序
 
-要是我们把核心部分视为最小单位，那么迭代部分就是**从左到右（内）**和**从上到下（外）**的两层循环，举个栗子（可以刷新网页重头看起）：
+要是我们把核心部分视为最小单位，那么迭代部分就是**从左到右（内）**和**从上到下（外）**的两层循环，举个栗子：
+
+<a class="view-again" href="javascript:;">从头看起 <i class="fa fa-refresh"></i></a>
 
  ![an example for merge sort iteration](http://7xrahq.com1.z0.glb.clouddn.com/merge-sort-merge-sort-iteration.gif)
 

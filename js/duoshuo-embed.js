@@ -167,14 +167,19 @@
             return new e(t)
           }
         }(Date),
+        // fulltime: when the mouse hovers the area where elapsedTime defined below works,
+        // the precise date when the comment is left will show
         fullTime: function(e) {
           var t = S.parseDate(e);
           var numberformat = function (int) {
             if (int > 9) return int;
             else return "0" + int;
           };
-          return t.getFullYear() + "-" + (numberformat(t.getMonth()) + 1) + "-" + numberformat(t.getDate()) + " " + t.toLocaleTimeString()
+
+          return t.getFullYear() + "-" + numberformat(t.getMonth()) + "-" + numberformat(t.getDate()) + " " + t.toLocaleTimeString()
         },
+        // elapsedTime: used in the comment box to show the date when the comment is left,
+        // located just before the "reply" button underneath comment content
         elapsedTime: function(e) {
           var t = S.parseDate(e),
             s = new Date,
@@ -199,11 +204,12 @@
             else result = temp + " hours ago";
           }
           else {
+
             var numberformat = function (int) {
               if (int > 9) return int;
               else return "0" + int;
             };
-            result = (s.getFullYear() == t.getFullYear() ? "" : t.getFullYear() + "/") + (numberformat(t.getMonth()) + 1) + "/" + numberformat(t.getDate()) + "";
+            result = (s.getFullYear() == t.getFullYear() ? "" : t.getFullYear() + "-") + numberformat(t.getMonth()) + "-" + numberformat(t.getDate()) + "";
           }
           return result;
         },
@@ -659,7 +665,7 @@
       var e = '<h2>Bind more account</h2><ul class="ds-service-list">' + et.serviceBindList(loginWithList) + '</ul><ul class="ds-service-list ds-additional-services">' + et.serviceBindList(K) + '</ul><div style="clear:both"></div>';
       return e
     }, et["dialog-qrcode"] = function(e) {
-      var t = '<h2>Scan the QR Code below to share this post on Wechat Moments</h2><div class="ds-share-qrcode" style="text-align:center;"><img src="' + e.qrcode_url + '" alt="' + "qrcode" + '"></div>';
+      var t = '<h2>Share the QR Code on Wechat</h2><div class="ds-share-qrcode" style="text-align:center;"><img src="' + e.qrcode_url + '" alt="' + "qrcode" + '"></div>';
       return t;
       // <img src="' + e.qrcode_url + '" alt="' + e.url + '">
     }, et["dialog-reposts"] = function(e) {
@@ -707,7 +713,7 @@
       return e.user_vote > 0 && (t += " ds-thread-liked"), t += '"><span class="ds-icon ds-icon-heart"></span> <span class="ds-thread-like-text">', t += e.user_vote > 0 ? "Liked" : "Like", t += '</span><span class="ds-thread-cancel-like">Cancel Like</span></a><span class="ds-like-panel"></span></div>'
     }, et.notify = function(e) {
       var t = '<div id="ds-reset"><a class="ds-logo" href="http://duoshuo.com/" target="_blank" title="多说"></a><ul class="ds-notify-unread"><li';
-      return e.comments || (t += ' style="display:none;"'), t += '><a data-type="unread-comments" href="javascript:void(0);">你有' + e.comments + "条新回复</a></li><li", e.notifications || (t += ' style="display:none;"'), t += '><a data-type="unread-notifications" href="javascript:void(0);">你有' + e.notifications + "条系统消息</a></li></ul></div>"
+      return e.comments || (t += ' style="display:none;"'), t += '><a data-type="unread-comments" href="javascript:void(0);">You\'ve got' + e.comments + "new" + ((1 == parseInt(e.comments)) ? " reply" : " replies") + "</a></li><li", e.notifications || (t += ' style="display:none;"'), t += '><a data-type="unread-notifications" href="javascript:void(0);">你有' + e.notifications + "条系统消息</a></li></ul></div>"
     }, et.post = function(e) {
       var t = "",
         s = e.post,
@@ -765,7 +771,7 @@
       return t
     }, et.replybox = function(e) {
       var t = '<div class="ds-replybox"><a class="ds-avatar"';
-      if (t += r() ? ' href="javascript:void(0);" onclick="return false"' : ' href="' + S.REMOTE + "/settings/avatar/" + x(T()) + '" target="_blank" title="set your avatar"', t += ">" + et.avatarImg(nt.data) + '</a><form method="post">' + tt(e.params) + '<div class="ds-textarea-wrapper ds-rounded-top"><textarea name="message" title="Ctrl + Enter to submit" placeholder="' + u(D.leave_a_message) + '"></textarea><pre class="ds-hidden-text"></pre>', t += "</div>", t += '<div class="ds-post-toolbar"><div class="ds-post-options ds-gradient-bg">', !r() && nt.data.repostOptions);
+      if (t += r() ? ' href="javascript:;" onclick="return false"' : ' href="' + S.REMOTE + "/settings/avatar/" + x(T()) + '" target="_blank" title="set your avatar"', t += ">" + et.avatarImg(nt.data) + '</a><form method="post">' + tt(e.params) + '<div class="ds-textarea-wrapper ds-rounded-top"><textarea name="message" title="Ctrl + Enter to submit" placeholder="' + u(D.leave_a_message) + '"></textarea><pre class="ds-hidden-text"></pre>', t += "</div>", t += '<div class="ds-post-toolbar"><div class="ds-post-options ds-gradient-bg">', !r() && nt.data.repostOptions);
       return t += "</div>", t += '<button class="ds-post-button" type="submit">' + u(D.post) + '</button><div class="ds-toolbar-buttons">', e.options.use_smilies && (t += '<a class="ds-toolbar-button ds-add-emote" title="Insert stickers"></a>'), e.options.use_images && e.options.parse_html_enabled && (t += '<a class="ds-toolbar-button ds-add-image" title="Insert images"></a>'), t += "</div></div>", t += "</form></div>"
     }, et.serviceBindList = function(e) {
       var t = "",
@@ -783,7 +789,7 @@
       var t = '<div class="ds-share-icons"> <div class="ds-share-icons-inner"> <ul class="ds-share-icons-16"> ',
         s = e.services;
       if (s)
-        for (var a, i = -1, r = s.length - 1; r > i;) a = s[i += 1], t += ' <li> <a class="ds-' + a + '" href="javascript:void(0);" data-service="' + a + '">' + S.sourceName[a] + "</a> </li> ";
+        for (var a, i = -1, r = s.length - 1; r > i;) a = s[i += 1], t += ' <li> <a class="ds-' + a + '" href="javascript:;" data-service="' + a + '">' + S.sourceName[a] + "</a> </li> ";
       return t += ' </ul> </div> <div class="ds-share-icons-footer">' + e.copyright + "</div></div>"
     }, et.smiliesTooltip = function(e) {
       var t = '<div id="ds-smilies-tooltip"><ul class="ds-smilies-tabs">';
@@ -791,7 +797,7 @@
       return t += '</ul><div class="ds-smilies-container"></div></div>'
     }, et.toolbar = function() {
       var e = '<div class="ds-toolbar"><div class="ds-account-control"><span class="ds-icon ds-icon-settings"></span> <span>Account</span><ul><li><a class="ds-bind-more" href="javascript:void(0);" style="border-top: none">Bind More</a></li><li><a target="_blank" href="' + S.REMOTE + "/settings/" + x(T()) + '">' + "Settings" + '</a></li><li><a rel="nofollow" href="' + Z.logoutUrl() + '" style="border-bottom: none">Logout</a></li></ul></div><div class="ds-visitor">';
-      return e += nt.data.url ? '<a class="ds-visitor-name" href="' + u(nt.data.url) + '" target="_blank">' + u(nt.data.name) + "</a>" : '<span class="ds-visitor-name">' + u(nt.data.name) + "</span>", e += '<a class="ds-unread-comments-count" href="javascript:void(0);" title="New reply"></a></div></div>'
+      return e += nt.data.url ? '<a class="ds-visitor-name" href="' + u(nt.data.url) + '" target="_blank">' + u(nt.data.name) + "</a>" : '<span class="ds-visitor-name">' + u(nt.data.name) + "</span>", e += '<a class="ds-unread-comments-count" href="javascript:;" title="Unread replies"></a></div></div>'
       //u(D.settings)
     }, et.topThreads = function(e) {
       var t = "",
@@ -808,7 +814,7 @@
     }, et.userInfo = function(e) {
       var t = '<a href="' + u(e.url) + '" onclick="this.href=\'' + a() + "/user-url/?user_id=" + e.user_id + '\';" class="ds-avatar" target="_blank">' + et.avatarImg(e) + '</a><a href="' + u(e.url) + '" onclick="this.href=\'' + a() + "/user-url/?user_id=" + e.user_id + '\';" class="ds-user-name ds-highlight" target="_blank">' + u(e.name) + "</a>";
       for (var s in e.social_uid) t += '<a href="' + S.REMOTE + "/user-proxy/" + s + "/" + e.social_uid[s] + '/" target="_blank" class="ds-service-icon ds-' + s + '" title="' + S.sourceName[s] + '"></a>';
-      return t += '<p class="ds-user-card-meta"><a href="' + S.REMOTE + "/profile/" + e.user_id + '/" target="_blank"><span class="ds-highlight">' + e.comments + "</span>条评论</a></p>", e.description && (t += '<p class="ds-user-description">' + u(e.description) + "</p>"), t
+      return t += '<p class="ds-user-card-meta"><a href="' + S.REMOTE + "/profile/" + e.user_id + '/" target="_blank"><span class="ds-highlight">' + e.comments + "</span>" + ((1 == parseInt(e.comments)) ? " comment" : " comments") + "</a></p>", e.description && (t += '<p class="ds-user-description">' + u(e.description) + "</p>"), t
     };
     var st = S.Views = {},
       at = (S.Callbacks = {}, S.pagelets = []),
@@ -930,7 +936,7 @@
       function T(e) {
         var t = {
             "unread-comments": {
-              title: "新留言及回复",
+              title: "Unread messages and comments",
               apiUrl: "users/unreadComments",
               tmpl: function(e) {
                 return e.thread ? '<li data-thread-id="' + e.thread.thread_id + '">' + B.map(e.authors, et.userAnchor).join("、") + ' replied to you at <a class="ds-read" href="' + e.thread.url + '#comments" target="_blank">' + _(e.thread.title || "untitled") + '</a><a class="ds-delete ds-read" title="Got it" href="javascript:void(0)">Got it!</a></li>' : ""
@@ -943,7 +949,7 @@
               }
             },
             "unread-notifications": {
-              title: "系统消息",
+              title: "System Notifications",
               apiUrl: "users/unreadNotifications",
               tmpl: function(e) {
                 return '<li data-notification-id="' + e.notification_id + '" data-notification-type="' + e.type + '">' + e.content + ' <a class="ds-delete ds-read" title="知道了" href="javascript:void(0)">知道了</a></li>'
@@ -1668,7 +1674,7 @@
             B('<div class="ds-alert">' + t + "</div>").insertBefore(a.toolbar || loginButtons)
           }), o.message && c.el.find("textarea").val(o.message).focus(), ot.on("reset", function() {
             var e = ot.data.comments || 0;
-            d.find("a.ds-unread-comments-count").html(e).attr("title", e ? "You've got" + e + "new replies" : "You haven't got any new replies").css("display", e ? "inline" : "none")
+            d.find("a.ds-unread-comments-count").html(e).attr("title", e ? "You've got" + e + "unread replies" : "You haven't got any unread replies").css("display", e ? "inline" : "none")
           }), o.mzadx_id && (S.require("mzadxN", function() {}), B('<div id="MZADloginWithList_' + o.mzadx_id + '" style="margin:0 auto;"></div>').appendTo(d), __mz_rpq = e.__mz_rpq || [], __mz_rpq.push({
             l: [o.mzadx_id],
             r: "1",

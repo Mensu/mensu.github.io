@@ -11,7 +11,7 @@ tags:
     - 电脑经验
 ---
 
-> The article was posted on **{{ page.create-date | date: "%Y-%m-%-d" }}** for the first time.
+> The article was initially posted on **{{ page.create-date | date: "%Y-%m-%-d" }}**.
 
 # 要做的是**删除图标缓存**：
 

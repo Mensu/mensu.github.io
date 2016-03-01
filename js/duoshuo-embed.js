@@ -605,7 +605,7 @@
           } : null)
         }
       },
-      loginWithList = ["weixin", "weibo", "qq", "google"],
+      loginUsingList = ["weixin", "weibo", "qq", "google"],
       K = [],
       et = S.templates = {
         userAnchor: function(e) {
@@ -653,16 +653,16 @@
       var t = "";
       return e.post && (t += '<li class="ds-ctx-entry"', e.hidden && (t += ' style="display:none"'), t += ' data-post-id="' + e.post.post_id + '"><div class="ds-avatar">' + et.avatar(e.post.theAuthor || e.post.author) + '</div><div class="ds-ctx-body"><div class="ds-ctx-head">' + et.userAnchor(e.post.theAuthor || e.post.author) + et.timeAnchor(e.post.created_at, e.post.url), e.index >= 0 && (t += '<div class="ds-ctx-nth" title="' + S.fullTime(e.post.created_at) + '">' + (e.index + 1) + D.floor + "</div>"), t += '</div><div class="ds-ctx-content">' + e.post.message, e.index >= 0 && (t += '　　　　　　　<div class="ds-comment-actions', e.post.vote > 0 && (t += " ds-post-liked"), t += '">' + et.likePost(e.post) + '<a class="ds-post-repost" href="javascript:void(0);"><span class="ds-icon ds-icon-share"></span>' + D.repost + '</a><a class="ds-post-reply" href="javascript:void(0);"><span class="ds-icon ds-icon-reply"></span>' + D.reply + "</a></div>"), t += "</div></div></li>"), t
     }, et["dialog-anonymous"] = function(e) {
-      var t = '<h2>Login with</h2><div class="ds-icons-32">',
+      var t = '<h2>Login using</h2><div class="ds-icons-32">',
         s = e.services;
       if (s)
         for (var a, i = -1, r = s.length - 1; r > i;) a = s[i += 1], t += '<a class="ds-' + a + '" href="' + Z.loginUrl(a) + '">' + S.sourceName[a] + "</a>";
       return t += "</div>", e.options.deny_anonymous || (t += '<h2>Or leave a comment as a guest</h2><form><div class="ds-control-group"><input type="text" name="author_name" id="ds-dialog-name" value="' + u(nt.data.name) + '" required /><label for="ds-dialog-name">Nickname(required)</label></div>', e.options.require_guest_email && (t += '<div class="ds-control-group"><input type="email" name="author_email" id="ds-dialog-email" value="' + u(nt.data.email) + '" required /><label for="ds-dialog-email">Email(required)</label></div>'), e.options.require_guest_url && (t += '<div class="ds-control-group"><input type="url" name="author_url" id="ds-dialog-url" placeholder="http://" value="' + u(nt.data.url) + '" /><label for="ds-dialog-url">your website(optional)</label></div>'), t += '<button type="submit">Send</button></form>'), t
     }, et["dialog-ask-for-auth"] = function() {
-      var e = '<h2>Login with</h2><ul class="ds-service-list">' + et.serviceList(loginWithList) + '</ul><ul class="ds-service-list ds-additional-services">' + et.serviceList(K) + "</ul>";
+      var e = '<h2>Login using</h2><ul class="ds-service-list">' + et.serviceList(loginUsingList) + '</ul><ul class="ds-service-list ds-additional-services">' + et.serviceList(K) + "</ul>";
       return e
     }, et["dialog-bind-more"] = function() {
-      var e = '<h2>Bind more account</h2><ul class="ds-service-list">' + et.serviceBindList(loginWithList) + '</ul><ul class="ds-service-list ds-additional-services">' + et.serviceBindList(K) + '</ul><div style="clear:both"></div>';
+      var e = '<h2>Bind more account</h2><ul class="ds-service-list">' + et.serviceBindList(loginUsingList) + '</ul><ul class="ds-service-list ds-additional-services">' + et.serviceBindList(K) + '</ul><div style="clear:both"></div>';
       return e
     }, et["dialog-qrcode"] = function(e) {
       var t = '<h2>Share the QR Code on Wechat</h2><div class="ds-share-qrcode" style="text-align:center;"><img src="' + e.qrcode_url + '" alt="' + "qrcode" + '"></div>';
@@ -700,7 +700,7 @@
       }
       return t += '</ul><p class="ds-like-tooltip-footer"><a class="ds-like-tooltip-close">Skip</a></p></div>'
     }, et.loginButtons = function() {
-      var e = '<div class="ds-login-buttons"><p>Login with </p><div class="ds-social-links"><ul class="ds-service-list">' + et.serviceList(loginWithList) + "</ul></div></div>";
+      var e = '<div class="ds-login-buttons"><p>Login using </p><div class="ds-social-links"><ul class="ds-service-list">' + et.serviceList(loginUsingList) + "</ul></div></div>";
       return e
     }, et.loginWidget = function(e) {
       var t = '<div class="ds-icons-32">',
@@ -980,7 +980,7 @@
 
       function I() {
         bubbleOutTimer = setTimeout(function() {
-          bubbleOutTimer = 0, loginWithList.detach()
+          bubbleOutTimer = 0, loginUsingList.detach()
         }, 400)
       }
 
@@ -1085,9 +1085,9 @@
           function t() {
             function t(e) {
               var t = e.response;
-              ct[c] ? ct[c].set(t) : ct[c] = new $(t), loginWithList.owner == s && K.html(et.userInfo(t))
+              ct[c] ? ct[c].set(t) : ct[c] = new $(t), loginUsingList.owner == s && K.html(et.userInfo(t))
             }
-            tt = 0, loginWithList.owner = s, N();
+            tt = 0, loginUsingList.owner = s, N();
             var i = a.offset(),
               r = e.el.offset(),
               n = a.innerWidth() / 2,
@@ -1103,16 +1103,16 @@
                 if (!c) throw "no info";
                 K.attr("id", "ds-user-card").attr("data-user-id", c).empty(), ct[c] ? K.html(et.userInfo(ct[c].data)) : M.get("users/profile", H(l), t)
               }
-              loginWithList.css({
+              loginUsingList.css({
                 bottom: o,
                 left: d
               }).appendTo(e.innerEl)
             } catch (u) {
-              loginWithList.detach()
+              loginUsingList.detach()
             }
           }
           var s = this;
-          if (bubbleOutTimer && loginWithList.owner == s) return clearTimeout(bubbleOutTimer), void(bubbleOutTimer = 0);
+          if (bubbleOutTimer && loginUsingList.owner == s) return clearTimeout(bubbleOutTimer), void(bubbleOutTimer = 0);
           var a = B(s);
           tt = setTimeout(t, 200)
         }
@@ -1487,8 +1487,8 @@
       }, et.postPlaceholder = function() {
         return ['<li class="ds-post ds-post-placeholder">', D.no_comments_yet, "</li>"].join("")
       };
-      var loginWithList = B('<div id="ds-bubble"><div class="ds-bubble-content"></div><div class="ds-arrow ds-arrow-down ds-arrow-border"></div><div class="ds-arrow ds-arrow-down"></div></div>'),
-        K = loginWithList.find(".ds-bubble-content").delegate("a.ds-ctx-open", "click", function() {
+      var loginUsingList = B('<div id="ds-bubble"><div class="ds-bubble-content"></div><div class="ds-arrow ds-arrow-down ds-arrow-border"></div><div class="ds-arrow ds-arrow-down"></div></div>'),
+        K = loginUsingList.find(".ds-bubble-content").delegate("a.ds-ctx-open", "click", function() {
           function e(e) {
             function t(e, t) {
               return et.ctxPost({
@@ -1511,7 +1511,7 @@
           }), !1
         }),
         tt = bubbleOutTimer = 0;
-      loginWithList.mouseenter(N).mouseleave(I), st.PostList = function(e) {
+      loginUsingList.mouseenter(N).mouseleave(I), st.PostList = function(e) {
         e && (e.params && (this.params = e.params), e.embedThread && (this.embedThread = e.embedThread)), this.el = B('<ul class="ds-comments"></ul>')
       }, st.PostList.prototype = {
         url: "threads/listPosts",

@@ -176,7 +176,7 @@
             else return "0" + int;
           };
 
-          return t.getFullYear() + "-" + numberformat(t.getMonth()) + "-" + numberformat(t.getDate()) + " " + t.toLocaleTimeString()
+          return t.getFullYear() + "-" + numberformat(parseInt(t.getMonth()) + 1) + "-" + numberformat(t.getDate()) + " " + t.toLocaleTimeString()
         },
         // elapsedTime: used in the comment box to show the date when the comment is left,
         // located just before the "reply" button underneath comment content
@@ -209,7 +209,7 @@
               if (int > 9) return int;
               else return "0" + int;
             };
-            result = (s.getFullYear() == t.getFullYear() ? "" : t.getFullYear() + "-") + numberformat(t.getMonth()) + "-" + numberformat(t.getDate()) + "";
+            result = (s.getFullYear() == t.getFullYear() ? "" : t.getFullYear() + "-") + numberformat(parseInt(t.getMonth()) + 1) + "-" + numberformat(t.getDate()) + "";
           }
           return result;
         },

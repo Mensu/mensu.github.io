@@ -184,7 +184,7 @@ pre code {
 @media screen and (max-width: 768px) {
   .post-container ul,
   .post-container ol {
-    padding-left: 30px;
+    /*padding-left: 30px;*/
   }
 }
 @media screen and (max-width: 500px) {

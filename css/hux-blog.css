@@ -150,7 +150,7 @@ pre,
 pre code {
   display: block;
   width: auto;
-  white-space: pre-wrap;
+  white-space: pre;
   word-wrap: normal;
 }
 .post-container h1,

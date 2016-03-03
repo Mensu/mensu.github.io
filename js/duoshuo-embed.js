@@ -917,7 +917,7 @@
               r.html(parseInt(r.html()) + 1)
             }
           }
-          return a || l.find("[type=checkbox]:checked")[0] ? (M.post("posts/repost", S.toJSON(l), e), o.close(), !1) : (alert("Where would you want to share it to?"), !1)
+          return a || l.find("[type=checkbox]:checked")[0] ? (M.post("posts/repost", S.toJSON(l), e), o.close(), !1) : (alert("Where would you like to share this post on?"), !1)
         }
 
         function r() {

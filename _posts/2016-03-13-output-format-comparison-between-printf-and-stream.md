@@ -135,21 +135,25 @@ using std::setw;
 using std::right;
 using std::left;
 using std::setfill;
+using std::resetiosflags;
+using std::ios;
 double num = 4.0;
 
 // 注意，对于浮点数，stream 们的默认输出相当于 printf 的 %g
 cout << "最小宽度为11，右对齐：" << setw(11) << num << setw(11) << num << '\n'
     << "最小宽度为11，左对齐：" << left
                             << setw(11) << num << setw(11) << num << '\n'
+                            << resetiosflags(ios::left)
     
     << "最小宽度为11，右对齐，左边空白补0：" << right
                                         << setfill('0') << setw(11) << num
                                         << setfill(' ') << setw(11) << num << '\n'
+                                        << resetiosflags(ios::right)
                                         
     << "最小宽度为11，左对齐，右边空白补*：" << left
                                         << setfill('*') << setw(11) << num
                                         << setfill(' ') << setw(11) << num << endl
-                                        << right;
+                                        << << resetiosflags(ios::left);
 
 // 应用：输出时间格式 12:08:03
 int hour = 12, minute = 8, second = 3;
@@ -206,13 +210,13 @@ double small = 0.003406000400001;
 double big = 42.213;
 
 // 7位有效数字，去掉多余的0，输出普通计数法和科学计数法中较短的
-printf("\nsmall = %.7g, big = %.7g", small, big);
+printf("7位有效数字，去掉多余的0：small = %.7g, big = %.7g", small, big);
 
-// 普通计数法，小数点后7位
-printf("small = %.7f, big = %.7f", small, big);
+// 普通计数法
+printf("\n普通计数法，小数点后7位（包括多余的0）：small = %.7f, big = %.7f", small, big);
 
-// 科学计数法，小数点后7位，大写E决定指数符号大写
-printf("\nsmall = %.7e, big = %.7E"
+// 科学计数法，大写E决定指数符号大写
+printf("\n科学计数法，小数点后7位（包括多余的0）：small = %.7e, big = %.7E"
         "\n", small, big);
 
 // 动态控制最小宽度、精度
@@ -232,8 +236,8 @@ using std::setprecision;
 double small = 0.003406000400001;
 double big = 42.213;
 
-// 有效数字，去掉多余的0
-cout << "7位有效数字，去掉多余的0，输出普通计数法和科学计数法中较短的：\n  "
+// 有效数字，去掉多余的0（默认），输出普通计数法和科学计数法中较短的
+cout << "7位有效数字，去掉多余的0：\n  "
     << setprecision(7)
     << "small = " << small << ", big = " << big << endl
     << setprecision(6);
@@ -242,7 +246,7 @@ cout << "7位有效数字，去掉多余的0，输出普通计数法和科学计
 using std::showpoint;
 using std::resetiosflags;
 using std::ios;
-cout << "7位有效数字，显示多余的0，输出普通计数法和科学计数法中较短的：\n  "
+cout << "7位有效数字，显示多余的0：\n  "
     << setprecision(7) << showpoint
     << "small = " << small << ", big = " << big << endl
     << resetiosflags(ios::showpoint) << setprecision(6);

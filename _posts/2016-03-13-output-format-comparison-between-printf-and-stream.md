@@ -250,6 +250,8 @@ printf("最小宽度为2，右对齐，如果宽度不足2，则在左边补0：
 
 ![width, adjustment and fill in printf](http://7xrahq.com1.z0.glb.clouddn.com/printf-and-stream-width-adjustment-fill-printf.png)
 
+-----
+
 相比之下，stream 的填补更加灵活，可以自定义填补字符，而且 “左右对齐” 和 “填补字符” 可以自由组合
 
 **注意**，stream 在设置最小宽度时使用的  
@@ -301,6 +303,7 @@ cout.fill(' ');
 ~~~
 
 ![width, adjustment and fill in stream](http://7xrahq.com1.z0.glb.clouddn.com/printf-and-stream-width-adjustment-fill-stream.png)
+
 ---
 
 printf 用 `+` 为十进制正数输出正号  
@@ -323,6 +326,8 @@ printf("平面上某直线的一般方程：%dx%+dy%+d=0"
 ~~~
 
 ![show positive or base sign in printf](http://7xrahq.com1.z0.glb.clouddn.com/printf-and-stream-show-positive-or-base-sign-printf.png)
+
+----
 
 stream 用 流控制符 `showpos` 为十进制正数输出正号  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;用 流控制符 `showbase` 为八进制和十六进制数输出 `0` 和 `0x`
@@ -378,6 +383,8 @@ printf("\n动态控制最小宽度、精度：%+-*.*f"
 ~~~
 
 ![set precision in printf](http://7xrahq.com1.z0.glb.clouddn.com/printf-and-stream-set-precision-printf.png)
+
+----
 
 stream 则较为灵活
 

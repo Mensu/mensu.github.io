@@ -3,7 +3,7 @@ layout: post
 title: "常用输出格式归纳：printf 和 stream"
 subtitle: "output format comparison between c-style printf and cpp-style stream"
 create-date: 2016-03-13
-update-date: 2016-03-14
+update-date: 2016-03-15
 header-img: ""
 author: "Mensu"
 tags:
@@ -63,52 +63,142 @@ cout << "十六进制：" << setbase(16) << num << '\n'
     << "十进制：" << setbase(10) << num << endl;
 ~~~
 
-stream 输出格式控制中有两个重要的函数
+## setiosflags 和 cout.setf
 
-- 立 flag 控制符 `std::setiosflags(ios_base::fmtflags __mask)`
-- cout 的成员函数 `std::cout.setf(ios_base::fmtflags __fmtfl)`
+控制 stream 的输出格式，除了传入有具体含义的流控制符，还可以使用以下的
 
-它们效果相同，通过传入参数设置相应的输出格式。参数是在 ios 类中定义的，我把它们叫做 ios 参数。需要传入多个参数时，用按位或运算符 `|` 连接
+- 立 flag 流控制符 `std::setiosflags(ios_base::fmtflags __mask)`
+- stream 的成员函数如 `std::cout.setf(ios_base::fmtflags __fmtfl)`
 
-取消设置则使用
+它们虽然语法不同，但效果相同，通过传入形如 `ios::xxx` 的参数（ios 参数）设置相应的输出格式。需要传入多个参数时，用按位或运算符 `|` 连接。取消设置使用
 
 - `std::resetiosflags(ios_base::fmtflags __mask)`
 - `std::cout.unsetf(ios_base::fmtflags __fmtfl)` 
 
-例如，ios 参数 `ios::uppercase` 使十六进制的字母部分大写
+例如，流控制符 `std::uppercase` 使十六进制的字母部分大写，我们可以用：
 
 ~~~cpp
 // C++ code
 using std::cout;
 using std::endl;
 using std::hex;
+using std::uppercase;
+using std::resetiosflags;
+using std::ios;
 using std::setiosflags;
+
+int num = 10;
+
+// 流控制符 std::uppercase
+cout << "使用流控制符 std::uppercase\n  "
+    << "十六进制大写：" << hex
+                    << uppercase << num << '\n'
+    << "  取消：" << resetiosflags(ios::uppercase) << num << endl << endl;
+
+// 立flag流控制符 std::setiosflags
+cout << "使用立flag流控制符 std::setiosflags\n  "
+    << "十六进制大写：" << hex
+                    << setiosflags(ios::uppercase) << num << '\n'
+    << "  取消：" << resetiosflags(ios::uppercase) << num << endl << endl;
+
+// 成员函数
+cout << "使用成员函数 std::cout.setf" << '\n';
+cout.setf(ios::uppercase);
+cout << "十六进制大写：" << hex
+                        << num << '\n';
+cout.unsetf(ios::uppercase);
+cout << "  取消：" << num << endl;
+~~~
+
+大部分不带参数的流控制符 `XXX`，都对应有 ios 参数 `ios::XXX`。也就是说
+
+~~~cpp
+// C++ code
+using std::cout;
+
+cout << std::XXX;
+cout << std::setiosflags(ios::XXX);
+cout.setf(ios::XXX);
+~~~
+
+主要效果相同。而在设置整数 n 进制的时候，以八进制为例，可以直接
+
+~~~cpp
+// C++ code
+using std::cout;
+using std::endl;
+using std::oct;
+int num = 10;
+
+cout << oct << num << endl;
+~~~
+
+否则，要先取消目前的进制设置。默认是十进制
+
+~~~cpp
+// C++ code
+using std::cout;
+using std::endl;
+using std::ios;
+using std::setiosflags;
+int num = 10;
+
+cout.unsetf(ios::dec);
+cout << setiosflags(ios::oct) << num << endl;
+~~~
+
+或者用两个参数的成员函数 `std::cout.setf`
+
+~~~cpp
+// C++ code
+using std::cout;
+using std::endl;
+using std::ios;
+int num = 10;
+
+cout.setf(ios::oct, ios::basefield);
+cout << num << endl;
+~~~
+
+最好养成用完格式设置后立刻恢复的习惯
+
+~~~cpp
+// C++ code
+using std::cout;
+using std::endl;
+using std::oct;
 using std::resetiosflags;
 using std::ios;
 int num = 10;
 
-// 立 flag 控制符
-cout << "十六进制大写：" << hex << setiosflags(ios::uppercase) << num << '\n'
-    << "取消：" << resetiosflags(ios::uppercase) << num << endl;
-
-// 成员函数
-cout.setf(ios::uppercase);
-cout << "十六进制大写：" << hex << num << '\n';
-
-cout.unsetf(ios::uppercase);
-cout << "取消：" << num << endl;
+cout << oct << num << endl
+    << resetiosflags(ios::oct);
 ~~~
 
-## 最小宽度、左右对齐、填补、正号
+对于不带参数的流控制符，还可以用成员函数 `std::cout.flags` 恢复
 
-printf 的填补只能在右对齐的情况下用 '0' 补左边的空白
+~~~cpp
+// C++ code
+// 设置前备份
+std::ios_base::fmtflags defaultFlags = cout.flags();
+
+/* --- 用流控制符处理格式 --- */
+cout << oct << num << endl;
+
+// 还原
+cout.flags(defaultFlags);
+~~~
+
+## 最小宽度、左右对齐、填补、符号
+
+printf 的填补只能在右对齐的情况下用 '0' 补左边的空白。因为左对齐的 `-` 会排斥 补零的 `0`
 
 ~~~c
 // C code
 double num = 4.0;
-printf("最小宽度为11，右对齐：%11g%11g"
-    "\n最小宽度为11，左对齐：%-11g%-11g"
-    "\n最小宽度为11，右对齐，左边空白补0：%011g%11g"
+printf("最小宽度为11，右对齐：%11.g%11g"
+    "\n最小宽度为11，左对齐：%-11g%-11.g"
+    "\n最小宽度为11，右对齐，左边空白补0：%011.g%11g"
     "\n", num, num, num, num, num, num);
 
 // 应用：输出时间格式 12:08:03
@@ -125,7 +215,7 @@ printf("最小宽度为2，右对齐，如果宽度不足2，则在左边补0：
 - 流控制符 `std::setw(int __n)`
 - 成员函数 `std::cout.width(std::streamsize __wide)`
 
-**仅对下一个输入有效**
+**仅对下一个输入有效**，因此需要不断使用
 
 ~~~cpp
 // C++ code
@@ -153,7 +243,7 @@ cout << "最小宽度为11，右对齐：" << setw(11) << num << setw(11) << num
     << "最小宽度为11，左对齐，右边空白补*：" << left
                                         << setfill('*') << setw(11) << num
                                         << setfill(' ') << setw(11) << num << endl
-                                        << << resetiosflags(ios::left);
+                                        << resetiosflags(ios::left);
 
 // 应用：输出时间格式 12:08:03
 int hour = 12, minute = 8, second = 3;
@@ -161,16 +251,18 @@ cout << "最小宽度为2，右对齐，如果宽度不足2，则在左边补0�
     << setfill('0')
     << setw(2) << hour << ':'
     << setw(2) << minute << ':'
-    << setw(2) << second << endl
-    << setfill(' ');
+    << setw(2) << second << endl;
+cout.fill(' ');
 ~~~
 
-printf 用`+`输出正号，顺序上，空格？
+printf 用 `+` 为十进制正数输出正号  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;用 空格 将十进制数的正号换成空格  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;用 `#` 为八进制和十六进制数输出 `0` 和 `0x`
 
-- 正号+
-- 补零0 / 左对齐-
+- 一类：进制号 `#` | 十进制正号 `+` > 十进制空格 ` `
+- 二类：左对齐 `-` > 补零 `0`
 
-自由组合
+一类和二类自由组合
 
 ~~~c
 // C code
@@ -178,24 +270,25 @@ printf 用`+`输出正号，顺序上，空格？
 int a = 2, b = 3, c = -6;
 printf("平面上某直线的一般方程：%dx%+dy%+d=0"
     "\n正号 补0 最小宽度：%+07d%0+7d"
-    "\n正号 左对齐 最小宽度：%+-7d%-+7d%d"
+    "\n左对齐 进制号 最小宽度：%#-7x%-#7x%d"
     "\n", a, b ,c, 1, 2, 3, 4, 5);
 ~~~
 
-stream 使用 ios 参数 `ios::showpos`
+stream 用 流操作符 `showpos` 为十进制正数输出正号  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;用 流操作符 `showbase` 为八进制和十六进制数输出 `0` 和 `0x`
 
 ~~~cpp
 // C++ code
 // 应用：避免输出 “+-6”
 using std::cout;
 using std::endl;
-using std::setiosflags;
+using std::showpos;
 using std::resetiosflags;
 using std::ios;
 int a = 2, b = 3, c = -6;
 cout << "平面上某直线的一般方程："
     << a << 'x'
-    << setiosflags(ios::showpos)
+    << showpos
     << b << 'y' << c << "=0" << endl
     << resetiosflags(ios::showpos);
 ~~~
@@ -209,14 +302,19 @@ printf 中，想指定有效数字来显示小数，就必须去掉多余的0
 double small = 0.003406000400001;
 double big = 42.213;
 
-// 7位有效数字，去掉多余的0，输出普通计数法和科学计数法中较短的
-printf("7位有效数字，去掉多余的0：small = %.7g, big = %.7g", small, big);
+// 7位有效数字，去掉多余的0，输出普通计数法和科学计数法中较短的，大写G决定指数符号大写
+printf("7位有效数字，去掉多余的0：\n  "
+        "small = %.7g, big = %.7g"
+        "\n", small, big);
 
 // 普通计数法
-printf("\n普通计数法，小数点后7位（包括多余的0）：small = %.7f, big = %.7f", small, big);
+printf("\n普通计数法，小数点后7位（包括多余的0）：\n  "
+        "small = %.7f, big = %.7f"
+        "\n", small, big);
 
 // 科学计数法，大写E决定指数符号大写
-printf("\n科学计数法，小数点后7位（包括多余的0）：small = %.7e, big = %.7E"
+printf("\n科学计数法，小数点后7位（包括多余的0）：\n  "
+        "small = %.7e, big = %.7E"
         "\n", small, big);
 
 // 动态控制最小宽度、精度
@@ -225,16 +323,26 @@ printf("动态控制最小宽度、精度：%+-*.*f"
         "\n", leastWide, precision, small);
 ~~~
 
-stream：
+stream 则较为灵活
 
 ~~~cpp
 // C++ code
 using std::cout;
 using std::endl;
 using std::setprecision;
+using std::showpoint;
+using std::resetiosflags;
+using std::ios;
+using std::fixed;
+using std::scientific;
+using std::uppercase;
+using std::left;
+using std::setw;
+using std::showpos;
 
 double small = 0.003406000400001;
 double big = 42.213;
+std::ios_base::fmtflags defaultFlags = cout.flags();
 
 // 有效数字，去掉多余的0（默认），输出普通计数法和科学计数法中较短的
 cout << "7位有效数字，去掉多余的0：\n  "
@@ -243,24 +351,18 @@ cout << "7位有效数字，去掉多余的0：\n  "
     << setprecision(6);
 
 // 有效数字，显示多余的0
-using std::showpoint;
-using std::resetiosflags;
-using std::ios;
 cout << "7位有效数字，显示多余的0：\n  "
     << setprecision(7) << showpoint
     << "small = " << small << ", big = " << big << endl
-    << resetiosflags(ios::showpoint) << setprecision(6);
+    << setprecision(6) << resetiosflags(ios::showpoint);
 
 // 普通计数法
-using std::fixed;
 cout << "普通计数法，小数点后7位（包括多余的0）：\n  "
     << fixed << setprecision(7)
     << "small = " << small << ", big = " << big << endl
-    << resetiosflags(ios::fixed) << setprecision(6);
+    << setprecision(6) << resetiosflags(ios::fixed);
 
 // 科学计数法
-using std::scientific;
-using std::uppercase;
 cout << "科学计数法，小数点后7位（包括多余的0）：\n  "
     << scientific << setprecision(7)
     << "small = " << small
@@ -269,15 +371,11 @@ cout << "科学计数法，小数点后7位（包括多余的0）：\n  "
     << resetiosflags(ios::scientific|ios::uppercase) << setprecision(6);
     
 // 动态控制最小宽度、精度
-using std::left;
-using std::setw;
-using std::showpos;
 int leastWide = 10, precision = 7;
 cout << "动态控制最小宽度、精度："
     << showpos << left << fixed
     << setprecision(precision) << setw(leastWide)
-    << small << endl
-    << resetiosflags(ios::showpos|ios::left|ios::fixed) << setprecision(6);
-
+    << small << endl;
+cout.flags(defaultFlags), cout.precision(6);
 ~~~
 

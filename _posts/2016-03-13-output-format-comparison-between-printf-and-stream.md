@@ -215,18 +215,23 @@ cout.flags(defaultFlags);
 
 ---
 
-取消设置时，可以用 ios 参数 `ios::basefield`、`ios::adjustfield`、`ios::floatfield`，分别将进制、对齐方式、小数表示法这三类格式恢复成默认状态
+取消设置时，可以用下面三个 ios 参数将对应的三类格式恢复为默认状态
+
+- `ios::basefield` 进制
+- `ios::adjustfield` 对齐方式
+- `ios::floatfield` 小数表示法
+
 
 ~~~cpp
 // C++ code
-std::cout << std::resetiosflags(std::ios::basefield);
+std::cout << std::resetiosflags(std::ios::basefield);  // 恢复回十进制
 ~~~
 
-而除了这三类格式，其他不带参数的流控制符 `std::XXX`，都有起相反作用的流控制符 `std::noXXX` 与其对应
+而除了这三类格式，其他不带参数的流控制符 `std::XXX`，一般都有起相反作用的流控制符 `std::noXXX` 与其对应
 
 ~~~cpp
 // C++ code
-std::cout << std::nouppercase;
+std::cout << std::nouppercase;  // 取消字母大写
 ~~~
 
 ### 最小宽度、左右对齐、填补、符号
@@ -395,9 +400,10 @@ using std::endl;
 using std::flush;
 using std::setprecision;
 using std::showpoint;
+using std::noshowpoint;
+using std::fixed;
 using std::resetiosflags;
 using std::ios;
-using std::fixed;
 using std::scientific;
 using std::uppercase;
 using std::left;
@@ -420,7 +426,7 @@ cout << "7位有效数字，显示多余的0：\n  "
     << setprecision(7) << showpoint
     << "small = " << small << flush
     << ", big = " << big << endl << endl
-    << setprecision(6) << resetiosflags(ios::showpoint);
+    << setprecision(6) << noshowpoint;
 
 // 普通计数法
 cout << "普通计数法，小数点后7位（包括多余的0）：\n  "

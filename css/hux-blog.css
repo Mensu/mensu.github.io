@@ -378,7 +378,7 @@ pre code {
 #backtotop {
   position: fixed;
   bottom: 5px;
-  right: 30px;
+  right: 25px;
   z-index: 2;
 }
 #backtotop .backtotop-btn {
@@ -425,7 +425,7 @@ pre code {
   }
   #backtotop .arrow-upward {
     border: 9px solid transparent;
-    border-bottom-color: #7D7D7D;
+    border-bottom-color: #404040;
   }
   #backtotop .vertical-stick {
     top: 15px;

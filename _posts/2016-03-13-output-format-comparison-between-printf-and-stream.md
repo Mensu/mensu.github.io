@@ -3,7 +3,7 @@ layout: post
 title: "常用输出格式归纳：printf 和 stream"
 subtitle: "output format comparison between c-style printf and cpp-style stream"
 create-date: 2016-03-13
-update-date: 2016-03-15
+update-date: 2016-03-17
 header-img: ""
 author: "Mensu"
 tags:
@@ -91,7 +91,7 @@ cout << "十六进制：" << setbase(16) << num << endl
 - `std::resetiosflags(ios_base::fmtflags __mask)`
 - `std::cout.unsetf(ios_base::fmtflags __fmtfl)` 
 
-例如，流控制符 `std::uppercase` 使十六进制的字母部分大写，我们可以用：
+例如，ios 参数 `ios::uppercase` 使十六进制的字母部分大写，我们可以：
 
 ~~~cpp
 // C++ code
@@ -117,7 +117,7 @@ cout << "使用立flag流控制符 std::setiosflags\n  "
                     << setiosflags(ios::uppercase) << num << endl
     << "  取消：" << resetiosflags(ios::uppercase) << num << endl << endl;
 
-// 成员函数
+// 成员函数 std::cout.setf
 cout << "使用成员函数 std::cout.setf\n  ";
 cout.setf(ios::uppercase);
 cout << "十六进制大写：" << hex
@@ -141,7 +141,7 @@ cout << std::setiosflags(ios::XXX);
 cout.setf(ios::XXX);
 ~~~
 
-这三句的主要效果相同。而在设置整数 n 进制的时候，以八进制为例，要么直接
+这三句的主要效果相同。而在设置整数 n 进制的时候，以八进制为例，要么直接用流控制符
 
 ~~~cpp
 // C++ code
@@ -153,7 +153,7 @@ int num = 10;
 cout << oct << num << endl;
 ~~~
 
-要么就要先取消目前的进制设置。默认是十进制
+要么，用其他两个，就要先取消目前的进制设置（默认是十进制）
 
 ~~~cpp
 // C++ code
@@ -167,7 +167,7 @@ cout.unsetf(ios::dec);
 cout << setiosflags(ios::oct) << num << endl;
 ~~~
 
-要么，用带两个参数的成员函数 `std::cout.setf`
+要么，就用带两个参数的成员函数 `std::cout.setf`
 
 ~~~cpp
 // C++ code
@@ -203,14 +203,17 @@ cout << oct << num << endl
 
 ~~~cpp
 // C++ code
+
+int num = 10;
+
 // 设置前备份
-std::ios_base::fmtflags defaultFlags = cout.flags();
+std::ios_base::fmtflags defaultFlags = std::cout.flags();
 
 /* --- 用流控制符处理格式 --- */
-cout << oct << num << endl;
+std::cout << std::oct << num << std::endl;
 
 // 还原
-cout.flags(defaultFlags);
+std::cout.flags(defaultFlags);
 ~~~
 
 ---

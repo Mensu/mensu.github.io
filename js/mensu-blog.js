@@ -53,7 +53,8 @@ var addEventListenerExistence = window.addEventListener;
 if (typeof(addEventListenerExistence) != "undefined") {
   backToTop.addEventListener('click', function () {
     var documentBody = document.body;
-    var pace = documentBody.scrollTop / 12.5;
+    var distanceFromTop = documentBody.scrollTop;
+    var pace = (distanceFromTop > 400) ? 32 : distanceFromTop / 12.5;
     window.requestAnimationFrame((function () {
       var calculatedScrollTop = parseInt(documentBody.scrollTop) - pace;
       documentBody.scrollTop = ((calculatedScrollTop < 0) ? 0 : calculatedScrollTop);

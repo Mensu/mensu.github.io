@@ -405,9 +405,9 @@ pre code {
   height: 0;
   
   border: 5px solid transparent;
-  border-bottom-color: #7D7D7D;
+  border-bottom-color: #404040;
 }
-#backtotop .backtotop-btn:hover .arrow-upward {  border-bottom-color: #bbb;  }
+#backtotop .backtotop-btn:hover .arrow-upward {  border-bottom-color: #0085a1;  }
 #backtotop .vertical-stick {
   top: 7px;
 
@@ -415,9 +415,9 @@ pre code {
   height: 7px;
   
   border-radius: 1px;
-  background-color: #7D7D7D;
+  background-color: #404040;
 }
-#backtotop .backtotop-btn:hover .vertical-stick {  background-color: #bbb;  }
+#backtotop .backtotop-btn:hover .vertical-stick {  background-color: #0085a1;  }
 @media screen and (min-width: 550px) {
   #backtotop .backtotop-btn {
     width: 38px;

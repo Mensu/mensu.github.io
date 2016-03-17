@@ -4,7 +4,7 @@ title: "合并排序"
 description: "我对合并排序的理解"
 subtitle: "merge sort"
 create-date: 2016-02-20
-update-date: 2016-03-01
+update-date: 2016-03-17
 header-img: ""
 author: "Mensu"
 tags:
@@ -350,16 +350,17 @@ for (int seg = 1; seg <= rightmost; seg <<= 1) {
 }
 ~~~
 
-# 合并排序的准备和善后
+# 合并排序前后
 
 ## 准备
-合并排序需要的信息有原数组 array 以及原数组下标最大值 rightmost。一切开始之前，要准备好 temp、beforemerger、aftermerger 三个指针。beforemerger 自然是原数组 array，而第一次使用 aftermerger 时，要给它一块装得下原数组的空间。
+合并排序需要的信息有原数组 array 以及原数组下标最大值 rightmost。一切开始之前，要准备好 temp、beforemerger、aftermerger 三个指针。beforemerger 自然应该是原数组 array，而第一次使用 aftermerger 时，要给它一块装得下原数组的空间。考虑到交换的部分，不妨先把原数组 array 赋给 aftermerger，而把新空间赋给 beforemerger，这样，在第一次交换后，就能达到预期的效果。
 
 ~~~c
 // C code
 void mergesort(int rightmost, int *array) {
     int *beforemerger, *aftermerger, *temp;
     beforemerger = malloc(sizeof(int) * (rightmost + 1)), aftermerger = array;
+    
     // 合并排序（从上到下循环）
 }
 ~~~

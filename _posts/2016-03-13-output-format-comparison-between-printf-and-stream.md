@@ -3,7 +3,7 @@ layout: post
 title: "常用输出格式归纳：printf 和 stream"
 subtitle: "output format comparison between c-style printf and cpp-style stream"
 create-date: 2016-03-13
-update-date: 2016-03-17
+update-date: 2016-03-27
 header-img: ""
 author: "Mensu"
 tags:
@@ -267,7 +267,7 @@ printf("最小宽度为2，右对齐，如果宽度不足2，则在左边补0：
 - 流控制符 `std::setw(int __n)`
 - 成员函数 `std::cout.width(std::streamsize __wide)`
 
-**仅对下一个输入有效**，因此需要不断使用
+**仅对下一个输出有效**，因此需要不断使用
 
 ~~~cpp
 // C++ code

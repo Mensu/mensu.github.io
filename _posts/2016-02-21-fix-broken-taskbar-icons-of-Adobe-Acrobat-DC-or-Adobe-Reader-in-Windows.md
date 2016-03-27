@@ -4,7 +4,7 @@ title: "Adobe Acrobat DC/Adobe Reader任务栏图标出错、异常、不显示 
 description: "如何处理Windows下Adobe产品任务栏图标异常"
 subtitle: "fix broken taskbar icons of Adobe products in Windows"
 create-date: 2016-02-21
-update-date: 2016-02-28
+update-date: 2016-03-27
 header-img: ""
 author: "Mensu"
 tags:
@@ -13,11 +13,12 @@ tags:
 
 > The article was initially posted on **{{ page.create-date | date: "%Y-%m-%-d" }}**.
 
-# 要做的是**删除图标缓存**：
+# 要做的是删除图标缓存：
 
-以管理员身份运行cmd，*具体方法见文末
+以管理员身份运行 cmd ，*具体方法见文末
 
-复制粘贴以下命令，回车
+复制粘贴以下命令，回车  
+有些 Windows 系统 cmd 下粘贴需要在 cmd 中右键 - 粘贴
 
 ~~~
 cd /d "%userprofile%\AppData\Local"

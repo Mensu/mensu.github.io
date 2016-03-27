@@ -2,7 +2,7 @@
 layout: post
 title: "用本地 Windows 镜像文件安装 .NET Framework 3.5"
 description: ""
-subtitle: "install .NET Framework 3.5 using local iso file on Windows"
+subtitle: "install .NET Framework 3.5 using local iso files on Windows"
 create-date: 2016-03-27
 update-date: 2016-03-27
 header-img: ""
@@ -18,10 +18,10 @@ tags:
 无法通过 Windows Update 安装 .NET Framework 3.5, 表现如下：
 
 ![attempt to download and install .NET Framework 3.5](http://7xrahq.com1.z0.glb.clouddn.com/install-net-framework-3-point-5-attempt-to-download-and-install-net-framework-3-point-5.png)
-[上图来源](http://bbs.pcbeta.com/viewthread-1413582-1-1.html)
+[上图来源](http://bbs.pcbeta.com/viewthread-1413582-1-1.html){:target="_blank"}
 
 ![fail to install .NET Framework 3.5 with error code 0x800F081F](http://7xrahq.com1.z0.glb.clouddn.com/install-net-framework-3-point-5-fail-to-install-net-framework-3-point-5-with-error-code-0x800F081F.jpg)
-[上图来源](http://zhidao.baidu.com/question/516655900.html)
+[上图来源](http://zhidao.baidu.com/question/516655900.html){:target="_blank"}
 
 ## 解决办法
 
@@ -33,9 +33,10 @@ tags:
 
 ![download Windows 10 iso file at http://msdn.itellyou.cn](http://7xrahq.com1.z0.glb.clouddn.com/install-net-framework-3-point-5-download-windows-10-iso-file-at-msdn.png)
 
-接下来以管理员身份运行 cmd ，*具体方法见文末  
+接下来以管理员身份运行 cmd ，*具体方法见文末
+
 复制粘贴以下命令，回车，稍等几秒，等待安装即可  
-有些 Windows 系统 cmd 下粘贴需要在 cmd 中右键 - 粘贴
+有些 Windows 系统 cmd 下粘贴 需要在 cmd 中右键 - 粘贴
 
 ~~~
 Dism /online /enable-feature /featurename:NetFx3 /LimitAccess /All /Source:g:\sources\sxs

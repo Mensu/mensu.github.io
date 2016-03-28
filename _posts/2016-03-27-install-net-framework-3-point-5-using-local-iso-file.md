@@ -4,7 +4,7 @@ title: "用本地 Windows 镜像文件安装 .NET Framework 3.5"
 description: ""
 subtitle: "install .NET Framework 3.5 using local iso files on Windows"
 create-date: 2016-03-27
-update-date: 2016-03-27
+update-date: 2016-03-29
 header-img: ""
 author: "Mensu"
 tags:
@@ -29,7 +29,7 @@ tags:
 
 ![load the iso file used to install your Windows](http://7xrahq.com1.z0.glb.clouddn.com/install-net-framework-3-point-5-load-iso-file.png)
 
-如果找不到，可以考虑到 [MSDN，我告诉你](http://msdn.itellyou.cn) 下载
+如果找不到，可以考虑到 [MSDN，我告诉你](http://msdn.itellyou.cn){:target="_blank"} 下载
 
 ![download Windows 10 iso file at http://msdn.itellyou.cn](http://7xrahq.com1.z0.glb.clouddn.com/install-net-framework-3-point-5-download-windows-10-iso-file-at-msdn.png)
 
@@ -44,7 +44,7 @@ Dism /online /enable-feature /featurename:NetFx3 /LimitAccess /All /Source:g:\so
 
 其中 g 为镜像装载后的盘符
 
-![copy commands above before pressing enter](http://7xrahq.com1.z0.glb.clouddn.com/install-net-framework-3-point-5-copy-commands-above-before-pressing-enter.png)
+![copy commands above before pressing enter](http://7xrahq.com1.z0.glb.clouddn.com/install-net-framework-3-point-5-copy-commands-above.png)
 
 - `Dism` 是我们要用的程序的名字，全称 “部署映像服务和管理工具”
 - `/Online` 的意思是安装对象为本机

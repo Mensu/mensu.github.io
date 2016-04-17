@@ -87,6 +87,7 @@ loop {
 aftermerger[p] = (beforemerger[p1] <= beforemerger[p2]) ? beforemerger[p1] : beforemerger[p2];
 (beforemerger[p1] <= beforemerger[p2]) ? p1++ : p2++;
 p++;
+ 
 ~~~
 
 或者更为简洁的
@@ -94,6 +95,7 @@ p++;
 ~~~c
 // C code
 aftermerger[p++] = (beforemerger[p1] <= beforemerger[p2]) ? beforemerger[p1++] : beforemerger[p2++];
+ 
 ~~~
 
 当然，简洁的另一面，代码的可读性在一定程度上会有所下降
@@ -103,6 +105,7 @@ aftermerger[p++] = (beforemerger[p1] <= beforemerger[p2]) ? beforemerger[p1++] :
 ~~~c
 // C code
 while (p1 <= end1 && p2 <= end2) aftermerger[p++] = (beforemerger[p1] <= beforemerger[p2]) ? beforemerger[p1++] : beforemerger[p2++];
+ 
 ~~~
 
 ## 移入
@@ -138,6 +141,7 @@ while (p2 <= end2) aftermerger[p++] = beforemerger[p2++];
 ~~~c
 // C code
 while (p1 <= end1 || p2 <= end2) aftermerger[p++] = (p1 <= end1) ? beforemerger[p1++] : beforemerger[p2++];
+ 
 ~~~
 
 ## 核心部分的代码
@@ -146,6 +150,7 @@ while (p1 <= end1 || p2 <= end2) aftermerger[p++] = (p1 <= end1) ? beforemerger[
 while (p1 <= end1 && p2 <= end2) aftermerger[p++] = (beforemerger[p1] <= beforemerger[p2]) ? beforemerger[p1++] : beforemerger[p2++];
 while (p1 <= end1) aftermerger[p++] = beforemerger[p1++];
 while (p2 <= end2) aftermerger[p++] = beforemerger[p2++];
+ 
 ~~~
 
 可以看出，核心部分用到了5个关键的下标：
@@ -295,6 +300,7 @@ for (int p = 0, p1, p2, end1, end2; p <= rightmost;) {
     while (p1 <= end1) aftermerger[p++] = beforemerger[p1++];
     while (p2 <= end2) aftermerger[p++] = beforemerger[p2++];
 }
+ 
 ~~~
 
 ## 从上到下
@@ -348,6 +354,7 @@ for (int seg = 1; seg <= rightmost; seg <<= 1) {
         while (p2 <= end2) aftermerger[p++] = beforemerger[p2++];
     }
 }
+ 
 ~~~
 
 # 合并排序前后
@@ -431,6 +438,7 @@ void mergesort(int rightmost, int *array) {
     }
     else free(beforemerger);
 }
+ 
 ~~~
 
 # 参考文献

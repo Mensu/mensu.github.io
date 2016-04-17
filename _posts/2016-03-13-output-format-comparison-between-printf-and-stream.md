@@ -3,7 +3,7 @@ layout: post
 title: "常用输出格式归纳：printf 和 stream"
 subtitle: "output format comparison between c-style printf and cpp-style stream"
 create-date: 2016-03-13
-update-date: 2016-03-27
+update-date: 2016-04-04
 header-img: ""
 author: "Mensu"
 tags:
@@ -141,7 +141,8 @@ cout << std::setiosflags(ios::XXX);
 cout.setf(ios::XXX);
 ~~~
 
-这三句的主要效果相同。而在设置整数 n 进制的时候，以八进制为例，要么直接用流控制符
+这三句的主要效果相同。而在设置整数 n 进制的时候有例外。  
+以八进制为例，要么直接用流控制符
 
 ~~~cpp
 // C++ code
@@ -153,7 +154,7 @@ int num = 10;
 cout << oct << num << endl;
 ~~~
 
-要么，用其他两个，就要先取消目前的进制设置（默认是十进制）
+要么，就要**先取消目前的进制设置**（默认是十进制），在设置新的进制
 
 ~~~cpp
 // C++ code
@@ -167,7 +168,7 @@ cout.unsetf(ios::dec);
 cout << setiosflags(ios::oct) << num << endl;
 ~~~
 
-要么，就用带两个参数的成员函数 `std::cout.setf`
+要么，就用**带两个参数**的成员函数 `std::cout.setf`，或者流控制符 `std::setbase(int __base)`
 
 ~~~cpp
 // C++ code
@@ -218,7 +219,7 @@ std::cout.flags(defaultFlags);
 
 ---
 
-取消设置时，可以用下面三个 ios 参数将对应的三类格式恢复为默认状态
+取消设置时，可以用下面三个 ios 参数将对应的三类格式恢复为默认状态，而不必关心他们目前具体是什么状态
 
 - `ios::basefield` 进制
 - `ios::adjustfield` 对齐方式
@@ -308,6 +309,7 @@ cout << "最小宽度为2，右对齐，如果宽度不足2，则在左边补0�
     << setw(2) << minute << ':' << flush
     << setw(2) << second << endl << endl;
 cout.fill(' ');
+ 
 ~~~
 
 ![width, adjustment and fill in stream](http://7xrahq.com1.z0.glb.clouddn.com/printf-and-stream-width-adjustment-fill-stream.png)
@@ -385,9 +387,10 @@ printf("\n科学计数法，小数点后7位（包括多余的0）：\n  "
         "\n", small, big);
 
 // 动态控制最小宽度、精度
-int leastWide = 10, precision = 7;
+int leastWidth = 10, precision = 7;
 printf("\n动态控制最小宽度、精度：%+-*.*f"
-        "\n\n", leastWide, precision, small);
+        "\n\n", leastWidth, precision, small);
+         
 ~~~
 
 ![set precision in printf](http://7xrahq.com1.z0.glb.clouddn.com/printf-and-stream-set-precision-printf.png)
@@ -447,12 +450,13 @@ cout << "科学计数法，小数点后7位（包括多余的0）：\n  "
     << resetiosflags(ios::scientific|ios::uppercase) << setprecision(6);
     
 // 动态控制最小宽度、精度
-int leastWide = 10, precision = 7;
+int leastWidth = 10, precision = 7;
 cout << "动态控制最小宽度、精度："
     << showpos << left << fixed
-    << setprecision(precision) << setw(leastWide)
+    << setprecision(precision) << setw(leastWidth)
     << small << endl << endl;
 cout.flags(defaultFlags), cout.precision(6);
+ 
 ~~~
 
 ![set precision in stream](http://7xrahq.com1.z0.glb.clouddn.com/printf-and-stream-set-precision-stream.png)

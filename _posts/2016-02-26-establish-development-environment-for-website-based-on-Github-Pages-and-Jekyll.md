@@ -13,21 +13,6 @@ tags:
 
 > The article was initially posted on **{{ page.create-date | date: "%Y-%m-%-d" }}**.
 
-# 目录
-
-1. [适用人群](#section-1)
-2. [需要安装的东西](#section-2)
-3. [需要了解的语言](#section-3)
-4. [安装 Ruby](#ruby)
-5. [安装 Gem](#gem)
-6. [安装 Git](#git)
-7. [Git 和 GitHub 的准备工作](#git--github-)
-   1. [安装 GitHub Desktop](#github-desktop)
-   2. [添加 SSH key](#ssh-key)
-8. [进入调试环境](#section-4)
-9. [kramdown 语法](#kramdown-)
-10. [Liquid 常用语法](#liquid-)
-
 # 适用人群
 
 - 打算在 [GitHub Pages](https://pages.github.com){:target="_blank"} 上用 Markdown 写博客，建立个人博客网站，所以想在本地搭建相应调试环境的人

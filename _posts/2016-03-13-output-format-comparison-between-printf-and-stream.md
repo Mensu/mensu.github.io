@@ -13,12 +13,6 @@ tags:
 
 > The article was initially posted on **{{ page.create-date | date: "%Y-%m-%-d" }}**.
 
-# 目录
-1. [整数 n 进制](#n-)
-2. [setiosflags 和 cout.setf](#setiosflags--coutsetf)
-3. [最小宽度、左右对齐、填补、符号](#section-1)
-4. [小数](#section-2)
-5. [其他格式](#section-3)
 
 说起输出格式的控制，C 中用得最多的是各种 printf ，例如 `printf`、`fprintf`、`sprintf` ，声明于 `<stdio.h>` ，调用时必须通过字符串设置格式
 
@@ -141,7 +135,8 @@ cout << std::setiosflags(ios::XXX);
 cout.setf(ios::XXX);
 ~~~
 
-这三句的主要效果相同。而在设置整数 n 进制的时候有例外。  
+大多情况这三句的主要效果相同。而在设置整数 n 进制的时候有例外
+
 以八进制为例，要么直接用流控制符
 
 ~~~cpp
@@ -223,7 +218,7 @@ std::cout.flags(defaultFlags);
 
 - `ios::basefield` 进制
 - `ios::adjustfield` 对齐方式
-- `ios::floatfield` 小数表示法
+- `ios::defaultfloat` 小数表示法
 
 
 ~~~cpp
@@ -364,7 +359,7 @@ cout << "平面上某直线的一般方程："
 
 ### 小数
 
-printf 中，想指定有效数字来显示小数，就必须去掉多余的0
+printf
 
 ~~~c
 // C code
@@ -374,6 +369,11 @@ double big = 42.213;
 // 7位有效数字，去掉多余的0，输出普通计数法和科学计数法中较短的，大写G决定指数符号大写
 printf("7位有效数字，去掉多余的0：\n  "
         "small = %.7g, big = %.7g"
+        "\n", small, big);
+
+// 有效数字，显示多余的0和小数点
+printf("7位有效数字，显示多余的0：\n  "
+        "small = %#.7g, big = %#.7g"
         "\n", small, big);
 
 // 普通计数法
@@ -397,7 +397,7 @@ printf("\n动态控制最小宽度、精度：%+-*.*f"
 
 ----
 
-stream 则较为灵活
+stream
 
 ~~~cpp
 // C++ code

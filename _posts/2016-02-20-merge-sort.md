@@ -13,30 +13,6 @@ tags:
 
 > The article was initially posted on **{{ page.create-date | date: "%Y-%m-%-d" }}**.
 
-# 目录
-1. [合并排序的核心部分](#section-1)
-    1. [打个比方](#section-2)
-    2. [举个栗子](#section-3)
-    3. [交叉](#section-4)
-    4. [移入](#section-5)
-    5. [核心部分的代码](#section-6)
-2. [合并排序的迭代部分](#section-7)
-    1. [迭代思路](#section-8)
-    2. [从左到右](#section-9)
-        1. [小组指针初始化](#section-10)
-        2. [两种特殊情况](#section-11)
-        3. [for循环](#for)
-        4. [从左到右循环的代码](#section-12)
-    3. [从上到下](#section-13)
-       1. [迭代思路](#section-14)
-       2. [从上到下循环的代码](#section-15)
-4. [合并排序前后](#section-16)
-    1. [准备](#section-17)
-    2. [善后](#section-18)
-3. [模块搭建](#section-19)
-4. [合并排序的代码](#origin)
-5. [参考文献](#section-20)
-
 
 # 合并排序的核心部分
 

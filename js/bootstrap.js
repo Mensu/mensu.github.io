@@ -1501,7 +1501,7 @@ if (typeof jQuery === 'undefined') {
 
   Tooltip.prototype.replaceArrow = function (delta, dimension, isHorizontal) {
     this.arrow()
-      .css(isHorizontal ? 'left' : 'top', 50 * (1 - delta / dimension) + '%')
+      .css(isHorizontal ? 'left' : 'top', 50 /** (1 - delta / dimension)*/ + '%')
       .css(isHorizontal ? 'top' : 'left', '')
   }
 

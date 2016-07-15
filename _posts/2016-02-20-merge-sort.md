@@ -226,7 +226,7 @@ end1 = ((p2 - 1 > rightmost) ? rightmost : p2 - 1);
 while (p1 <= end1) aftermerger[p++] = beforemerger[p1++]; 
 ~~~
  
-那么，破坏其他两句的条件 ` p2 <= end2 ` ，让 p2 > end2 就行了。很幸运，如果沿用第一种特殊情况的
+那么，破坏其他两句的条件 `` p2 <= end2 `` ，让 p2 > end2 就行了。很幸运，如果沿用第一种特殊情况的
 
 ~~~c
 // C code
@@ -235,7 +235,7 @@ end2 = ((end1 + seg > rightmost) ? rightmost : end1 + seg);
 
 考虑到 end1 此时的位置 end1 = rightmost，代入上面的代码，结果必然是 end2 = rightmost。那么根据第二种特殊情况的本质—— p2 - 1 >= rightmost ，立即推出
 <p class="pre-wrap-center">p2 > p2 - 1 ≥ rightmost = end2</p>
-可见，沿用第一种特殊情况的代码还能顺便破坏` p2 <= end2 ` ，不用再写其他代码。但要注意 end1 那句要放在 end2 的前面
+可见，沿用第一种特殊情况的代码还能顺便破坏 `` p2 <= end2 `` ，不用再写其他代码。但要注意 end1 那句要放在 end2 的前面
 
 考虑上特殊情况，小组指针初始化的代码如下：
 
@@ -388,7 +388,7 @@ for (int seg = 1; seg <= rightmost; seg <<= 1) {
     // free
 ~~~
 
-# 合并排序的代码[^origin]
+# 合并排序的代码
 
 ~~~c
 // C code
@@ -419,4 +419,4 @@ void mergesort(int rightmost, int *array) {
 
 # 参考文献
 
-[^origin]: [归并排序 - 维基百科，自由的百科全书](https://zh.wikipedia.org/wiki/归并排序#C.E8.AA.9E.E8.A8.80){:target="_blank"}
+[归并排序 - 维基百科，自由的百科全书](https://zh.wikipedia.org/wiki/归并排序#C.E8.AA.9E.E8.A8.80){:target="_blank"}

@@ -60,16 +60,18 @@
     display: none;
   }
 }
+.catalog-container {
+  padding-top: 60px;
+}
 .side-catalog {
   display: block;
-  overflow: auto;
-  height: 100%;
+  height: 500px;
   padding-bottom: 40px;
   width: 195px;
 }
 .side-catalog.fixed {
   position: fixed;
-  top: -21px;
+  top: 60px;
 }
 .side-catalog.fold .catalog-toggle::before {
   content: "+";
@@ -87,7 +89,9 @@
   position: relative;
   list-style: none;
   height: auto;
-  overflow: hidden;
+  height: 460px;
+  overflow-x: hidden;
+  overflow-y: auto;
   padding-left: 0px;
   padding-right: 5px;
   text-indent: 0;

@@ -144,6 +144,7 @@
 			var $link = $(e.currentTarget);
 			var $parent = $link.parent();
 			var newLoc = '#' + self.getHash($link);
+			var navInternalOffset = $parent[0].offsetTop - ($parent.parent().height() / 2 - 50);
 
 			if(!$parent.hasClass(self.config.currentClass)) {
 				//Start callback
@@ -163,6 +164,10 @@
 					if(self.config.changeHash) {
 						window.location.hash = newLoc;
 					}
+
+					$parent.parent().animate({
+						scrollTop: navInternalOffset
+					}, 500, 'swing', undefined);
 
 					//Add the auto-adjust on scroll back in
 					self.bindInterval();

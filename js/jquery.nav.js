@@ -78,6 +78,7 @@
 		adjustNav: function(self, $parent) {
 			self.$elem.find('.' + self.config.currentClass).removeClass(self.config.currentClass);
 			$parent.addClass(self.config.currentClass);
+
 		},
 
 		bindInterval: function() {
@@ -193,6 +194,13 @@
 
 				//If it's not already the current section
 				if(!$parent.hasClass(this.config.currentClass)) {
+					
+
+					var navInternalOffset = $parent[0].offsetTop - ($parent.parent().height() / 2 - 50);
+					$parent.parent().animate({
+						scrollTop: navInternalOffset
+					}, 500, 'swing', undefined);
+
 					//Change the highlighted nav item
 					this.adjustNav(this, $parent);
 

@@ -130,9 +130,9 @@
 		getSection: function(windowPos) {
 			var returnValue = null;
 			var windowHeight = Math.round(this.$win.height() * this.config.scrollThreshold);
-
+			var endPoint = this.config.endPointSelector ? $(this.config.endPointSelector).offset().top + $(this.config.endPointSelector).height() : null;
 			for(var section in this.sections) {
-				if((this.sections[section] - windowHeight) < windowPos) {
+				if((this.sections[section] - windowHeight) < windowPos && (null === endPoint || windowPos < endPoint)) {
 					returnValue = section;
 				}
 			}
@@ -168,7 +168,7 @@
 
 					$parent.parent().animate({
 						scrollTop: navInternalOffset
-					}, 500, 'swing', undefined);
+					}, 300, 'swing', undefined);
 
 					//Add the auto-adjust on scroll back in
 					self.bindInterval();
@@ -199,7 +199,7 @@
 					var navInternalOffset = $parent[0].offsetTop - ($parent.parent().height() / 2 - 50);
 					$parent.parent().animate({
 						scrollTop: navInternalOffset
-					}, 500, 'swing', undefined);
+					}, 300, 'swing', undefined);
 
 					//Change the highlighted nav item
 					this.adjustNav(this, $parent);
@@ -209,6 +209,8 @@
 						this.config.scrollChange($parent);
 					}
 				}
+			} else {
+				this.$elem.find('.' + this.config.currentClass).removeClass(this.config.currentClass);
 			}
 		},
 

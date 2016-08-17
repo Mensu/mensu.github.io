@@ -1,0 +1,163 @@
+@import "config.less";
+@media screen {
+  #main {
+    @media (min-width: @screen-width) and (min-height: @screen-height) {
+      position: absolute;
+      right: 0;
+    }
+
+    display: inline-block;
+    height: 650px;
+    width: 59%;
+    // overflow-y: auto;
+
+    font-size: 16px;
+
+    .nav {
+      height: 40px;
+    }
+    .has-one-canvas {
+      height: 90%;
+    }
+    .has-two-canvases-top {
+      height: 320px;
+    }
+    .has-two-canvases-bottom {
+      height: 230px;
+    }
+    .canvases-wrapper {
+      overflow-y: auto;
+      .bg {
+        position: relative;
+
+        margin-top: 35px;
+        margin-left: 35px;
+        border: 1px solid;
+
+        background-image: url("./img/cell.png");
+        background-repeat: repeat;
+        background-size: @cell-width @cell-height;
+
+        .squares-wrapper {
+          .diff-square {
+            position: absolute;
+            border-width: 2px;
+            border-style: solid;
+          }
+          .diff-square-black {
+            border-color: black;
+          }
+          .diff-square-red {
+            border-color: red;
+          }
+        }
+
+        .diagonals-wrapper {
+          .diagonal {
+            position: absolute;
+            height: 5px;
+
+            border-top-width: 6px;
+            border-top-color: transparent;
+            border-top-style: solid;
+
+            transform-origin: left top 0px;
+            transform: rotate(45deg);
+
+            &:hover {
+              border-top-color: rgba(30, 40, 80, 0.4);
+            }
+          }
+        }
+
+        .points-wrapper {
+          .point-outer {
+            .point-inner {
+              height: @cell-height / 4;
+              width: @cell-width / 4;
+            }
+            position: absolute;
+            .point-inner
+          }
+        }
+        
+        .axis-cell {
+          box-sizing: border-box;
+          display: inline-block;
+
+          text-align: center;
+          font-size: 30px;
+        }
+
+        .x-axis-wrapper {
+          position: absolute;
+          top: -150px;
+
+          pointer-events: none;
+
+          .x-axis {
+            position: relative;
+            left: 20px;
+
+            height: @x-axis-height;
+
+            .x-axis-cell {
+              height: @x-axis-height;
+              width: @cell-width;
+
+              padding-top: 80px;
+              padding-left: 20px;
+              padding-right: 20px;
+
+              line-height: @x-axis-height;
+            }
+          }
+        }
+        
+        .y-axis-wrapper {
+          position: absolute;
+          left: -@y-axis-width;
+
+          pointer-events: none;
+
+          .y-axis {
+            position: relative;
+            top: @cell-height / 2;
+            
+            width: @y-axis-width;
+
+            .y-axis-cell {
+              height: @cell-height;
+              width: @y-axis-width;
+              
+              padding-left: 60px;
+
+              line-height: @cell-height;
+            }
+          }
+        }
+            
+      }
+    }
+    
+  }
+  @media (max-width: @mobile-width) {
+    #main {
+      display: block;
+      width: 100%;
+      height: 60%;
+      .canvases-wrapper {
+        height: 40%;
+        overflow-x: auto;
+      }
+      .has-one-canvas {
+        height: 90%;
+      }
+      .has-two-canvases-top, .has-two-canvases-bottom {
+        height: 40%;
+      }
+    }
+  }
+}
+
+

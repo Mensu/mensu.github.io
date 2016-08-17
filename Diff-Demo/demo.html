@@ -1,0 +1,40 @@
+<html !DOCTYPE>
+<head>
+	<meta charset="uft-8" />
+  <link rel="stylesheet" type="text/css" href="./diff-demo.css" />
+	<title>demo</title>
+</head>
+<body>
+  <div id="panel-wrapper">
+    <div id="control">
+      <div class="select-algorithm">
+        <input type="radio" name="diffAlgorithm" id="basic" value="basic" /> <label for="basic">Basic</label>
+        <input type="radio" name="diffAlgorithm" id="advanced" value="advanced" /> <label for="advanced">Advanced</label>
+        <br/><br/>
+      </div>
+      <div class="ctrl-btns">
+        <input type="button" id="auto" value="auto" />
+        <input type="button" id="next" value="next" />
+        <input type="button" id="prev" value="prev" />
+        <input type="button" id="clear" value="clear" />
+        <br/><br/>
+      </div>
+      <div class="input-boxes">
+        Old String <input type="text" id="oldStr" />
+        New String <input type="text" id="newStr" />
+        <input type="button" id="ok" value="ok" /><br/><br/>
+        Speed <input type="number" id="speed" value="2000" />
+        <!-- <input id="scrollToLatest" type="checkbox" name="scrollToLatest" checked /><label for="scrollToLatest"> scroll to the latest log automatically</label> -->
+      </div>
+    </div>
+    <br/>
+    <div id="tables-wrapper">
+      <div id="diff-table"></div>
+    </div>
+    <!--<div id="log-wrapper">Log<div id="log"></div></div>-->
+  </div>
+  <div id="main"></div>
+</div>
+  <script type="text/javascript" src="./diff-demo.js"></script>
+</body>
+</html>

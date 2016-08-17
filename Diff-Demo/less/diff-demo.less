@@ -1,0 +1,33 @@
+@import "bg.less";
+@import "lines-animation.less";
+@import "control.less";
+@import "./bootstrap/bootstrap.less";
+
+.nav {
+  a {
+    text-decoration: none;
+  }
+}
+
+.mensuFade {
+  display: none;
+  &.active {
+    animation-name: mensuFadeIn;
+    animation-duration: 0.5s;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+    display: block;
+  }
+}
+@keyframes mensuFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.hidden {
+  display: none;
+}

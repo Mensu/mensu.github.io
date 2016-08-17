@@ -1,0 +1,120 @@
+@media screen {
+  #panel-wrapper {
+    @media (min-width: @screen-width) and (min-height: @screen-height) {
+      position: absolute;
+      left: 10px;
+    }
+    display: inline-block;
+    vertical-align: top;
+    width: 40%;
+    font-size: 16px;
+    .input-boxes {
+      input[type="text"], input[type="number"] {
+        width: 70px;
+      }
+    }
+    #tables-wrapper {
+      overflow-x: auto;
+      overflow-y: auto;
+      height: 25%;
+      .diff-table {
+        border-collapse: collapse;
+        table, th, td {
+          border: 1px solid black;
+          padding: 5px;
+          text-align: center;
+        }
+        .cell-selected {
+          font-weight: bolder;
+          color: red;
+          &:not(.cell-choice) {
+            border: 2px solid red;
+          }
+        }
+        .cell-choice {
+          border: 2px dotted red;
+        }
+      }
+    }
+    #log {
+      // height: 49%;
+      overflow-y: auto;
+      .log-info {
+        margin-top: 15px;
+        height: 60px;
+        & > * {
+          vertical-align: middle;
+        }
+
+        .log-info-d-path-on-diagonal-k {
+          white-space: pre-wrap;
+        }
+        .log-info-d-path-on-diagonal-k-black, .log-info-d-path-on-diagonal-k-black * {
+          color: black;
+        }
+        .log-info-d-path-on-diagonal-k-red, .log-info-d-path-on-diagonal-k-red * {
+          color: red;
+        }
+
+        @block-height: 11px;
+        .log-info-modify-path {
+          display: inline-block;
+          height: @block-height * 3;
+          div {
+            font-size: @block-height - 1px;
+            height: @block-height;
+          }
+          .log-info-modify-path-arrow {
+            background-size: @block-height @block-height;
+            background-repeat: no-repeat;
+          }
+          .horizontal-arrow {
+            background-image: url("horizontal.png");
+            background-position: 10px 3px;
+          }
+          .vertical-arrow {
+            background-image: url("vertical.png");
+            background-position: 65% -1px;
+          }
+        }
+        .horizontal-path {
+          height: @block-height;
+          div {
+            display: inline-block;
+          }
+          .horizontal-arrow {
+            height: @block-height;
+            width: @block-height * 1.5;
+            background-position: 3px 3px;
+          }
+        }
+
+      }
+      
+    }
+  }
+  @media (max-width: @mobile-width) {
+    #panel-wrapper {
+      display: block;
+      width: 100%;
+      height: 35%;
+      max-height: 400px;
+      max-width: none;
+      #log-wrapper {
+        height: 52%;
+        @media (max-height: @mobile-height) {
+          display: none;
+        }
+        #log {
+          height: 100%;
+        }
+      }
+    }
+  }
+  
+}
+
+
+
+
+

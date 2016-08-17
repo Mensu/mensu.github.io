@@ -1,0 +1,81 @@
+@import "config.less";
+@keyframes showDiagonal {
+  from {
+    height: 0px;
+    width: 0px;
+  }
+  to {
+    height: @cell-height;
+    width: @cell-width;
+  }
+}
+.diagonal-line {
+  position: absolute;
+  background-size: @cell-width @cell-height;
+  animation-name: showDiagonal;
+  animation-duration: 2s;
+  animation-timing-function: ease;
+  animation-fill-mode: forwards;
+
+  &-black {
+    background-image: url("./img/diagonal.png");
+  }
+  &-red {
+    background-image: url("./img/diagonal-red.png");
+  }
+}
+
+@keyframes showHorizontal {
+  from {
+    width: 0px;
+  }
+  to {
+    width: @cell-width;
+  }
+}
+
+.horizontal-line {
+  position: absolute;
+  .horizontal-line-inner {
+    height: 28px;
+    width: @cell-width;
+    background-size: @cell-width @cell-height;
+    animation-name: showHorizontal;
+    animation-duration: 2s;
+    animation-timing-function: ease;
+    animation-fill-mode: forwards;
+  }
+  .horizontal-line-inner
+}
+.horizontal-line-black {
+  background-image: url("./img/horizontal.png");
+}
+.horizontal-line-red {
+  background-image: url("./img/horizontal-red.png");
+}
+@keyframes showVertical {
+  from {
+    height: 0px;
+  }
+  to {
+    height: @cell-height;
+  }
+}
+.vertical-line {
+  position: absolute;
+  .vertical-line-inner {
+    width: 29px;
+    background-size: @cell-width @cell-height;
+    animation-name: showVertical;
+    animation-duration: 2s;
+    animation-timing-function: ease;
+    animation-fill-mode: forwards;
+  }
+  .vertical-line-inner
+}
+.vertical-line-black {
+  background-image: url("./img/vertical.png");
+}
+.vertical-line-red {
+  background-image: url("./img/vertical-red.png");
+}

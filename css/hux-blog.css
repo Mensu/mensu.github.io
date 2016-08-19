@@ -88,10 +88,9 @@
 .side-catalog .catalog-body {
   position: relative;
   list-style: none;
-  height: auto;
   height: 460px;
   overflow-x: hidden;
-  overflow-y: hidden;
+  overflow-y: auto;
   padding-left: 0px;
   padding-right: 5px;
   text-indent: 0;
@@ -532,7 +531,7 @@ pre code {
 } 
 .intro-header {
   background: no-repeat center center;
-  background-color: rgb(255, 94, 102);;
+  background-color: rgb(255, 94, 102);
   background-image: linear-gradient(rgba(255, 255, 255, 0) 60%, rgba(187, 2, 195, 0.34)), linear-gradient(70deg, rgba(22, 20, 187, 0.56) 32%, rgba(222, 100, 117, 0.58));
   background-attachment: scroll;
   -webkit-background-size: cover;

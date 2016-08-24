@@ -4,7 +4,7 @@ title: "用本地 Windows 镜像文件安装 .NET Framework 3.5"
 description: ""
 subtitle: "install .NET Framework 3.5 using local iso files on Windows"
 create-date: 2016-03-27
-update-date: 2016-03-29
+update-date: 2016-08-19
 header-img: ""
 author: "Mensu"
 tags:

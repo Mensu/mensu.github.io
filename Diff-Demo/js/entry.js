@@ -145,6 +145,6 @@ document.getElementById('ok').addEventListener('click', function() {
   });
   
 }, false);
-document.getElementById('speed').addEventListener('change', function() {
+document.getElementById('interval').addEventListener('change', function() {
   ButtonGetReady.setSpeed(this.value);
 }, false);

@@ -417,12 +417,12 @@ var DiffAlgorithm = {
       if (prefixLen) {
         var commonRange = {
           "before": {
-            "begin": range.before.begin + prefixLen,
-            "end": range.before.end
+            "begin": range.before.begin,
+            "end": range.before.begin + prefixLen
           },
           "after": {
-            "begin": range.after.begin + prefixLen,
-            "end": range.after.end
+            "begin": range.after.begin,
+            "end": range.after.begin + prefixLen
           }
         };
         var commonPart = self.addResultTo(result, commonRange, before.substring(0, prefixLen), after.substring(0, prefixLen));

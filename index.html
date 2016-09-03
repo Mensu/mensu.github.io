@@ -7,7 +7,7 @@ description: "Mensu's Blog concerning what he has learned during programming"
 <!-- index.html starts -->
 {% for post in paginator.posts %}
 <div class="post-preview">
-  <a href="{{ post.url | prepend: site.baseurl }}">
+  <a href="{{ post.url | prepend: site.baseurl | replace: '//', '/' }}">
     <div class="post-titles">
       <h2 class="post-title">{{ post.title }}</h2>
       {% if post.subtitle %}
@@ -26,12 +26,14 @@ description: "Mensu's Blog concerning what he has learned during programming"
 <ul class="pager">
   {% if paginator.next_page %}
   <li class="previous">
-    <a href="{{ paginator.next_page_path | prepend: site.baseurl }}/">&larr; OLDER POSTS</a>
+    {% assign olderHref = (paginator.next_page_path | prepend: site.baseurl) %}
+    <a href="{{ olderHref | replace: '//', '/' }}">&larr; OLDER POSTS</a>
   </li>
   {% endif %}
   {% if paginator.previous_page %}
   <li class="next">
-    <a href="{{ paginator.previous_page_path | prepend: site.baseurl }}/">NEWER POSTS &rarr;</a>
+    {% assign newerHref = (paginator.previous_page_path | prepend: site.baseurl) %}
+    <a href="{{ newerHref | replace: '//', '/' }}">NEWER POSTS &rarr;</a>
   </li>
   {% endif %}
 </ul>

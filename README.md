@@ -17,5 +17,5 @@ from where this repository was forked. If you like his boilerplate, you might wa
 
 -----
 
-# <a href="http://mensu.github.io" target="_blank">My Blog &rarr;</a>
+# <a href="https://mensu.github.io" target="_blank">My Blog &rarr;</a>
 

@@ -26,13 +26,13 @@ description: "Mensu's Blog concerning what he has learned during programming"
 <ul class="pager">
   {% if paginator.next_page %}
   <li class="previous">
-    {% assign olderHref = (paginator.next_page_path | prepend: site.baseurl) %}
+    {% assign olderHref = (paginator.next_page_path | prepend: site.baseurl | append: "/") %}
     <a href="{{ olderHref | replace: '//', '/' }}">&larr; OLDER POSTS</a>
   </li>
   {% endif %}
   {% if paginator.previous_page %}
   <li class="next">
-    {% assign newerHref = (paginator.previous_page_path | prepend: site.baseurl) %}
+    {% assign newerHref = (paginator.previous_page_path | prepend: site.baseurl | append: "/") %}
     <a href="{{ newerHref | replace: '//', '/' }}">NEWER POSTS &rarr;</a>
   </li>
   {% endif %}

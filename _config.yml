@@ -4,7 +4,7 @@ SEOTitle: Mensu - 思考のかけら | fragments of thought
 email: yxshw55@qq.com
 description: "Mensu's Blog"
 keyword: ""
-url: "http://mensu.github.io"              # your host, for absolute URL
+url: "https://mensu.github.io"              # your host, for absolute URL
 baseurl: ""                             # for example, '/blog' if your blog hosted on 'host/blog'
 manager: Mensu
 
@@ -14,7 +14,7 @@ authors:
   Mensu:
     name: Mensu
     email: yxshw55@qq.com
-    website: http://mensu.github.io
+    website: https://mensu.github.io
     github: Mensu
     weibo: yxshw55
     twitter: mensuhamesu
@@ -76,20 +76,20 @@ featured-condition-size: -1              # A tag will be featured if the size of
 
 # Friends
 friends: [
-    {
-        title: "Hux Blog",
-        href: "http://huangxuan.me"
-    },{
-        title: "Foo",
-        href: "#"
-    },{
-        title: "Bar",
-        href: "#"
-    },{
-        title: "Example Friends",
-        href: "#"
-    },{
-        title: "It helps SEO",
-        href: "#"
-    }
+    # {
+    #     title: "Hux Blog",
+    #     href: "http://huangxuan.me"
+    # },{
+    #     title: "Foo",
+    #     href: "#"
+    # },{
+    #     title: "Bar",
+    #     href: "#"
+    # },{
+    #     title: "Example Friends",
+    #     href: "#"
+    # },{
+    #     title: "It helps SEO",
+    #     href: "#"
+    # }
 ]

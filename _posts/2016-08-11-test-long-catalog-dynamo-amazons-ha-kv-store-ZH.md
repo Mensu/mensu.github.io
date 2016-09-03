@@ -8,6 +8,7 @@ catalog: 	true
 ---
 
 注：本文转载自[原文](http://shinyzhu.com/2016/08/11/dynamo-amazons-ha-kv-store-ZH/)，用于测试长catalog。
+
 > 最近看了coolshell的《[分布式系统的事务处理](http://coolshell.cn/articles/10910.html)》一文，文末引用了此文的中文版（[英文原版PDF](http://www.read.seas.harvard.edu/~kohler/class/cs239-w08/decandia07dynamo.pdf)），但是只有一个Word文档，为了方便在线阅读，转换成了markdown格式。
 >
 > P.S. 中文翻译还是有很多地方不通顺，作了一些修正。

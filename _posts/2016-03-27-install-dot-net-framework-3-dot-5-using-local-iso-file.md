@@ -17,21 +17,21 @@ tags:
 
 无法通过 Windows Update 安装 .NET Framework 3.5, 表现如下：
 
-![attempt to download and install .NET Framework 3.5](https://7xrahq.com1.z0.glb.clouddn.com/install-net-framework-3-point-5-attempt-to-download-and-install-net-framework-3-point-5.png)
-[上图来源](https://bbs.pcbeta.com/viewthread-1413582-1-1.html){:target="_blank"}
+![attempt to download and install .NET Framework 3.5](http://7xrahq.com1.z0.glb.clouddn.com/install-net-framework-3-point-5-attempt-to-download-and-install-net-framework-3-point-5.png)
+[上图来源](http://bbs.pcbeta.com/viewthread-1413582-1-1.html){:target="_blank"}
 
-![fail to install .NET Framework 3.5 with error code 0x800F081F](https://7xrahq.com1.z0.glb.clouddn.com/install-net-framework-3-point-5-fail-to-install-net-framework-3-point-5-with-error-code-0x800F081F.jpg)
-[上图来源](https://zhidao.baidu.com/question/516655900.html){:target="_blank"}
+![fail to install .NET Framework 3.5 with error code 0x800F081F](http://7xrahq.com1.z0.glb.clouddn.com/install-net-framework-3-point-5-fail-to-install-net-framework-3-point-5-with-error-code-0x800F081F.jpg)
+[上图来源](http://zhidao.baidu.com/question/516655900.html){:target="_blank"}
 
 ## 解决办法
 
 找到安装本系统用的光盘文件，装载
 
-![load the iso file used to install your Windows](https://7xrahq.com1.z0.glb.clouddn.com/install-net-framework-3-point-5-load-iso-file.png)
+![load the iso file used to install your Windows](http://7xrahq.com1.z0.glb.clouddn.com/install-net-framework-3-point-5-load-iso-file.png)
 
-如果找不到，可以考虑到 [MSDN，我告诉你](https://msdn.itellyou.cn){:target="_blank"} 下载
+如果找不到，可以考虑到 [MSDN，我告诉你](http://msdn.itellyou.cn){:target="_blank"} 下载
 
-![download Windows 10 iso file at https://msdn.itellyou.cn](https://7xrahq.com1.z0.glb.clouddn.com/install-net-framework-3-point-5-download-windows-10-iso-file-at-msdn.png)
+![download Windows 10 iso file at https://msdn.itellyou.cn](http://7xrahq.com1.z0.glb.clouddn.com/install-net-framework-3-point-5-download-windows-10-iso-file-at-msdn.png)
 
 接下来以管理员身份运行 cmd ，*具体方法见文末
 
@@ -45,7 +45,7 @@ Dism /online /enable-feature /featurename:NetFx3 /LimitAccess /All /Source:g:\so
 
 其中 g 为镜像装载后的盘符
 
-![copy commands above before pressing enter](https://7xrahq.com1.z0.glb.clouddn.com/install-net-framework-3-point-5-copy-commands-above.png)
+![copy commands above before pressing enter](http://7xrahq.com1.z0.glb.clouddn.com/install-net-framework-3-point-5-copy-commands-above.png)
 
 - `Dism` 是我们要用的程序的名字，全称 “部署映像服务和管理工具”
 - `/Online` 的意思是安装对象为本机
@@ -62,7 +62,7 @@ A. 可以搜索cmd，右键以管理员身份运行
   
 B. 也可以右键开始图标，选择命令提示符(管理员)
 
-![launch cmd as an administrator](https://7xrahq.com1.z0.glb.clouddn.com/fix-broken-icon-Adobe-launch-cmd-as-administrator.png)
+![launch cmd as an administrator](http://7xrahq.com1.z0.glb.clouddn.com/fix-broken-icon-Adobe-launch-cmd-as-administrator.png)
 C. 也可以在附件之类的地方找到命令提示符，右键以管理员身份运行
 
 D. 还可以打开任务管理器，运行cmd，记得选中以管理员身份

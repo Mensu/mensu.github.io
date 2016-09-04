@@ -35,7 +35,7 @@ printf("十六进制小写：%x"
      "\n", num, num, num, num);
 ~~~
 
-![set bases in printf](https://7xrahq.com1.z0.glb.clouddn.com/printf-and-stream-set-bases-printf.png)
+![set bases in printf](http://7xrahq.com1.z0.glb.clouddn.com/printf-and-stream-set-bases-printf.png)
 
 ----
 
@@ -50,7 +50,7 @@ std::cout << "十六进制：" << std::hex << num << std::endl
           << "十进制：" << std::dec << num << std::endl;
 ~~~
 
-![set bases in stream using specific manipulators](https://7xrahq.com1.z0.glb.clouddn.com/printf-and-stream-set-bases-stream-specific-iomanipulator.png)
+![set bases in stream using specific manipulators](http://7xrahq.com1.z0.glb.clouddn.com/printf-and-stream-set-bases-stream-specific-iomanipulator.png)
 
 或者用流控制符 ``std::setbase(int __base)`` 设置 n 进制。注意，如果传入的不是 8、10、16，则输出**十进制**
 
@@ -63,7 +63,7 @@ std::cout << "十六进制：" << std::setbase(16) << num << std::endl
           << "十进制：" << std::setbase(10) << num << std::endl;
 ~~~
 
-![set bases in stream using std::setbase](https://7xrahq.com1.z0.glb.clouddn.com/printf-and-stream-set-bases-stream-setbase.png)
+![set bases in stream using std::setbase](http://7xrahq.com1.z0.glb.clouddn.com/printf-and-stream-set-bases-stream-setbase.png)
 
 # setiosflags 和 cout.setf
 
@@ -106,7 +106,7 @@ std::cout.unsetf(std::ios::uppercase);
 std::cout << "  取消：" << num << std::endl;
 ~~~
 
-![std::uppercase](https://7xrahq.com1.z0.glb.clouddn.com/printf-and-stream-uppercase-stream.png)
+![std::uppercase](http://7xrahq.com1.z0.glb.clouddn.com/printf-and-stream-uppercase-stream.png)
 
 ## 对应关系
 
@@ -229,7 +229,7 @@ printf("最小宽度为2，右对齐，如果宽度不足2，则在左边补0：
         "\n\n", hour, minute, second);
 ~~~
 
-![width, adjustment and fill in printf](https://7xrahq.com1.z0.glb.clouddn.com/printf-and-stream-width-adjustment-fill-printf.png)
+![width, adjustment and fill in printf](http://7xrahq.com1.z0.glb.clouddn.com/printf-and-stream-width-adjustment-fill-printf.png)
 
 -----
 
@@ -275,7 +275,7 @@ std::cout.fill(' ');
  
 ~~~
 
-![width, adjustment and fill in stream](https://7xrahq.com1.z0.glb.clouddn.com/printf-and-stream-width-adjustment-fill-stream.png)
+![width, adjustment and fill in stream](http://7xrahq.com1.z0.glb.clouddn.com/printf-and-stream-width-adjustment-fill-stream.png)
 
 # 符号
 
@@ -298,7 +298,7 @@ printf("平面上某直线的一般方程：%dx%+dy%+d=0"     // 6个部分：%d
     "\n\n", a, b ,c, 1, 2, 3, 4, 5);
 ~~~
 
-![show positive or base sign in printf](https://7xrahq.com1.z0.glb.clouddn.com/printf-and-stream-show-positive-or-base-sign-printf.png)
+![show positive or base sign in printf](http://7xrahq.com1.z0.glb.clouddn.com/printf-and-stream-show-positive-or-base-sign-printf.png)
 
 ----
 
@@ -317,7 +317,7 @@ std::cout << "平面上某直线的一般方程："
           << std::resetiosflags(std::ios::showpos);
 ~~~
 
-![show positive or base sign in stream](https://7xrahq.com1.z0.glb.clouddn.com/printf-and-stream-show-positive-or-base-sign-stream.png)
+![show positive or base sign in stream](http://7xrahq.com1.z0.glb.clouddn.com/printf-and-stream-show-positive-or-base-sign-stream.png)
 
 # 小数
 
@@ -357,7 +357,7 @@ printf("\n动态控制最小宽度、精度：%+-*.*f"   // 正号+、左对齐-
          
 ~~~
 
-![set precision in printf](https://7xrahq.com1.z0.glb.clouddn.com/printf-and-stream-set-precision-printf.png)
+![set precision in printf](http://7xrahq.com1.z0.glb.clouddn.com/printf-and-stream-set-precision-printf.png)
 
 ----
 
@@ -408,7 +408,7 @@ std::cout.flags(defaultFlags), std::cout.precision(6);
  
 ~~~
 
-![set precision in stream](https://7xrahq.com1.z0.glb.clouddn.com/printf-and-stream-set-precision-stream.png)
+![set precision in stream](http://7xrahq.com1.z0.glb.clouddn.com/printf-and-stream-set-precision-stream.png)
 
 # 其他格式
 
@@ -427,7 +427,7 @@ std::cout << std::internal
 std::cout.flags(defaultFlags);
 ~~~
 
-![std::internal](https://7xrahq.com1.z0.glb.clouddn.com/printf-and-stream-internal-stream.png)
+![std::internal](http://7xrahq.com1.z0.glb.clouddn.com/printf-and-stream-internal-stream.png)
 
 --------
 
@@ -443,4 +443,4 @@ std::cout << true << ' ' << false << std::endl
           << std::noboolalpha;
 ~~~
 
-![std::boolalpha](https://7xrahq.com1.z0.glb.clouddn.com/printf-and-stream-boolalpha-stream.png)
+![std::boolalpha](http://7xrahq.com1.z0.glb.clouddn.com/printf-and-stream-boolalpha-stream.png)

@@ -34,7 +34,7 @@ tags:
 
 <a class="view-again" href="javascript:;">从头看起 <i class="fa fa-refresh"></i></a>
 
-![an example for merge sort](https://7xrahq.com1.z0.glb.clouddn.com/merge-sort-merge-sort.gif)
+![an example for merge sort](http://7xrahq.com1.z0.glb.clouddn.com/merge-sort-merge-sort.gif)
 
 从上面的例子，可以看出核心部分分为两个阶段：两个组的**交叉**填入阶段、剩下一个组剩余内容的**移入**阶段
 
@@ -156,7 +156,7 @@ end2 = 第二组末下标</p>
 
 <a class="view-again" href="javascript:;">从头看起 <i class="fa fa-refresh"></i></a>
 
- ![an example for merge sort iteration](https://7xrahq.com1.z0.glb.clouddn.com/merge-sort-merge-sort-iteration.gif)
+ ![an example for merge sort iteration](http://7xrahq.com1.z0.glb.clouddn.com/merge-sort-merge-sort-iteration.gif)
 
 先**从左到右循环核心部分**：两个两个小组用核心部分排序
 

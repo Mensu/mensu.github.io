@@ -15,7 +15,7 @@ tags:
 
 刚才受朋友邀请，想重温跑跑卡丁车。没想到在 Parallel Desktop 上的虚拟机安装后，却因被检测出是虚拟机而无法运行游戏
 
-![problem](https://7xrahq.com1.z0.glb.clouddn.com/run-nexon-games-in-windows-virtual-machine-parallel-desktop-problem.png)
+![problem](http://7xrahq.com1.z0.glb.clouddn.com/run-nexon-games-in-windows-virtual-machine-parallel-desktop-problem.png)
 
 # 打开注册表
 
@@ -25,28 +25,28 @@ A. 可以搜索 ``regedit``，敲下回车打开
 B. 可以通过 ``Win+R`` 打开运行窗口，再输入 ``regedit`` 确定来打开  
 C. 可以打开命令提示符，输入 ``regedit`` 敲下回车打开
 
-![open regedit](https://7xrahq.com1.z0.glb.clouddn.com/run-nexon-games-in-windows-virtual-machine-parallel-desktop-open-regedit-1.png)
+![open regedit](http://7xrahq.com1.z0.glb.clouddn.com/run-nexon-games-in-windows-virtual-machine-parallel-desktop-open-regedit-1.png)
 
-![open regedit](https://7xrahq.com1.z0.glb.clouddn.com/run-nexon-games-in-windows-virtual-machine-parallel-desktop-open-regedit-2.png)
+![open regedit](http://7xrahq.com1.z0.glb.clouddn.com/run-nexon-games-in-windows-virtual-machine-parallel-desktop-open-regedit-2.png)
 
-![open regedit](https://7xrahq.com1.z0.glb.clouddn.com/run-nexon-games-in-windows-virtual-machine-parallel-desktop-open-regedit-3.png)
+![open regedit](http://7xrahq.com1.z0.glb.clouddn.com/run-nexon-games-in-windows-virtual-machine-parallel-desktop-open-regedit-3.png)
 
 # 找到 VideoBiosVersion
 
 找到 ``HKEY_LOCAL_MACHINE\HARDWARE\DESCRIPTION\System\`` 目录的 ``VideoBiosVersion``
 
-![find item](https://7xrahq.com1.z0.glb.clouddn.com/run-nexon-games-in-windows-virtual-machine-parallel-desktop-find-item.png)
+![find item](http://7xrahq.com1.z0.glb.clouddn.com/run-nexon-games-in-windows-virtual-machine-parallel-desktop-find-item.png)
 
 双击打开，并清空里面的内容（可以先把里面的内容备份起来）
 
-![delete](https://7xrahq.com1.z0.glb.clouddn.com/run-nexon-games-in-windows-virtual-machine-parallel-desktop-delete-1.png)
+![delete](http://7xrahq.com1.z0.glb.clouddn.com/run-nexon-games-in-windows-virtual-machine-parallel-desktop-delete-1.png)
 
-![delete](https://7xrahq.com1.z0.glb.clouddn.com/run-nexon-games-in-windows-virtual-machine-parallel-desktop-delete-2.png)
+![delete](http://7xrahq.com1.z0.glb.clouddn.com/run-nexon-games-in-windows-virtual-machine-parallel-desktop-delete-2.png)
 
 然后应该就可以了
 
-![solved](https://7xrahq.com1.z0.glb.clouddn.com/run-nexon-games-in-windows-virtual-machine-parallel-desktop-solved.png)
+![solved](http://7xrahq.com1.z0.glb.clouddn.com/run-nexon-games-in-windows-virtual-machine-parallel-desktop-solved.png)
 
 # 参考文献
 
-[^source]: [应用程序无法在Parallels虚拟机环境下运行_常见问题 - Parallels官方中文服务](https://www.parallelsdesktop.cn/ying-yong-cheng-xu-wf-yx.html){:target="_blank"}
+[^source]: [应用程序无法在Parallels虚拟机环境下运行_常见问题 - Parallels官方中文服务](http://www.parallelsdesktop.cn/ying-yong-cheng-xu-wf-yx.html){:target="_blank"}

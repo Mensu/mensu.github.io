@@ -3,14 +3,14 @@ layout: post
 title: "在 Ubuntu 上使用 Google Test"
 subtitle: "using Google Test on Ubuntu"
 create-date: 2016-08-19
-update-date: 2016-08-19
+update-date: 2016-09-04
 header-img: ""
 author: "Mensu"
 tags:
     - 搭建开发环境
 ---
 
-> The article was initially posted on **{{ page.create-date | date: "%Y-%m-%-d" }}**.
+> The article was initially posted on **{{ page.create-date | date: "%Y-%m-%d" }}**.
 
 # 问题
 
@@ -26,7 +26,7 @@ tags:
 
 ![after-extract](http://7xrahq.com1.z0.glb.clouddn.com/using-google-test-on-ubuntu-after-extract.png)
 
-把生成的文件夹 ``ctrl+c`` 、``ctrl+v`` 复制粘贴到找得到的地方。这里我复制到了 ``test`` 目录下
+把生成的文件夹 ``Ctrl + C`` 、``Ctrl+V`` 复制粘贴到找得到的地方。这里我复制到了 ``test`` 目录下
 
 ![copy](http://7xrahq.com1.z0.glb.clouddn.com/using-google-test-on-ubuntu-copy.png)
 
@@ -34,7 +34,7 @@ tags:
 
 打开复制得到的 ``gtest-1.6.0`` ，找到 ``make`` 文件夹。通过终端进入这个 ``make`` 文件夹
 
-方法是同时按下 ``ctrl+alt+t`` 打开终端，输入 ``cd`` 加空格，然后把 ``make`` 文件夹左键拖动到终端并放开，回车
+方法是同时按下 ``Ctrl+Alt+T`` 打开终端，输入 ``cd`` 加空格，然后把 ``make`` 文件夹左键拖动到终端并放开，回车
 
 ![drag to terminal](http://7xrahq.com1.z0.glb.clouddn.com/using-google-test-on-ubuntu-cd-drag.png)
 
@@ -111,11 +111,13 @@ $ ./test
 
 ![run](http://7xrahq.com1.z0.glb.clouddn.com/using-google-test-on-ubuntu-test4.png)
 
-本质上，就是在编译过程中要链接好 ``libgtest.a`` 这个库（和线程那个库）。这个库实际上是由 ``gtest_all.o`` 和 ``gtest_main.o`` 组成。因此我们也可以不要链接.a文件，而是按熟悉的链接.o文件的方式
+本质上，就是在编译过程中要链接好 ``libgtest.a`` 这个库（和线程那个库）。这个库实际上是由 ``gtest_all.o`` 和 ``gtest_main.o`` 组成。因此我们也可以不要链接 ``libgtest.a``，而是按熟悉的 ``g++ 输入文件 -o 输出文件名`` 的方式
 
 ~~~
 g++ Date.cpp test.cpp ../gtest-1.6.0/make/gtest_all.o ../gtest-1.6.0/make/gtest_main.o -I ../gtest-1.6.0/include -lpthread -o test
 
 ~~~
 
-上面这段编译 ``Date.cpp`` 和 ``test.cpp`` ，链接 ``../gtest-1.6.0/make/gtest_all.o`` 和 ``../gtest-1.6.0/make/gtest_main.o``，其他不变，效果拔群
+上面这段只是把输入文件变成了 ``Date.cpp`` 、 ``test.cpp`` 、 ``../gtest-1.6.0/make/gtest_all.o`` 和 ``../gtest-1.6.0/make/gtest_main.o``
+
+即编译 ``Date.cpp`` 和 ``test.cpp`` ，链接 ``../gtest-1.6.0/make/gtest_all.o`` 和 ``../gtest-1.6.0/make/gtest_main.o``，其他不变，效果拔群

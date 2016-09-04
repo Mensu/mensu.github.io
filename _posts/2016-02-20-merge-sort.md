@@ -11,7 +11,7 @@ tags:
     - 排序
 ---
 
-> The article was initially posted on **{{ page.create-date | date: "%Y-%m-%-d" }}**.
+> The article was initially posted on **{{ page.create-date | date: "%Y-%m-%d" }}**.
 
 
 # 合并排序的核心部分

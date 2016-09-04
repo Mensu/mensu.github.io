@@ -11,7 +11,7 @@ tags:
     - 搭建开发环境
 ---
 
-> The article was initially posted on **{{ page.create-date | date: "%Y-%m-%-d" }}**.
+> The article was initially posted on **{{ page.create-date | date: "%Y-%m-%d" }}**.
 
 # 适用人群
 
@@ -54,7 +54,8 @@ C:\Ruby22-x64\bin
 
 **注意**，在中国最好使用淘宝提供的 Gems 镜像源，参见 [ruby.taobao.org](https://ruby.taobao.org){:target="_blank"} ，否则待会儿安装 Gem 时可能会出现
 
-> ERROR:  While executing gem ... (Gem::RemoteFetcher::FetchError)  &nbsp;&nbsp;&nbsp;&nbsp;Errno::ECONNRESET: An existing connection was forcibly closed by the remote host. - SSL_connect (https://api.rubygems.org/quick/Marshal.4.8/jekyll-3.1.2.gemspec.rz)
+> ERROR:  While executing gem ... (Gem::RemoteFetcher::FetchError)  
+&nbsp;&nbsp;&nbsp;&nbsp;Errno::ECONNRESET: An existing connection was forcibly closed by the remote host. - SSL_connect (https://api.rubygems.org/quick/Marshal.4.8/jekyll-3.1.2.gemspec.rz)
 
 ![cannot connect to rubygems.org](http://7xrahq.com1.z0.glb.clouddn.com/establish-development-environment-cannot-connect-to-rubygems-org.png)
 
@@ -66,7 +67,8 @@ gem sources --add https://ruby.taobao.org/ --remove https://rubygems.org/
 
 看到
 
->https://ruby.taobao.org/ added to sources  https://rubygems.org/ removed from sources
+>https://ruby.taobao.org/ added to sources  
+https://rubygems.org/ removed from sources
 
 就可以放心了
 
@@ -108,7 +110,8 @@ gem install jekyll jekyll-paginate
 - Windows 上还要将以下路径加入环境变量 Path 中（注意换成自己安装时选的安装目录）
 
 ~~~plain
-C:\Program Files\Git\binC:\Program Files\Git\mingw64\libexec\git-core
+C:\Program Files\Git\bin
+C:\Program Files\Git\mingw64\libexec\git-core
 ~~~
 
 ![add the paths above to the environment variable Path in Windows](http://7xrahq.com1.z0.glb.clouddn.com/establish-development-environment-add-the-paths-above-to-the-environment-variable-Path-in-Windows.png)

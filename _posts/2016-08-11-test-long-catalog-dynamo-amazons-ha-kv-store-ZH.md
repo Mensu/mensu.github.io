@@ -2,12 +2,13 @@
 layout: 	post
 title: 		（测试长catalog）Dynamo：Amazon高可用键值存储系统
 subtitle:   "本文介绍了Amazon的高可用KV存储系统Dynamo，转发自网络上的一篇Word文档，有修正"
-date: 		2016-08-11 20:55:00
+create-date: 2016-08-11
+update-date: 2016-08-11
 author:     "Shiny"
 catalog: 	true
 ---
 
-注：本文转载自[原文](http://shinyzhu.com/2016/08/11/dynamo-amazons-ha-kv-store-ZH/)，用于测试长catalog。
+注：本文转载自[这里](http://shinyzhu.com/2016/08/11/dynamo-amazons-ha-kv-store-ZH/)，用于测试长catalog。
 
 > 最近看了coolshell的《[分布式系统的事务处理](http://coolshell.cn/articles/10910.html)》一文，文末引用了此文的中文版（[英文原版PDF](http://www.read.seas.harvard.edu/~kohler/class/cs239-w08/decandia07dynamo.pdf)），但是只有一个Word文档，为了方便在线阅读，转换成了markdown格式。
 >

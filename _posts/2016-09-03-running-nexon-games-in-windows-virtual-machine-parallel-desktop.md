@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "在 Parallel Desktop 的 Windows 虚拟机下玩 Nexon 游戏"
-subtitle: "run Nexon games in Windows virtual machine in Parallel Desktop"
+title: "在 Parallel Desktop 的 Windows 虚拟机中玩 Nexon 游戏"
+subtitle: "running Nexon games in Windows virtual machine in Parallel Desktop"
 create-date: 2016-09-03
 update-date: 2016-09-04
 author: "Mensu"

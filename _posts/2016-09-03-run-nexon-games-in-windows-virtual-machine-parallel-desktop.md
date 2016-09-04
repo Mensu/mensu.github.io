@@ -49,4 +49,4 @@ C. 可以打开命令提示符，输入 ``regedit`` 敲下回车打开
 
 # 参考文献
 
-[^source]: [应用程序无法在Parallels虚拟机环境下运行_常见问题 - Parallels官方中文服务](http://www.parallelsdesktop.cn/ying-yong-cheng-xu-wf-yx.html){:target="_blank"}
+[^source]: [应用程序无法在Parallels虚拟机环境下运行_常见问题 - Parallels官方中文服务](https://www.parallelsdesktop.cn/ying-yong-cheng-xu-wf-yx.html){:target="_blank"}

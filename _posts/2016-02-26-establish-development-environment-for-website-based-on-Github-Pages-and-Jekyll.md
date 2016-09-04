@@ -39,10 +39,10 @@ Mac 上：
 
 Windows 上：
 
-- 到 [rubyinstaller.org](http://rubyinstaller.org){:target="_blank"} 下载安装包（可能被封了）。也可以自行在网上找安装包
+- 到 [rubyinstaller.org](https://rubyinstaller.org){:target="_blank"} 下载安装包（可能被封了）。也可以自行在网上找安装包
 - 安装时最好选中 “Add Ruby executables to your PATH”：
 
-![add Ruby executables to the user environment variable Path](http://7xrahq.com1.z0.glb.clouddn.com/establish-development-environment-add-Ruby%20executables-to-the-user-environment-variable-Path.png)
+![add Ruby executables to the user environment variable Path](https://7xrahq.com1.z0.glb.clouddn.com/establish-development-environment-add-Ruby%20executables-to-the-user-environment-variable-Path.png)
 
 或添加以下路径到环境变量 Path 中（注意换成自己安装时选的安装目录）
 
@@ -57,7 +57,7 @@ C:\Ruby22-x64\bin
 > ERROR:  While executing gem ... (Gem::RemoteFetcher::FetchError)  
 &nbsp;&nbsp;&nbsp;&nbsp;Errno::ECONNRESET: An existing connection was forcibly closed by the remote host. - SSL_connect (https://api.rubygems.org/quick/Marshal.4.8/jekyll-3.1.2.gemspec.rz)
 
-![cannot connect to rubygems.org](http://7xrahq.com1.z0.glb.clouddn.com/establish-development-environment-cannot-connect-to-rubygems-org.png)
+![cannot connect to rubygems.org](https://7xrahq.com1.z0.glb.clouddn.com/establish-development-environment-cannot-connect-to-rubygems-org.png)
 
 解决方法，简单来说，就是输入这句然后回车
 
@@ -72,7 +72,7 @@ https://rubygems.org/ removed from sources
 
 就可以放心了
 
-![replace https://rubygems.org/ with https://ruby.taobao.org/ in mainland China](http://7xrahq.com1.z0.glb.clouddn.com/establish-development-environment-replace.png)
+![replace https://rubygems.org/ with https://ruby.taobao.org/ in mainland China](https://7xrahq.com1.z0.glb.clouddn.com/establish-development-environment-replace.png)
 
 # 安装 Gem
 
@@ -83,7 +83,7 @@ Mac 上是在 `$` 后面输入 `sudo 命令`（回车后还要输 Mac 的密码�
 ...$ sudo gem install jekyll
 ~~~ 
 
-![sudo gem install jekyll on Mac](http://7xrahq.com1.z0.glb.clouddn.com/establish-development-environment-sudo-gem-install-jekyll-on-Mac.png)
+![sudo gem install jekyll on Mac](https://7xrahq.com1.z0.glb.clouddn.com/establish-development-environment-sudo-gem-install-jekyll-on-Mac.png)
 
 Windows 上直接：
 
@@ -91,7 +91,7 @@ Windows 上直接：
 ...>gem install jekyll
 ~~~
 
-![gem install jekyll in Windows](http://7xrahq.com1.z0.glb.clouddn.com/establish-development-environment-gem-install-jekyll-in-Windows.png)
+![gem install jekyll in Windows](https://7xrahq.com1.z0.glb.clouddn.com/establish-development-environment-gem-install-jekyll-in-Windows.png)
 
 安装所需的 2 个 Gem ，用的是下面的命令（Mac 上要加`sudo`，下同）
 
@@ -99,14 +99,14 @@ Windows 上直接：
 gem install jekyll jekyll-paginate
 ~~~
 
-![gem install jekyll jekyll-paginate in Windows](http://7xrahq.com1.z0.glb.clouddn.com/establish-development-environment-gem-install-jekyll-and-jekyll-paginate-in-Windows.png)
+![gem install jekyll jekyll-paginate in Windows](https://7xrahq.com1.z0.glb.clouddn.com/establish-development-environment-gem-install-jekyll-and-jekyll-paginate-in-Windows.png)
 
 - jekyll 是用来依照模板生成网站的，是 GitHub Pages 的基础
 - jekyll-paginate 是 paginate 属性用的，可以用来显示文章列表、文章摘要
 
 # 安装 Git
 
-- 到 [git-scm.com/download](http://git-scm.com/download){:target="_blank"} 下载 Git 安装包并安装
+- 到 [git-scm.com/download](https://git-scm.com/download){:target="_blank"} 下载 Git 安装包并安装
 - Windows 上还要将以下路径加入环境变量 Path 中（注意换成自己安装时选的安装目录）
 
 ~~~plain
@@ -114,7 +114,7 @@ C:\Program Files\Git\bin
 C:\Program Files\Git\mingw64\libexec\git-core
 ~~~
 
-![add the paths above to the environment variable Path in Windows](http://7xrahq.com1.z0.glb.clouddn.com/establish-development-environment-add-the-paths-above-to-the-environment-variable-Path-in-Windows.png)
+![add the paths above to the environment variable Path in Windows](https://7xrahq.com1.z0.glb.clouddn.com/establish-development-environment-add-the-paths-above-to-the-environment-variable-Path-in-Windows.png)
 
 # Git 和 GitHub 的准备工作
 
@@ -126,13 +126,13 @@ Mac 下：
 
 - 在 [GitHub Pages](https://pages.github.com){:target="_blank"} 中的 “What git client are you using?” 下选择 “I don't know”，下面就会出现下载按钮，下载完安装即可
 
-![get download button of GitHub Desktop for Mac](http://7xrahq.com1.z0.glb.clouddn.com/establish-development-environment-get-download-button-of-GitHub-Desktop-for-Mac.png)
+![get download button of GitHub Desktop for Mac](https://7xrahq.com1.z0.glb.clouddn.com/establish-development-environment-get-download-button-of-GitHub-Desktop-for-Mac.png)
 
 Windows 下：
 
 - 用 IE 打开 https://github-windows.s3.amazonaws.com/GitHub.application 这个网址，等它慢慢下载、安装即可
 
-![download GitHub Desktop in Windows](http://7xrahq.com1.z0.glb.clouddn.com/establish-development-environment-download-GitHub-Desktop-in-Windows.png)
+![download GitHub Desktop in Windows](https://7xrahq.com1.z0.glb.clouddn.com/establish-development-environment-download-GitHub-Desktop-in-Windows.png)
 
 ## 添加 SSH key
 
@@ -162,7 +162,7 @@ ssh-keygen -t rsa -b 4096 -C "注册 GitHub 时用的邮箱"
 >Enter passphrase (empty for no passphrase):  
 >Enter same passphrase again:
 
-![set configurations, generate SSH key and press Enter three times](http://7xrahq.com1.z0.glb.clouddn.com/establish-development-environment-set-configurations-generate-SSH-key-and-press-Enter-three-times.png)
+![set configurations, generate SSH key and press Enter three times](https://7xrahq.com1.z0.glb.clouddn.com/establish-development-environment-set-configurations-generate-SSH-key-and-press-Enter-three-times.png)
 
 接着，将 SSH key 复制到剪贴板：打开 cmd / 终端，  
 Mac 上输入
@@ -171,7 +171,7 @@ Mac 上输入
 pbcopy < ~/.ssh/id_rsa.pub
 ~~~
 
-![copy SSH key to clipborad on Mac](http://7xrahq.com1.z0.glb.clouddn.com/establish-development-environment-copy-SSH-key-to-clipborad-on-Mac.png)
+![copy SSH key to clipborad on Mac](https://7xrahq.com1.z0.glb.clouddn.com/establish-development-environment-copy-SSH-key-to-clipborad-on-Mac.png)
 
 Windows 上输入
 
@@ -179,18 +179,18 @@ Windows 上输入
 clip < %userprofile%\.ssh\id_rsa.pub
 ~~~
 
-![copy SSH key to clipborad in Windows](http://7xrahq.com1.z0.glb.clouddn.com/establish-development-environment-copy-SSH-key-to-clipborad-in-Windows.png)
+![copy SSH key to clipborad in Windows](https://7xrahq.com1.z0.glb.clouddn.com/establish-development-environment-copy-SSH-key-to-clipborad-in-Windows.png)
 
 或打开 C:\Users\账户名\.ssh 这个文件夹，用记事本等文本编辑器打开里面的 id_rsa.pub 文件，将内容复制到剪贴板  
 应该是类似这样的内容：
 
 >ssh-rsa AAAAB3NzaC1yc2E...sPe7slAHQ== xx@xx.com
 
-![copy SSH key to clipborad in Windows manually](http://7xrahq.com1.z0.glb.clouddn.com/establish-development-environment-copy-SSH-key-to-clipborad-in-Windows-manually.png)
+![copy SSH key to clipborad in Windows manually](https://7xrahq.com1.z0.glb.clouddn.com/establish-development-environment-copy-SSH-key-to-clipborad-in-Windows-manually.png)
 
 最后上 [GitHub 设置](https://github.com/settings/ssh){:target="_blank"}，在 Settings - SSH keys 页面中，点击 New SSH key，添加剪贴板里的内容即可
 
-![add SSH key on GitHub Settings](http://7xrahq.com1.z0.glb.clouddn.com/establish-development-environment-settings.png)
+![add SSH key on GitHub Settings](https://7xrahq.com1.z0.glb.clouddn.com/establish-development-environment-settings.png)
 
 # 进入调试环境
 
@@ -205,11 +205,11 @@ jekyll serve
 
 即可通过在浏览器访问 localhost:4000 来访问我们的网站了。master 可以换成其他分支（branch）的名字。如果是使用 master 这个分支，可以不 `git checkout master` ，直接 `jekyll serve`
 
-![jekyll serve](http://7xrahq.com1.z0.glb.clouddn.com/establish-development-environment-jekyll-serve.png)
+![jekyll serve](https://7xrahq.com1.z0.glb.clouddn.com/establish-development-environment-jekyll-serve.png)
 
 # kramdown 语法
 
-参见 [kramdown.gettalong.org/syntax.html](http://kramdown.gettalong.org/syntax.html){:target="_blank"}
+参见 [kramdown.gettalong.org/syntax.html](https://kramdown.gettalong.org/syntax.html){:target="_blank"}
 
 和一般的 Markdown 相比，主要有以下几点需要注意：
 
@@ -244,7 +244,7 @@ jekyll serve
 ~~~
 
 其中的 css 文件来源于 [syntax.css](https://github.com/mojombo/tpw/blob/master/css/syntax.css){:target="_blank"}  
-另外参见 [修改 syntax.css](http://stackoverflow.com/questions/11093233/how-to-support-scrolling-when-using-pygments-with-jekyll){:target="_blank"}
+另外参见 [修改 syntax.css](https://stackoverflow.com/questions/11093233/how-to-support-scrolling-when-using-pygments-with-jekyll){:target="_blank"}
 
 - 引用：`>` 上面要空一行
 
@@ -457,7 +457,7 @@ authors:
   Mensu:
     name: Mensu
     email: yxshw55@qq.com
-    website: http://mensu.github.io
+    website: https://mensu.github.io
     github: Mensu
     weibo: yxshw55
     twitter: mensuhamesu
@@ -475,7 +475,7 @@ SNS:
 
   - site: weibo
     username: yxshw55
-    url: http://weibo.com/yxshw55
+    url: https://weibo.com/yxshw55
 
   - site: twitter
     username: mensuhamesu

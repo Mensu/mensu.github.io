@@ -8,9 +8,9 @@ author:     "Shiny"
 catalog: 	true
 ---
 
-注：本文转载自[这里](http://shinyzhu.com/2016/08/11/dynamo-amazons-ha-kv-store-ZH/)，用于测试长catalog。
+注：本文转载自[这里](https://shinyzhu.com/2016/08/11/dynamo-amazons-ha-kv-store-ZH/)，用于测试长catalog。
 
-> 最近看了coolshell的《[分布式系统的事务处理](http://coolshell.cn/articles/10910.html)》一文，文末引用了此文的中文版（[英文原版PDF](http://www.read.seas.harvard.edu/~kohler/class/cs239-w08/decandia07dynamo.pdf)），但是只有一个Word文档，为了方便在线阅读，转换成了markdown格式。
+> 最近看了coolshell的《[分布式系统的事务处理](https://coolshell.cn/articles/10910.html)》一文，文末引用了此文的中文版（[英文原版PDF](https://www.read.seas.harvard.edu/~kohler/class/cs239-w08/decandia07dynamo.pdf)），但是只有一个Word文档，为了方便在线阅读，转换成了markdown格式。
 >
 > P.S. 中文翻译还是有很多地方不通顺，作了一些修正。
 
@@ -36,7 +36,7 @@ Amazon运行一个全球性的电子商务服务平台，在繁忙时段使用�
 
 Amazon服务平台中的许多服务只需要主键访问数据存储。对于许多服务，如提供最畅销书排行榜，购物车，客户的偏好，会话管理，销售等级，产品目录，常见的使用关系数据库的模式会导致效率低下，有限的可扩展性和可用性。Dynamo提供了一个简单的主键唯一的接口，以满足这些应用的要求。
 
-Dynamo综合了一些著名的技术来实现可伸缩性和可用性：数据划分(data partitioned)和使用一致性哈希的复制(replicated)[10]，并通过对象版本(object versioning)提供一致性[12]。在更新时，副本之间的一致性是由仲裁般(quorum-like)的技术和去中心化的副本同步协议来维持的。Dynamo采用了基于[gossip](http://en.wikipedia.org/wiki/Gossip)(不知道怎样译过来好，流言蜚语?或许保留成外来语为好)的分布式故障检测及成员(membership)协议(也即token环上的节点在响应节点加入(join)/离开(leaving)/移除(removing)/消亡(dead)等所采取的动作以维持DHT/Partitioning的正确语义)。Dynamo是一个只需要很少的人工管理，去中心化的系统。存储节点可以添加和删除，而不需要任何手动划分(partitioning - partitioner controls how thedata are distributed over the nodes)或重新分配(redistribution)。
+Dynamo综合了一些著名的技术来实现可伸缩性和可用性：数据划分(data partitioned)和使用一致性哈希的复制(replicated)[10]，并通过对象版本(object versioning)提供一致性[12]。在更新时，副本之间的一致性是由仲裁般(quorum-like)的技术和去中心化的副本同步协议来维持的。Dynamo采用了基于[gossip](https://en.wikipedia.org/wiki/Gossip)(不知道怎样译过来好，流言蜚语?或许保留成外来语为好)的分布式故障检测及成员(membership)协议(也即token环上的节点在响应节点加入(join)/离开(leaving)/移除(removing)/消亡(dead)等所采取的动作以维持DHT/Partitioning的正确语义)。Dynamo是一个只需要很少的人工管理，去中心化的系统。存储节点可以添加和删除，而不需要任何手动划分(partitioning - partitioner controls how thedata are distributed over the nodes)或重新分配(redistribution)。
 
 在过去的一年，Dynamo已经成为Amazon电子商务平台的核心服务的底层存储技术。它能够有效地扩展到极端高峰负载，在繁忙的假日购物季节没有任何的停机时间。例如，维护购物车(购物车服务)的服务，在一天内承担数千万的请求，并因此导致超过300万checkouts(结算？)，以及管理十万计的并发活动会话的状态。
 
@@ -105,7 +105,7 @@ Amazon电子商务平台由数百个服务组成，它们协同工作，提供�
 
 #### 3.1、点对点系统
 
-已经有几个点对点(P2P)系统研究过数据存储和分配的问题。如第一代P2P系统[Freenet](http://freenetproject.org/)和[Gnutella](http://www.gnutella.org/)，被主要用作文件共享系统。这些都是由链路任意建立的非结构化P2P的网络的例子。在这些网络中，通常是充斥着通过网络的搜索查询以找到尽可能多地共享数据的对等节点。P2P系统演进到下一代是广泛被称为结构化P2P。这些网络采用了全局一致的协议，以确保任何节点都可以有效率地传送一个搜索查询到那些需要数据的节点。系统，如Pastry[16]和Chord[20]使用路由机制，以确保查询可以在有限的跳数(hops)内得到回答。为了减少多跳路由引入的额外延时，有些P2P系统(例如，[14])采用O(1)路由，每个节点保持足够的路由信息，以便它可以在常数跳数下从本地路由请求(到要访问的数据项)到适当的节点。
+已经有几个点对点(P2P)系统研究过数据存储和分配的问题。如第一代P2P系统[Freenet](https://freenetproject.org/)和[Gnutella](https://www.gnutella.org/)，被主要用作文件共享系统。这些都是由链路任意建立的非结构化P2P的网络的例子。在这些网络中，通常是充斥着通过网络的搜索查询以找到尽可能多地共享数据的对等节点。P2P系统演进到下一代是广泛被称为结构化P2P。这些网络采用了全局一致的协议，以确保任何节点都可以有效率地传送一个搜索查询到那些需要数据的节点。系统，如Pastry[16]和Chord[20]使用路由机制，以确保查询可以在有限的跳数(hops)内得到回答。为了减少多跳路由引入的额外延时，有些P2P系统(例如，[14])采用O(1)路由，每个节点保持足够的路由信息，以便它可以在常数跳数下从本地路由请求(到要访问的数据项)到适当的节点。
 
 其他的存储系统，如Oceanstore[9]和PAST[17]是建立在这些交错的路由基础之上的。Oceanstore提供了一个全局性的，事务性，持久性存储服务，支持对广阔的(widely)复制的数据进行序列化更新。为允许并发更新的同时避免与广域锁定(wide-area locking)固有的许多问题，它使用了一个协调冲突的更新模型。[21]介绍了在协调冲突，以减少交易中止数量。Oceanstore协调冲突的方式是：通过处理一系列的更新，为他们选择一个最终的顺序，然后利用这个顺序原子地进行更新。它是为数据被复制到不受信任的环境的基础设施之上而建立。相比之下，PAST提供了一个基于Pastry和不可改变的对象的简单的抽象层。它假定应用程序可以在它之上建立必要的存储的语义(如可变文件)。
 
@@ -259,7 +259,7 @@ Dynamo的本地持久化组件允许插入不同的存储引擎，如：Berkeley
 
 在读取响应返回给调用方后，状态机等待一小段时间以接受任何悬而未决的响应。如果任何响应返回了过时了的(stale)的版本，协调员将用最新的版本更新这些节点(当然是在后台了)。这个过程被称为*读修复**(read repair)*，因为它是用来修复一个在某个时间曾经错过更新操作的副本，同时read repair可以消除不必的反熵操作。
 
-如前所述，**写请求**是由首选列表中某个排名前N的节点来协调的。虽然总是选择前N节点中的第一个节点来协调是可以的，但在单一地点序列化所有的写的做法会导致负荷分配不均，进而导致违反SLA。为了解决这个问题，首选列表中的前N的任何节点都允许协调。特别是，由于写通常跟随在一个读操作之后，写操作的协调员将由节点上最快答复之前那个读操作的节点来担任，这是因为这些信息存储在请求的上下文中(指的是write操作的请求)。这种优化使我们能够选择那个存有同样被之前读操作使用过的数据的节点，从而提高“读你的写”(read-your-writes)一致性(译：我不认为这个描述是有道理的，因为作者这里描述明明是write-follows-read,要了解read-your-writes一致性的读者参见作者另一篇文章:[eventually consistent](http://www.allthingsdistributed.com/2007/12/eventually_consistent.html))。它也减少了为了将处理请求的性能提高到99.9百分位时性能表现的差异。
+如前所述，**写请求**是由首选列表中某个排名前N的节点来协调的。虽然总是选择前N节点中的第一个节点来协调是可以的，但在单一地点序列化所有的写的做法会导致负荷分配不均，进而导致违反SLA。为了解决这个问题，首选列表中的前N的任何节点都允许协调。特别是，由于写通常跟随在一个读操作之后，写操作的协调员将由节点上最快答复之前那个读操作的节点来担任，这是因为这些信息存储在请求的上下文中(指的是write操作的请求)。这种优化使我们能够选择那个存有同样被之前读操作使用过的数据的节点，从而提高“读你的写”(read-your-writes)一致性(译：我不认为这个描述是有道理的，因为作者这里描述明明是write-follows-read,要了解read-your-writes一致性的读者参见作者另一篇文章:[eventually consistent](https://www.allthingsdistributed.com/2007/12/eventually_consistent.html))。它也减少了为了将处理请求的性能提高到99.9百分位时性能表现的差异。
 
 ### 6、经验与教训
 
@@ -356,7 +356,7 @@ Dynamo采用一致性的散列将key space(键空间)分布在其所有的副本
 
 #### 6.4、客户端驱动或服务器驱动协调
 
-如第5条所述，Dynamo有一个请求协调组件，它使用一个状态机来处理进来的请求。客户端的请求均匀分配到环上的节点是由负载平衡器完成的。Dynamo的任何节点都可以充当一个读请求协调员。另一方面，写请求将由key的首选列表中的节点来协调。此限制是由于这一事实－－这些首选节点具有附加的责任：即创建一个新的版本标识，使之与写请求更新的版本建立因果关系(译：呜呜，这个很难！Causallysubsumes)。请注意，如果Dynamo的版本方案是建基于**物理时间戳**(译：一个在本文中没解释的概念：[[Timestamp Semantics and Representation](http://citeseerx.ist.psu.edu/viewdoc/download;jsessionid=52C6243556CD1D2BECBB2C9EA21A2B59?doi=10.1.1.47.1211&rep=rep1&type=pdf)]Manydatabase management systems and operating systems provide support for timevalues. This support is present at both the logical and physical levels. Thelogical level is the user's view of the time values and the query leveloperations permitted on those values, while the physical level concerns the bitlayout of the time values and the bit level operations on those values. Thephysical level serves as a platform for the logical level but is inaccessibleto the average user.)的话，任何节点都可以协调一个写请求。
+如第5条所述，Dynamo有一个请求协调组件，它使用一个状态机来处理进来的请求。客户端的请求均匀分配到环上的节点是由负载平衡器完成的。Dynamo的任何节点都可以充当一个读请求协调员。另一方面，写请求将由key的首选列表中的节点来协调。此限制是由于这一事实－－这些首选节点具有附加的责任：即创建一个新的版本标识，使之与写请求更新的版本建立因果关系(译：呜呜，这个很难！Causallysubsumes)。请注意，如果Dynamo的版本方案是建基于**物理时间戳**(译：一个在本文中没解释的概念：[[Timestamp Semantics and Representation](https://citeseerx.ist.psu.edu/viewdoc/download;jsessionid=52C6243556CD1D2BECBB2C9EA21A2B59?doi=10.1.1.47.1211&rep=rep1&type=pdf)]Manydatabase management systems and operating systems provide support for timevalues. This support is present at both the logical and physical levels. Thelogical level is the user's view of the time values and the query leveloperations permitted on those values, while the physical level concerns the bitlayout of the time values and the bit level operations on those values. Thephysical level serves as a platform for the logical level but is inaccessibleto the average user.)的话，任何节点都可以协调一个写请求。
 
 另一种请求协调的方法是将状态机移到客户端节点。在这个方案中，客户端应用程序使用一个库在本地执行请求协调。客户端定期随机选取一个节点，并下载其当前的Dynamo成员状态视图。利用这些信息,客户端可以从首选列表中为给定的key选定相应的节点集。读请求可以在客户端节点进行协调，从而避免了额外一跳的网络开销(network hop)，比如，如果请求是由负载平衡器分配到一个随机的Dynamo节点，这种情况会招致这样的额外一跳。如果Dynamo使用基于时间戳的版本机制，写要么被转发到在key的首选列表中的节点，也可以在本地协调。
 

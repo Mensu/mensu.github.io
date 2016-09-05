@@ -1,58 +1,68 @@
 @import "variables.less";
-
-// Sidebar Components
+@import "mixins.less";
 
 // Large Screen
-@media (min-width: 1200px){
-    .post-container, .sidebar-container{
-        padding-right: 5%;
-    }
+@media screen and (min-width: 1200px) {
+  .post-container, .sidebar-container {
+    padding-right: 5%;
+  }
 }
-@media (min-width: 768px){
-    .post-container{
-        padding-right: 5%;
-    }
+@media screen and (min-width: 768px) {
+  .post-container {
+     padding-right: 5%;
+  }
 }
 
 // Container of Sidebar, also Friends
-.sidebar-container{
-    color: @gray-l;
-    font-size: 14px;
-    h5{
-        color: @gray;
-        padding-bottom: 1em;
-        a{
-            color: @gray !important;
-            text-decoration: none;
-        }
+.sidebar-container {
+  color: @gray-l;
+  font-size: 14px;
+  a {
+    color: @gray;
+    text-decoration: none;
+  }
+  h5 {
+    padding-bottom: 1em;
+  }
+  .tags {
+    a {
+      border-color: @gray-l;
+      color: @gray-l;
+      &:hover,
+      &:active {
+        color: @brand-primary;
+        border-color: @brand-primary;
+      }
     }
-    a{
-        color: @gray-l !important;
-        &:hover, &:active{
-            color: @brand-primary !important;
-        }
+  }
+  .short-about {
+    img {
+      width: 80%;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 20px;
+
+      border-radius: 5px;
     }
-    .tags{
-        a{
-            border-color: @gray-l;
-            &:hover, &:active{
-                border-color: @brand-primary;
-            }
-        }
+    p {
+      margin-top: 0px;
+      margin-bottom: 20px;
     }
-    .short-about{
-        img{
-            width: 80%;
-            display: block;
-            border-radius: 5px;
-            margin-bottom: 20px;
-        }
-        p{
-            margin-top: 0px;
-            margin-bottom: 20px;
-        }
-        .list-inline>li{
-            padding-left: 0px;
-        }
+    .list-inline {
+      margin-left: 0;
+
+      text-align: center;
+
+      a {
+        text-decoration: none;
+      }
     }
+    @media screen and (min-width:992px) {
+      hr.hr-below-something {
+        display: none;
+      }
+    }
+
+  }
 }

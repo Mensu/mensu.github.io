@@ -82,15 +82,12 @@ tags:
             ├── gtest_main.o
             ├── gtest_all.o
             └── libgtest.a
-    
-
 ~~~
 
 在这种目录结构下，编译命令为
 
-~~~
+~~~bash
 g++ Date.cpp test.cpp -I ../gtest-1.6.0/include -L ../gtest-1.6.0/make -lgtest -lpthread -o test
-
 ~~~
 
 - ``g++ Date.cpp test.cpp`` 把这两份文件编译为可执行文件
@@ -104,9 +101,8 @@ g++ Date.cpp test.cpp -I ../gtest-1.6.0/include -L ../gtest-1.6.0/make -lgtest -
 
 大功告成！运行下试试
 
-~~~
-$ ./test
-
+~~~bash
+./test
 ~~~
 
 ![run](http://7xrahq.com1.z0.glb.clouddn.com/using-google-test-on-ubuntu-test4.png)
@@ -115,7 +111,6 @@ $ ./test
 
 ~~~
 g++ Date.cpp test.cpp ../gtest-1.6.0/make/gtest_all.o ../gtest-1.6.0/make/gtest_main.o -I ../gtest-1.6.0/include -lpthread -o test
-
 ~~~
 
 上面这段只是把输入文件变成了 ``Date.cpp`` 、 ``test.cpp`` 、 ``../gtest-1.6.0/make/gtest_all.o`` 和 ``../gtest-1.6.0/make/gtest_main.o``

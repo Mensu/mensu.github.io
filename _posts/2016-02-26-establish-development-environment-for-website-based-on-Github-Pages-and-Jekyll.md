@@ -80,7 +80,7 @@ Mac 上和 Windows 上的安装命令大同小异
 Mac 上是在 `$` 后面输入 `sudo 命令`（回车后还要输 Mac 的密码，密码不回显，输完回车即可）：
 
 ~~~ruby
-...$ sudo gem install jekyll
+sudo gem install jekyll
 ~~~ 
 
 ![sudo gem install jekyll on Mac](http://7xrahq.com1.z0.glb.clouddn.com/establish-development-environment-sudo-gem-install-jekyll-on-Mac.png)
@@ -88,7 +88,7 @@ Mac 上是在 `$` 后面输入 `sudo 命令`（回车后还要输 Mac 的密码�
 Windows 上直接：
 
 ~~~ruby
-...>gem install jekyll
+gem install jekyll
 ~~~
 
 ![gem install jekyll in Windows](http://7xrahq.com1.z0.glb.clouddn.com/establish-development-environment-gem-install-jekyll-in-Windows.png)
@@ -318,7 +318,7 @@ Jekyll 这玩意用到了 Liquid（用大括号围起来的语句），可以制
 
 将 index-head.html、index-body.html 放在 _includes 文件夹中，index.html 放在外面，最终生成的index.html（在 _site 文件夹里）就长这样：
 
-~~~
+~~~html
 <html>
   <head>
   <meta charset="uft-8">
@@ -335,7 +335,7 @@ Jekyll 这玩意用到了 Liquid（用大括号围起来的语句），可以制
 
 - _layouts 文件夹：存放网页模板，配合 layout 属性使用，例如
 
-~~~
+~~~html
 <!-- /_layouts/post-A.html 中 -->
 <html>
   <head>

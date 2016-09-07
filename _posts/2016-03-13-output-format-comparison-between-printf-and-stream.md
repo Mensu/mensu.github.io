@@ -272,7 +272,6 @@ std::cout << "最小宽度为2，右对齐，如果宽度不足2，则在左边�
           << std::setw(2) << minute << ':' << std::flush
           << std::setw(2) << second << std::endl << std::endl;
 std::cout.fill(' ');
- 
 ~~~
 
 ![width, adjustment and fill in stream](http://7xrahq.com1.z0.glb.clouddn.com/printf-and-stream-width-adjustment-fill-stream.png)

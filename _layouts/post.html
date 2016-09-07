@@ -116,7 +116,7 @@ layout: default
         $('.highlighter-rouge').each(function(i, e) {
           var code = $(this).find('code');
           code.addClass($(this).attr('class').match(/language-[\w]{1,}/)[0]);
-          hljs.highlightBlock(code, null, false, true);
+          hljs.highlightBlock(code[0], null, false, true);
         });
       });
       function generateCatalog (selector) {

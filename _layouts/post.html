@@ -113,7 +113,7 @@ layout: default
   async("{{ "/js/jquery.nav.js" | prepend: site.baseurl }}", function() {
     async("{{ "/js/highlight.pack.js" | prepend: site.baseurl }}", function() {
        $(document).ready(function() {
-        $('.highlighter-rouge').each(function(i, e) {
+        $('div.highlighter-rouge').each(function(i, e) {
           var code = $(this).find('code');
           code.addClass($(this).attr('class').match(/language-[\w]{1,}/)[0]);
           hljs.highlightBlock(code[0], null, false, true);

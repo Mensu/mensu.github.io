@@ -46,7 +46,7 @@ Windows 上：
 
 或添加以下路径到环境变量 Path 中（注意换成自己安装时选的安装目录）
 
-~~~bash
+~~~trueBash
 C:\Ruby22-x64\bin
 ~~~
 
@@ -109,7 +109,7 @@ gem install jekyll jekyll-paginate
 - 到 [git-scm.com/download](http://git-scm.com/download){:target="_blank"} 下载 Git 安装包并安装
 - Windows 上还要将以下路径加入环境变量 Path 中（注意换成自己安装时选的安装目录）
 
-~~~bash
+~~~trueBash
 C:\Program Files\Git\bin
 C:\Program Files\Git\mingw64\libexec\git-core
 ~~~
@@ -152,7 +152,7 @@ git config --global user.email "注册 GitHub 时用的邮箱"
 
 接下来生成 SSH key
 
-~~~bash
+~~~trueBash
 ssh-keygen -t rsa -b 4096 -C "注册 GitHub 时用的邮箱"
 ~~~
 
@@ -167,7 +167,7 @@ ssh-keygen -t rsa -b 4096 -C "注册 GitHub 时用的邮箱"
 接着，将 SSH key 复制到剪贴板：打开 cmd / 终端，  
 Mac 上输入
 
-~~~bash
+~~~trueBash
 pbcopy < ~/.ssh/id_rsa.pub
 ~~~
 
@@ -175,7 +175,7 @@ pbcopy < ~/.ssh/id_rsa.pub
 
 Windows 上输入
 
-~~~bash
+~~~trueBash
 clip < %userprofile%\.ssh\id_rsa.pub
 ~~~
 
@@ -215,7 +215,7 @@ jekyll serve
 
 - kramdown 中代码块必须使用三个波浪号 `~~~`，而且 `~~~` 上面要空一行
 
-~~~markdown
+~~~kramdown
 ...其他文字
 
  ~~~
@@ -225,31 +225,32 @@ jekyll serve
 
 不识别三个反引号
 
-~~~bash
+~~~trueBash
  ```
  代码块无法高亮
  ```
 ~~~
 
+
 行内代码用两个反引号
 
-~~~markdown
-``行内代码``
+~~~kramdown
+一行内其他文字 ``行内代码`` 一行内其他文字
 ~~~
 
 - 引用：`>` 上面要空一行
 
-~~~markdown
+~~~kramdown
 ...其他文字
 
->quote
+> quote
 ~~~
 
 一定要空一行
 
 - 标题：#空格标题内容
 
-~~~markdown
+~~~kramdown
 # h1
 ## h2
 ~~~
@@ -258,13 +259,13 @@ jekyll serve
 
 - 换行：空开一行或者在上一行的末尾加两个空格
 
-~~~markdown
+~~~kramdown
 the first line
 
 a second line
 ~~~
 
-~~~markdown
+~~~kramdown
 the first line空格空格
 a second line
 ~~~
@@ -273,7 +274,7 @@ a second line
 
 - 链接：在链接后面加 `{:target="_blank"}` 实现从新窗口打开链接
 
-~~~markdown
+~~~kramdown
 ![google](https://www.google.com){:target="_blank"}
 ~~~
 
@@ -318,7 +319,7 @@ Jekyll 这玩意用到了 Liquid（用大括号围起来的语句），可以制
 
 将 index-head.html、index-body.html 放在 _includes 文件夹中，index.html 放在外面，最终生成的index.html（在 _site 文件夹里）就长这样：
 
-~~~
+~~~html
 <html>
   <head>
   <meta charset="uft-8">
@@ -335,7 +336,7 @@ Jekyll 这玩意用到了 Liquid（用大括号围起来的语句），可以制
 
 - _layouts 文件夹：存放网页模板，配合 layout 属性使用，例如
 
-~~~
+~~~html
 <!-- /_layouts/post-A.html 中 -->
 <html>
   <head>
@@ -398,7 +399,7 @@ layout: post-A
 
 html 或 md 文件可以定义局部变量。局部变量放在两个`---`之间，例如 md 文件最上方可以设置所使用的 layout 以及 title 局部变量
 
-~~~markdown
+~~~md
 ---
 layout: post-A
 title: My first Article

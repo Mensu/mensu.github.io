@@ -113,11 +113,25 @@ layout: default
   async("{{ "/js/jquery.nav.js" | prepend: site.baseurl }}", function() {
     async("{{ "/js/highlight.pack.js" | prepend: site.baseurl }}", function() {
        $(document).ready(function() {
+         var lanMap = {
+           "language-kramdown": 'language-markdown',
+           "language-trueBash": 'language-bash',
+           "language-git": 'language-bash'
+         };
+         hljs.configure({"lineNode": true});
+         $('pre code').each(function(i, e) {
+          var result = this.className.match(/language-[\w]{1,}/);
+          if (!result) return;
+          if (lanMap[result[0]]) {
+            this.classList.remove(result[0]);
+            this.classList.add(lanMap[result[0]]);
+          }
+          hljs.highlightBlock(this);
+        });
         $('div.highlighter-rouge').each(function(i, e) {
           var code = $(this).find('code');
           var result = $(this).attr('class').match(/language-[\w]{1,}/);
           if (result) code.addClass(result[0]);
-          hljs.configure({"lineNode": true});
           hljs.highlightBlock(code[0]);
         });
       });

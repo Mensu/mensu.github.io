@@ -20,7 +20,7 @@ tags:
 复制粘贴以下命令，回车  
 有些 Windows 系统 cmd 下粘贴需要在 cmd 中右键 - 粘贴
 
-~~~bash
+~~~trueBash
 cd /d "%userprofile%\AppData\Local"
 attrib –h "IconCache.db"
 del "IconCache.db"

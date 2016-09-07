@@ -46,7 +46,7 @@ anchorjs: true                          # if you want to customize anchor. check
 markdown: kramdown
 kramdown:
   input: GFM                            # use Github Flavored Markdown !important
-  # syntax_highlighter: highlightjs
+  syntax_highlighter: highlightjs
   # syntax_highlighter_opts:
   #   default_lang: "ruby"
 

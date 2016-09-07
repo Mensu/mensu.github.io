@@ -225,7 +225,7 @@ jekyll serve
 
 不识别三个反引号
 
-~~~markdown
+~~~bash
  ```
  代码块无法高亮
  ```
@@ -234,17 +234,8 @@ jekyll serve
 行内代码用两个反引号
 
 ~~~markdown
-`行内代码`
+``行内代码``
 ~~~
-
-因为 rouge 语法高亮不是在一开始就进行的，所以希望页面一打开就有一点高亮效果的话，建议在 \<head\> 标签中加入
-
-~~~html
-<link rel="stylesheet" href="/css/syntax.css">
-~~~
-
-其中的 css 文件来源于 [syntax.css](https://github.com/mojombo/tpw/blob/master/css/syntax.css){:target="_blank"}  
-另外参见 [修改 syntax.css](http://stackoverflow.com/questions/11093233/how-to-support-scrolling-when-using-pygments-with-jekyll){:target="_blank"}
 
 - 引用：`>` 上面要空一行
 

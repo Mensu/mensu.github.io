@@ -80,7 +80,7 @@ Mac 上和 Windows 上的安装命令大同小异
 Mac 上是在 `$` 后面输入 `sudo 命令`（回车后还要输 Mac 的密码，密码不回显，输完回车即可）：
 
 ~~~ruby
-...$ sudo gem install jekyll
+sudo gem install jekyll
 ~~~ 
 
 ![sudo gem install jekyll on Mac](http://7xrahq.com1.z0.glb.clouddn.com/establish-development-environment-sudo-gem-install-jekyll-on-Mac.png)
@@ -88,7 +88,7 @@ Mac 上是在 `$` 后面输入 `sudo 命令`（回车后还要输 Mac 的密码�
 Windows 上直接：
 
 ~~~ruby
-...>gem install jekyll
+gem install jekyll
 ~~~
 
 ![gem install jekyll in Windows](http://7xrahq.com1.z0.glb.clouddn.com/establish-development-environment-gem-install-jekyll-in-Windows.png)

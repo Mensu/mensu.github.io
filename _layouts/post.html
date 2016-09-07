@@ -114,7 +114,9 @@ layout: default
     async("{{ "/js/highlight.pack.js" | prepend: site.baseurl }}", function() {
        $(document).ready(function() {
         $('.highlighter-rouge').each(function(i, e) {
-          hljs.highlightBlock(e, null, false, true);
+          var code = $(this).find('code');
+          code.addClass($(this).attr('class').match(/language-[\w]{1,}/)[0]);
+          hljs.highlightBlock(code, null, false, true);
         });
       });
       function generateCatalog (selector) {

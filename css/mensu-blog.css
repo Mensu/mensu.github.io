@@ -233,6 +233,9 @@ pre,
     margin-top: -0.1em;
   }
 }
+.post-container * {
+  overflow-x: scroll;
+}
 .post-container h1,
 .post-container h2,
 .post-container h3,

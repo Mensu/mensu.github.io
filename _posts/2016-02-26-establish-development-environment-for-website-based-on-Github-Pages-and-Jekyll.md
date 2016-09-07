@@ -46,7 +46,7 @@ Windows 上：
 
 或添加以下路径到环境变量 Path 中（注意换成自己安装时选的安装目录）
 
-~~~plain
+~~~bash
 C:\Ruby22-x64\bin
 ~~~
 
@@ -109,7 +109,7 @@ gem install jekyll jekyll-paginate
 - 到 [git-scm.com/download](http://git-scm.com/download){:target="_blank"} 下载 Git 安装包并安装
 - Windows 上还要将以下路径加入环境变量 Path 中（注意换成自己安装时选的安装目录）
 
-~~~plain
+~~~bash
 C:\Program Files\Git\bin
 C:\Program Files\Git\mingw64\libexec\git-core
 ~~~
@@ -152,7 +152,7 @@ git config --global user.email "注册 GitHub 时用的邮箱"
 
 接下来生成 SSH key
 
-~~~plain
+~~~bash
 ssh-keygen -t rsa -b 4096 -C "注册 GitHub 时用的邮箱"
 ~~~
 
@@ -167,7 +167,7 @@ ssh-keygen -t rsa -b 4096 -C "注册 GitHub 时用的邮箱"
 接着，将 SSH key 复制到剪贴板：打开 cmd / 终端，  
 Mac 上输入
 
-~~~plain
+~~~bash
 pbcopy < ~/.ssh/id_rsa.pub
 ~~~
 
@@ -175,7 +175,7 @@ pbcopy < ~/.ssh/id_rsa.pub
 
 Windows 上输入
 
-~~~plain
+~~~bash
 clip < %userprofile%\.ssh\id_rsa.pub
 ~~~
 

@@ -24,7 +24,7 @@ tags:
 
 printf
 
-~~~c
+~~~cpp
 // C code
 int num = 10;
 
@@ -124,7 +124,7 @@ std::cout.setf(std::ios::XXX);
 
 一般这三种方式的效果相同。而在设置三大格式：进制、对齐方式、小数表示法的时候，具体的流控制符与其他两种方式的效果不同
 
-总而言之，具体的流控制符 ``std::XXX`` 或 ``std::setXX`` 会先将对应格式**恢复成默认状态**，再进行新的设置，而其他两种方式只是在单纯地“叠加”效果，而“叠加”的结果十分复杂，不一定如我们所愿
+具体来说，具体的流控制符 ``std::XXX`` 或 ``std::setXX`` 会先将对应格式**恢复成默认状态**，再进行新的设置，而其他两种方式只是在单纯地往之前的结果上“叠加”新的效果。而“叠加”的结果十分复杂，不一定如我们所愿
 
 所以，以设置八进制为例，要么直接用流控制符 ``std::oct``、``std::setbase(int __base)``
 
@@ -156,7 +156,7 @@ std::cout.setf(std::ios::oct, std::ios::basefield);
 std::cout << num << std::endl;
 ~~~
 
-由此可见，具体的流控制符 ``std::oct`` 自带清除先前设置的效果，十分方便
+由此可见，具体的流控制符 ``std::oct``、``std::setbase(int __base)`` 自带清除先前设置的效果，十分方便
 
 ## 取消设置
 
@@ -214,7 +214,7 @@ std::cout << std::nouppercase;  // 取消字母大写
 
 printf 的限制很大，例如 “填补字符” 只有 '0' 和 空格 ' '，使用 '0' 时还只能使用右对齐。因为左对齐的 ``-`` 会排斥填补的 ``0``
 
-~~~c
+~~~cpp
 // C code
 double num = 4.0;
 printf("最小宽度为11，右对齐：%11.g%11g"
@@ -288,7 +288,7 @@ printf 用 ``+`` 为十进制正数输出正号
 
 一类和二类自由组合
 
-~~~c
+~~~cpp
 // C code
 // 应用：避免输出 “+-6”
 int a = 2, b = 3, c = -6;
@@ -323,7 +323,7 @@ std::cout << "平面上某直线的一般方程："
 
 printf
 
-~~~c
+~~~cpp
 // C code
 double small = 0.003406000400001;
 double big = 42.213;
@@ -354,7 +354,6 @@ printf("\n科学计数法，小数点后7位（包括多余的0）：\n  "
 int leastWidth = 10, precision = 7;
 printf("\n动态控制最小宽度、精度：%+-*.*f"   // 正号+、左对齐-、动态最小宽度*、精度*、普通计数法f
         "\n\n", leastWidth, precision, small);
-         
 ~~~
 
 ![set precision in printf](http://7xrahq.com1.z0.glb.clouddn.com/printf-and-stream-set-precision-printf.png)
@@ -405,7 +404,6 @@ std::cout << "动态控制最小宽度、精度："
           << std::setprecision(precision) << std::setw(leastWidth)
           << small << std::endl << std::endl;
 std::cout.flags(defaultFlags), std::cout.precision(6);
- 
 ~~~
 
 ![set precision in stream](http://7xrahq.com1.z0.glb.clouddn.com/printf-and-stream-set-precision-stream.png)

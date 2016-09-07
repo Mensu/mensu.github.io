@@ -43,14 +43,8 @@
 </footer>
 
 
-<!-- jQuery -->
-<script src="{{ "/js/jquery-2.2.1.js " | prepend: site.baseurl }}"></script>
-
-<!-- Custom Theme JavaScript -->
+<script src="{{ "/js/jquery.js " | prepend: site.baseurl }}"></script>
 <script src="{{ "/js/hux-blog.js " | prepend: site.baseurl }}"></script>
-
-
-
 <script src="{{ "/js/bootstrap.js" | prepend: site.baseurl }}"></script>
 
 <!-- 多说公共JS代码 starts -->
@@ -113,9 +107,9 @@ var duoshuoQuery = {short_name:"{{site.duoshuo-username}}"};
 
 <!-- Highlight.js -->
 <script>
-  async("{{ "/js/highlight.min.js" | prepend: site.baseurl }}", function(){
-      hljs.initHighlightingOnLoad();
-  })
+  // async("{{ "/js/highlight.min.js" | prepend: site.baseurl }}", function(){
+  //     hljs.initHighlightingOnLoad();
+  // })
   // only load tagcloud.js in tag.html
   if($('#tag_cloud').length !== 0){
       async("/js/jquery.tagcloud.js",function(){
@@ -127,7 +121,7 @@ var duoshuoQuery = {short_name:"{{site.duoshuo-username}}"};
       })
   }
 </script>
-<link href="{{ "/css/github.min.css" | prepend: site.baseurl }}" rel="stylesheet">
+<!--<link href="{{ "/css/github.min.css" | prepend: site.baseurl }}" rel="stylesheet">-->
 
 <!--fastClick.js -->
 <script>

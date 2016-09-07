@@ -26,7 +26,7 @@ tags:
 
 ![after-extract](http://7xrahq.com1.z0.glb.clouddn.com/using-google-test-on-ubuntu-after-extract.png)
 
-把生成的文件夹 ``Ctrl + C`` 、``Ctrl+V`` 复制粘贴到找得到的地方。这里我复制到了 ``test`` 目录下
+把生成的文件夹 ``Ctrl+C`` 、``Ctrl+V`` 复制粘贴到找得到的地方。这里我复制到了 ``test`` 目录下
 
 ![copy](http://7xrahq.com1.z0.glb.clouddn.com/using-google-test-on-ubuntu-copy.png)
 

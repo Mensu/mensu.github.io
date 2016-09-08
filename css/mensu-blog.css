@@ -227,14 +227,16 @@ pre,
 @media screen and (min-width: 800px) {
   .anchorjs-link {
     position: absolute;
-    color: #0085A1;
+    color: #337ab7;
     left: -0.75em;
     font-size: 1.1em;
     margin-top: -0.1em;
   }
 }
-.post-container {
-  word-break: break-all;
+@media screen and (max-width: 500px) {
+  .post-container {
+    word-break: break-all;
+  }
 }
 .post-container h1,
 .post-container h2,

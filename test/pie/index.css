@@ -1,0 +1,97 @@
+img {
+  border: 0;
+}
+body {
+  color: #404040;
+  font-size: 11pt;
+  font-family: Georgia, Garamond, serif;
+  margin: 0;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Century Gothic", "Futura", Verdana, sans-serif;
+}
+.header-wrapper {
+  height: 40px;
+  padding: 10px 20px;
+}
+.header-wrapper h1 {
+  display: inline;
+  cursor: pointer;
+}
+.header-wrapper h1:hover {
+  color: rgba(70, 78, 84, 0.6);
+}
+.main-wrapper {
+  width: 100%;
+  position: relative;
+  background-color: #464E54;
+}
+.main-wrapper .nav-btn {
+  height: 40px;
+  width: 40px;
+  vertical-align: middle;
+  border-radius: 40px;
+  position: absolute;
+  top: 48%;
+  background-color: rgba(255, 255, 255, 0.15);
+  font-size: 30px;
+  color: #EAEAEA;
+  cursor: pointer;
+}
+.main-wrapper .nav-btn:hover {
+  color: white;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+.main-wrapper .nav-btn.prev {
+  left: 10%;
+}
+.main-wrapper .nav-btn.next {
+  right: 10%;
+}
+.main-wrapper .nav-btn .arrow {
+  position: absolute;
+  left: 4px;
+}
+.main-wrapper .one-kind-of-pie {
+  width: 70%;
+  margin: 0 auto;
+  padding: 20px 0;
+  text-align: center;
+}
+.main-wrapper .one-kind-of-pie h2 {
+  color: #EAEAEA;
+}
+.main-wrapper .one-kind-of-pie a {
+  position: relative;
+}
+.main-wrapper .one-kind-of-pie a img {
+  height: 420px;
+  width: 460px;
+}
+.main-wrapper .one-kind-of-pie a .pie-link {
+  margin: 0;
+  border-radius: 2px;
+  padding: 1em 1.8em;
+  position: absolute;
+  right: 0;
+  bottom: 3px;
+  background-color: rgba(70, 78, 84, 0.6);
+  font-family: "Helvetica Neue", Helvetica, Arial;
+  color: #EAEAEA;
+  text-decoration: none;
+}
+.main-wrapper .one-kind-of-pie a:hover .pie-link {
+  color: white;
+  background-color: rgba(70, 78, 84, 0.8);
+}
+footer {
+  margin-top: 11pt;
+  position: absolute;
+  right: 0;
+}
+/*# sourceMappingURL=index.css.map */

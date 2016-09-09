@@ -1,0 +1,82 @@
+img {
+  border: 0;
+}
+body {
+  color: #404040;
+  font-size: 11pt;
+  font-family: Georgia, Garamond, serif;
+  /* 1. Background: Set the overall page to use a background image
+   * of silverware.jpg (use absolute URLs to link to all images).
+   * The image should repeat in both directions across the page and should not move when the page is scrolled.
+   */
+  background: white url("http://courses.cs.washington.edu/courses/cse190m/09sp/homework/1/silverware.jpg");
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Century Gothic", "Futura", Verdana, sans-serif;
+  color: #A4A400;
+  text-decoration: underline;
+  /* 4. Wide headings: 
+   * Widen all headings on the page by placing 0.2em
+   * of horizontal spacing between neighboring letters in all headings.
+   */
+  letter-spacing: 0.2em;
+  background-color: #F0F0F0;
+}
+a {
+  color: #A4A400;
+}
+ul {
+  /* 3. Pie bullet: Set all bulleted lists of items on the page to use an image
+   * for their bullet icon rather than the normal black circle. Use the image of pie_icon.gif
+   * (use absolute URLs to link to all images).
+   */
+  list-style: url("http://courses.cs.washington.edu/courses/cse190m/09sp/homework/1/pie_icon.gif");
+}
+ul,
+ol {
+  line-height: 18px;
+}
+.header-wrapper {
+  text-align: center;
+}
+.header-wrapper h1 {
+  font-size: 22pt;
+}
+.pie-brief-section .pie-brief {
+  margin: 1em 0 1em;
+  line-height: 18px;
+  white-space: pre-wrap;
+}
+.pie-section {
+  border-top: 1px solid;
+}
+.pie-section h2 {
+  font-size: 18pt;
+  font-weight: normal;
+}
+.pie-section:last-of-type {
+  border-top: none;
+}
+.directions-step-name {
+  font-weight: bold;
+}
+.one-user-comment {
+  margin: 20px 4% 10px;
+  font-style: italic;
+  background-color: #FFFFC8;
+}
+.one-user-comment .comment-content {
+  white-space: pre-wrap;
+}
+.one-user-comment .comment-author::before {
+  content: "- ";
+}
+footer {
+  margin-top: 11pt;
+}
+/*# sourceMappingURL=recipe.css.map */

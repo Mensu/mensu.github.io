@@ -52,10 +52,10 @@ body {
   border-bottom: 1px dotted gray;
   padding: 1% 5%;
   line-height: 80px;
-  font-family: monospace;
   font-size: 40px;
   text-align: left;
   overflow-x: scroll;
+  overflow-y: hidden;
   white-space: nowrap;
 }
 .calculator-wrapper .display .expression .for-scroll {
@@ -165,6 +165,13 @@ body {
 .feature .content .feature-list li {
   margin-bottom: 10px;
 }
+.feature .content .feature-list li.deleted {
+  text-decoration: line-through;
+}
+.feature .content .feature-list li.deleted::after {
+  content: " (not supported by this browser)";
+}
 .feature .content .feature-list .expressions {
   margin-top: 10px;
 }
+/*# sourceMappingURL=Calculator.css.map */

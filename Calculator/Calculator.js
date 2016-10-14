@@ -14,8 +14,6 @@ function Calculator(param) {
 }
 
 (function() {
-  
-  
   Calculator.prototype = {
     "constructor": Calculator,
     "floatParser": floatParser,
@@ -79,6 +77,7 @@ function Calculator(param) {
       var expressionSpan = this.expressionDiv.querySelector('.expr-content');
       expressionSpan.textContent = '';
       this.curExpression = [];
+      this.resultDiv.textContent = '';
     },
     "scrollToViewExpression": function() {
       var newScrollLeft = this.expressionDiv.querySelector('.for-scroll').offsetLeft;
@@ -107,6 +106,21 @@ function Calculator(param) {
       var basicOpDiv = element.querySelector('.panel .num-op-row .basic-op');
       var toolDiv = element.querySelector('.panel .tool-row .tools');
       var calcSelf = this;
+
+      var buttons = {};
+      function registerKeyboard(key, button) {
+        buttons[key] = button;
+      }
+      document.body.addEventListener('keydown', function(event) {
+        if (!event.key) {
+          document.querySelector('.feature-keyboard-input').classList.add('deleted');
+          return;
+        }
+        if (buttons[event.key]) {
+          buttons[event.key].click();
+        }
+      }, false);
+
       function addNormalListeners(infos, appendDest) {
         infos.forEach(function(curInfo) {
           var isOpInfo = (infos == calcSelf.operatorsInfo);
@@ -124,11 +138,7 @@ function Calculator(param) {
             calcSelf.scrollToViewExpression();
             calcSelf.justCalculated = false;
           }, false);
-          document.body.addEventListener('keyup', function(event) {
-            if (event.key == button.btnInfo.value) {
-              button.click();
-            }
-          }, false);
+          registerKeyboard(button.btnInfo.value, button);
           appendDest.appendChild(button);
         });
       }
@@ -150,11 +160,7 @@ function Calculator(param) {
               calcSelf.scrollToViewExpression();
               calcSelf.justCalculated = false;
             }, false);
-            document.body.addEventListener('keyup', function(event) {
-              if (event.key == button.btnInfo.value) {
-                button.click();
-              }
-            }, false);
+            registerKeyboard(button.btnInfo.value, button);
           } else if (curInfo.value == 'Backspace') {
             var button = createElementWith('div', ['calc-btn', identifyingClassName], createElementWith('span', ['icon', 'fa'], ''));
             button['btnInfo'] = curInfo;
@@ -163,11 +169,7 @@ function Calculator(param) {
               calcSelf.scrollToViewExpression();
               calcSelf.justCalculated = false;
             }, false);
-            document.body.addEventListener('keydown', function(event) {
-              if (event.key == button.btnInfo.value) {
-                button.click();
-              }
-            }, false);
+            registerKeyboard(button.btnInfo.value, button);
           } else if (curInfo.value == 'clear') {
             var button = createElementWith('div', ['calc-btn', identifyingClassName], (curInfo.description ? curInfo.description : curInfo.value));
             button['btnInfo'] = curInfo;
@@ -182,17 +184,20 @@ function Calculator(param) {
             button.addEventListener('click', function() {
               calcSelf.eval();
             }, false);
-            document.body.addEventListener('keyup', function(event) {
-              if (event.key == button.btnInfo.value || event.key == 'Enter') {
-                button.click();
-              }
-            }, false);
+            registerKeyboard(button.btnInfo.value, button);
+            registerKeyboard('Enter', button);
+            
           }
           
           appendDest.appendChild(button);
         });
       }
       addToolListeners(this.toolsInfo, toolDiv);
+
+      setTimeout(function() {
+        var initKeyUpEvent = new KeyboardEvent('keydown', {"key": 'p'});
+        document.body.dispatchEvent(initKeyUpEvent);
+      }, 500);
       
       
     },
@@ -269,8 +274,6 @@ function Calculator(param) {
   var calc = new Calculator({
     "element": calculatorEle
   });
-
-
 
 
   var charCodeMap = {};

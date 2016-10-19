@@ -116,8 +116,10 @@ layout: default
       "language-git": 'language-bash',
       'language-liquid': 'language-django'
     };
+    alert('before');
     $('.post-container > div.highlighter-rouge, .post-container > pre code').each(function(i, e) {
       var code = $(this);
+      alert('2');
       if (code.prop('tagName').toLowerCase() != 'code') code = code.find('code');
       var result = $(this).prop('className').match(/language-[\w]{1,}/);
       // remove '\n'
@@ -129,8 +131,10 @@ layout: default
         var classToAdd = lanMap[result[0].toLowerCase()] || result[0];
         code.removeClass(result[0]);
         code.addClass(classToAdd);
+        alert('3');
         hljs.highlightBlock(code[0]);
       } else {
+        alert('4');
         code.addClass('hljs');
         hljs.addLinenum(code[0]);
       }

@@ -58,7 +58,7 @@
 }
 .side-catalog {
   display: block;
-  height: 500px;
+  max-height: 500px;
   padding-bottom: 40px;
   width: 195px;
 }

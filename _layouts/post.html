@@ -111,18 +111,20 @@ layout: default
 
 <script type="text/javascript">
   $(document).ready(function() {
-      var lanMap = {
-        "language-kramdown": 'language-markdown',
-        "language-c": 'language-cpp',
-        "language-git": 'language-bash'
-      };
-    $('div.highlighter-rouge').each(function(i, e) {
-      var code = $(this).find('code');
-      var result = $(this).attr('class').match(/language-[\w]{1,}/);
+    var lanMap = {
+      "language-kramdown": 'language-markdown',
+      "language-c": 'language-cpp',
+      "language-git": 'language-bash'
+    };
+    $('.post-container div.highlighter-rouge, .post-container pre code').each(function(i, e) {
+      var code = $(this);
+      if (code.prop('tagName').toLowerCase() != 'code') code = code.find('code');
+      var result = $(this).prop('className').match(/language-[\w]{1,}/);
       // remove '\n'
       code.text(code.text().slice(0, -1));
       if (result) {
         var classToAdd = lanMap[result[0]] || result[0];
+        code.removeClass(result[0]);
         code.addClass(classToAdd);
         hljs.highlightBlock(code[0]);
       } else {

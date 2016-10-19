@@ -38,7 +38,7 @@ tags:
 复制粘贴以下命令，回车，稍等几秒，等待安装即可  
 有些 Windows 系统 cmd 下粘贴 需要在 cmd 中右键 - 粘贴
 
-~~~bash
+~~~ bash
 Dism /online /enable-feature /featurename:NetFx3 /LimitAccess /All /Source:g:\sources\sxs
 ~~~
 

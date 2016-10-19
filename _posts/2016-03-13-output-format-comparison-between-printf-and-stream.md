@@ -24,7 +24,7 @@ tags:
 
 printf
 
-~~~cpp
+~~~ cpp
 // C code
 int num = 10;
 
@@ -41,7 +41,7 @@ printf("十六进制小写：%x"
 
 stream
 
-~~~cpp
+~~~ cpp
 // C++ code
 int num = 10;
 
@@ -54,7 +54,7 @@ std::cout << "十六进制：" << std::hex << num << std::endl
 
 或者用流控制符 ``std::setbase(int __base)`` 设置 n 进制。注意，如果传入的不是 8、10、16，则输出**十进制**
 
-~~~cpp
+~~~ cpp
 // C++ code
 int num = 10;
 
@@ -81,7 +81,7 @@ std::cout << "十六进制：" << std::setbase(16) << num << std::endl
 
 例如，ios 参数 ``std::ios::uppercase`` 使十六进制的字母部分大写，我们可以：
 
-~~~cpp
+~~~ cpp
 // C++ code
 int num = 10;
 
@@ -112,7 +112,7 @@ std::cout << "  取消：" << num << std::endl;
 
 大部分不带参数的流控制符 ``XXX`` ，都对应着 ios 参数 ``std::ios::XXX`` 。也就是说
 
-~~~cpp
+~~~ cpp
 // C++ code
 // 具体的流控制符
 std::cout << std::XXX;
@@ -128,7 +128,7 @@ std::cout.setf(std::ios::XXX);
 
 所以，以设置八进制为例，要么直接用流控制符 ``std::oct``、``std::setbase(int __base)``
 
-~~~cpp
+~~~ cpp
 // C++ code
 int num = 10;
 
@@ -138,7 +138,7 @@ std::cout << std::oct << num << std::endl;
 
 要么，就要**先取消目前的进制设置**（默认是十进制），在设置新的进制
 
-~~~cpp
+~~~ cpp
 // C++ code
 int num = 10;
 
@@ -148,7 +148,7 @@ std::cout << std::setiosflags(std::ios::oct) << num << std::endl;
 
 要么，就用**带两个参数**的成员函数 ``std::cout.setf(...)``
 
-~~~cpp
+~~~ cpp
 // C++ code
 int num = 10;
 
@@ -162,7 +162,7 @@ std::cout << num << std::endl;
 
 最好养成用完格式设置后立刻恢复的习惯。可以使用上面提到的 ``std::resetiosflags(...)``、``std::cout.unsetf(...)`` 
 
-~~~cpp
+~~~ cpp
 // C++ code
 int num = 10;
 
@@ -174,7 +174,7 @@ std::cout << std::oct << num << std::endl
 
 对于不带参数的流控制符，还可以用成员函数 ``std::cout.flags`` 恢复
 
-~~~cpp
+~~~ cpp
 // C++ code
 
 int num = 10;
@@ -198,14 +198,14 @@ std::cout.flags(defaultFlags);
 - ``std::ios::floatfield`` 小数表示法
 
 
-~~~cpp
+~~~ cpp
 // C++ code
 std::cout << std::resetiosflags(std::ios::basefield);  // 恢复回十进制
 ~~~
 
 而除了这三大格式，其他不带参数的流控制符 ``std::XXX`` ，一般都有起相反作用的流控制符 ``std::noXXX`` 与其对应
 
-~~~cpp
+~~~ cpp
 // C++ code
 std::cout << std::nouppercase;  // 取消字母大写
 ~~~
@@ -214,7 +214,7 @@ std::cout << std::nouppercase;  // 取消字母大写
 
 printf 的限制很大，例如 “填补字符” 只有 '0' 和 空格 ' '，使用 '0' 时还只能使用右对齐。因为左对齐的 ``-`` 会排斥填补的 ``0``
 
-~~~cpp
+~~~ cpp
 // C code
 double num = 4.0;
 printf("最小宽度为11，右对齐：%11.g%11g"
@@ -242,7 +242,7 @@ printf("最小宽度为2，右对齐，如果宽度不足2，则在左边补0：
 
 **仅对下一个输出有效**，因此需要不断使用
 
-~~~cpp
+~~~ cpp
 // C++ code
 double num = 4.0;
 
@@ -287,7 +287,7 @@ printf 用 ``+`` 为十进制正数输出正号
 
 一类和二类自由组合
 
-~~~cpp
+~~~ cpp
 // C code
 // 应用：避免输出 “+-6”
 int a = 2, b = 3, c = -6;
@@ -304,7 +304,7 @@ printf("平面上某直线的一般方程：%dx%+dy%+d=0"     // 6个部分：%d
 stream 用 流控制符 ``std::showpos`` 为十进制正数输出正号  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;用 流控制符 ``std::showbase`` 为八进制和十六进制数输出 ``0`` 和 ``0x``
 
-~~~cpp
+~~~ cpp
 // C++ code
 // 应用：避免输出 “+-6”
 int a = 2, b = 3, c = -6;
@@ -322,7 +322,7 @@ std::cout << "平面上某直线的一般方程："
 
 printf
 
-~~~cpp
+~~~ cpp
 // C code
 double small = 0.003406000400001;
 double big = 42.213;
@@ -361,7 +361,7 @@ printf("\n动态控制最小宽度、精度：%+-*.*f"   // 正号+、左对齐-
 
 stream
 
-~~~cpp
+~~~ cpp
 // C++ code
 double small = 0.003406000400001;
 double big = 42.213;
@@ -413,7 +413,7 @@ std::cout.flags(defaultFlags), std::cout.precision(6);
 
 和 ``std::left``、``std::right`` 一样，是 ``std::adjustfield`` 系列。在设置了宽度的前提下，将符号（十进制正负号、进制符号`0`、`0x`）左对齐，将数字右对齐
 
-~~~cpp
+~~~ cpp
 // C++ code
 int num = 12;
 std::ios_base::fmtflags defaultFlags = std::cout.flags();
@@ -432,7 +432,7 @@ std::cout.flags(defaultFlags);
 
 这个可以让布尔类型以 ``true``、``false`` 的形式显示
 
-~~~cpp
+~~~ cpp
 // C++ code
 std::cout << true << ' ' << false << std::endl
           << std::boolalpha

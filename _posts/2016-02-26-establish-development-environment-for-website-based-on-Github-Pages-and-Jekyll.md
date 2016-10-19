@@ -61,7 +61,7 @@ C:\Ruby22-x64\bin
 
 解决方法，简单来说，就是输入这句然后回车
 
-~~~ruby
+~~~ ruby
 gem sources --add https://ruby.taobao.org/ --remove https://rubygems.org/
 ~~~
 
@@ -79,7 +79,7 @@ https://rubygems.org/ removed from sources
 Mac 上和 Windows 上的安装命令大同小异  
 Mac 上是在 `$` 后面输入 `sudo 命令`（回车后还要输 Mac 的密码，密码不回显，输完回车即可）：
 
-~~~ruby
+~~~ ruby
 sudo gem install jekyll
 ~~~ 
 
@@ -87,7 +87,7 @@ sudo gem install jekyll
 
 Windows 上直接：
 
-~~~ruby
+~~~ ruby
 gem install jekyll
 ~~~
 
@@ -95,7 +95,7 @@ gem install jekyll
 
 安装所需的 2 个 Gem ，用的是下面的命令（Mac 上要加`sudo`，下同）
 
-~~~ruby
+~~~ ruby
 gem install jekyll jekyll-paginate
 ~~~
 
@@ -145,14 +145,14 @@ Windows 下：
 
 在 **Git Bash** / 终端 下输入（在 Windows 下粘贴要 右键-粘贴）
 
-~~~git
+~~~ git
 git config --global user.name "GitHub 用户名"
 git config --global user.email "注册 GitHub 时用的邮箱"
 ~~~
 
 接下来生成 SSH key
 
-~~~bash
+~~~ bash
 ssh-keygen -t rsa -b 4096 -C "注册 GitHub 时用的邮箱"
 ~~~
 
@@ -167,7 +167,7 @@ ssh-keygen -t rsa -b 4096 -C "注册 GitHub 时用的邮箱"
 接着，将 SSH key 复制到剪贴板：打开 cmd / 终端，  
 Mac 上输入
 
-~~~bash
+~~~ bash
 pbcopy < ~/.ssh/id_rsa.pub
 ~~~
 
@@ -175,7 +175,7 @@ pbcopy < ~/.ssh/id_rsa.pub
 
 Windows 上输入
 
-~~~bash
+~~~ bash
 clip < %userprofile%\.ssh\id_rsa.pub
 ~~~
 
@@ -198,7 +198,7 @@ clip < %userprofile%\.ssh\id_rsa.pub
 
 然后打开 cmd / 终端，用 cd 命令等方式访问这个本地文件夹，输入
 
-~~~ruby
+~~~ ruby
 git checkout master
 jekyll serve
 ~~~
@@ -213,9 +213,9 @@ jekyll serve
 
 和一般的 Markdown 相比，主要有以下几点需要注意：
 
-- kramdown 中代码块必须使用三个波浪号 `~~~`，而且 `~~~` 上面要空一行
+- kramdown 中代码块必须使用三个波浪号 `~~~ `，而且 `~~~ ` 上面要空一行
 
-~~~kramdown
+~~~ kramdown
 ...其他文字
 
  ~~~
@@ -225,7 +225,7 @@ jekyll serve
 
 不识别三个反引号
 
-~~~bash
+~~~ bash
  ```
  代码块无法高亮
  ```
@@ -234,13 +234,13 @@ jekyll serve
 
 行内代码用两个反引号
 
-~~~kramdown
+~~~ kramdown
 一行内其他文字 ``行内代码`` 一行内其他文字
 ~~~
 
 - 引用：`>` 上面要空一行
 
-~~~kramdown
+~~~ kramdown
 ...其他文字
 
 > quote
@@ -250,7 +250,7 @@ jekyll serve
 
 - 标题：#空格标题内容
 
-~~~kramdown
+~~~ kramdown
 # h1
 ## h2
 ~~~
@@ -259,13 +259,13 @@ jekyll serve
 
 - 换行：空开一行或者在上一行的末尾加两个空格
 
-~~~kramdown
+~~~ kramdown
 the first line
 
 a second line
 ~~~
 
-~~~kramdown
+~~~ kramdown
 the first line空格空格
 a second line
 ~~~
@@ -274,7 +274,7 @@ a second line
 
 - 链接：在链接后面加 `{:target="_blank"}` 实现从新窗口打开链接
 
-~~~kramdown
+~~~ kramdown
 ![google](https://www.google.com){:target="_blank"}
 ~~~
 
@@ -294,7 +294,7 @@ Jekyll 这玩意用到了 Liquid（用大括号围起来的语句），可以制
 
 - _includes 文件夹：配合 `{% raw %}{% include xx %}{% endraw %}` 语句，例如
 
-~~~html
+~~~ html
 <!-- /index.html 中 -->
 <html>
   {% raw %}{% include index-head.html %}{% endraw %}
@@ -319,7 +319,7 @@ Jekyll 这玩意用到了 Liquid（用大括号围起来的语句），可以制
 
 将 index-head.html、index-body.html 放在 _includes 文件夹中，index.html 放在外面，最终生成的index.html（在 _site 文件夹里）就长这样：
 
-~~~html
+~~~ html
 <html>
   <head>
   <meta charset="uft-8">
@@ -336,7 +336,7 @@ Jekyll 这玩意用到了 Liquid（用大括号围起来的语句），可以制
 
 - _layouts 文件夹：存放网页模板，配合 layout 属性使用，例如
 
-~~~html
+~~~ html
 <!-- /_layouts/post-A.html 中 -->
 <html>
   <head>
@@ -368,7 +368,7 @@ layout: post-A
 
 最终生成的 article1.html 是
 
-~~~html
+~~~ html
 <html>
   <head>
     ...
@@ -399,7 +399,7 @@ layout: post-A
 
 html 或 md 文件可以定义局部变量。局部变量放在两个`---`之间，例如 md 文件最上方可以设置所使用的 layout 以及 title 局部变量
 
-~~~md
+~~~ md
 ---
 layout: post-A
 title: My first Article
@@ -413,7 +413,7 @@ create-date: 2016-02-27
 
 局部变量 title 通过 `page.title` 访问
 
-~~~html
+~~~ html
 <!-- /_layouts/post-A.html 中 -->
 <html>
   <head>
@@ -436,7 +436,7 @@ create-date: 2016-02-27
 
 设置：
 
-~~~yaml
+~~~ yaml
 title: My Blog
 ~~~
 
@@ -444,7 +444,7 @@ title: My Blog
 
 设置：
 
-~~~yaml
+~~~ yaml
 authors:
   Mensu:
     name: Mensu
@@ -459,7 +459,7 @@ authors:
 
 或者这种用于循环的数据结构：
 
-~~~yaml
+~~~ yaml
 SNS: 
   - site: github
     username: Mensu
@@ -474,7 +474,7 @@ SNS:
     url: https://twitter.com/mensuhamesu
 ~~~
 
-~~~liquid
+~~~ liquid
 {% raw %}{% for onesite in SNS %}
   {{ onesite.url }}
 {% endfor %}{% endraw %}
@@ -486,7 +486,7 @@ SNS:
 
 此外，还有一些推荐设置
 
-~~~yaml
+~~~ yaml
 markdown: kramdown
 kramdown:
   input: GFM
@@ -497,7 +497,7 @@ kramdown:
 第三行 `input: GFM` 指定使用 GitHub Flavored Markdown  
 第四行 `syntax_highlighter: rouge` 指定使用 GitHub 默认的语法高亮器
 
-~~~yaml
+~~~ yaml
 gems: [jekyll-paginate]
 paginate: 5
 ~~~

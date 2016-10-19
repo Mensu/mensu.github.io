@@ -114,14 +114,16 @@ layout: default
     var lanMap = {
       "language-kramdown": 'language-markdown',
       "language-c": 'language-cpp',
-      "language-git": 'language-bash'
+      "language-git": 'language-bash',
+      'language-liquid': 'language-django'
     };
     $('.post-container div.highlighter-rouge, .post-container pre code').each(function(i, e) {
       var code = $(this);
       if (code.prop('tagName').toLowerCase() != 'code') code = code.find('code');
       var result = $(this).prop('className').match(/language-[\w]{1,}/);
       // remove '\n'
-      code.text(code.text().slice(0, -1));
+      // var codeText = code.text();
+      // code.text(code.text().slice(0, -1));
       if (result) {
         var classToAdd = lanMap[result[0]] || result[0];
         code.removeClass(result[0]);

@@ -1,0 +1,207 @@
+@import "variables.less";
+@import "mixins.less";
+
+// Navigation
+@media only screen and (max-width: 767px) {
+	 // 
+	 // Layout
+	 // Since V1.6 we use absolute positioning to prevent to expand container-fluid
+	 // which would cover tags. A absolute positioning make a new layer.
+	 // 
+	.navbar-default {
+		.navbar-collapse {
+				// newly added
+			position: absolute; 
+			right: 0;
+			float: right;
+			margin: 0px;
+
+			width: 170px;
+			border: none;
+			border-radius: 2px;
+			background: white;
+			box-shadow: 0px 5px 10px 2px rgba(0, 0, 0, 0.2);
+			box-shadow: rgba(0, 0, 0, 0.117647) 0px 1px 6px, rgba(0, 0, 0, 0.239216) 0px 1px 4px;
+		}
+		.navbar-toggle {
+			&:focus,
+			&:hover {
+				background-color: inherit;
+			}
+			&:active {
+				background-color: rgba(255, 255, 255, 0.25);
+			}
+
+			// Hux customize Style for navBar button
+			border-color: transparent;
+			padding: 19px 16px;
+			margin-top: 2px;
+			margin-right: 2px;
+			margin-bottom: 2px;
+			border-radius: 50%;
+			.icon-bar {
+				width: 18px;
+				border-radius: 0;
+				// materialize
+				background-color: white;
+			}
+			.icon-bar + .icon-bar {
+				margin-top: 3px;
+			}
+		}
+
+	}
+	 // 
+	 // Animation
+	 // HuxBlog-Navbar using genuine Material Design Animation
+	 //
+	#huxblog_navbar {  	
+		//
+		// Sharable code and 'out' function
+		//
+
+		// the container do width-transition
+		opacity: 0;
+		transform: scaleX(0);
+		transform-origin: top right;
+		transition: all 200ms cubic-bezier(0.47, 0, 0.4, 0.99) 0ms;
+		a {
+			font-size: 13px;
+			line-height: 28px;
+		}
+
+			// the navbar does height-transition
+		 	// to solve container-mask-tags issue (default state).
+		.navbar-collapse {
+			height: 0px;
+			transform: scaleY(0);
+			transform-origin: top right;
+			transition: transform 400ms cubic-bezier(0.32, 1, 0.23, 1) 0ms;
+		}
+
+		li {
+			opacity: 0;
+			transition: opacity 100ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
+		}
+		//
+		// 'In' Animation
+		//
+		&.in {
+			opacity: 1;
+			transform: scaleX(1);
+			
+			  // newly added
+			transition: all 250ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
+			.navbar-collapse {
+				transform: scaleY(1);
+				  // newly added
+				transition: transform 500ms cubic-bezier(0.23, 1, 0.32, 1);
+			}
+			li {
+				opacity: 1;
+				transition: opacity 450ms cubic-bezier(0.23, 1, 0.32, 1) 205ms;
+			}
+		}
+	}
+}
+
+.navbar-custom {
+	// materialize
+	background: none;
+	border: none;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: 3;
+	.sans-serif();
+
+	.navbar-brand {
+		font-weight: 800;
+
+		// materialize
+		color: white;
+		height: 56px;
+		line-height: 25px;
+		&:hover {
+			color: rgba(255, 255, 255, 0.8);
+		}
+	}
+	.nav {
+		li {
+			a {
+				text-transform: uppercase;
+				font-size: 12px;
+				line-height: 20px;
+				font-weight: 800;
+				letter-spacing: 1px;
+				// only highlight in mobile
+				&:active {
+					background: rgba(0,0,0,0.12)
+				}
+			}
+		}
+	}
+	@media only screen and (min-width: 768px) {
+		body {
+			font-size: 20px;
+		}
+		background: transparent;
+		border-bottom: 1px solid transparent;
+
+		.navbar-brand {
+			// color: white;
+			padding: 20px;
+			line-height: 20px;
+
+			.typical-link(white, @white-faded);
+			// &:hover,
+			// &:focus {
+			// 	color: @white-faded;
+			// }
+		}
+		.nav {
+			li {
+				a {
+					// color: white;
+					padding: 20px;
+					// &:hover,
+					// &:focus {
+					// 	color: @white-faded;
+					// }
+					.typical-link(white, @white-faded);
+					&:active {
+						background: none;
+					}
+				}
+			}
+		}
+	}
+	@media only screen and (min-width: 768px) {
+		transition: background-color 0.3s;
+		transform: translate3d(0, 0, 0);
+		backface-visibility: hidden;
+		&.is-fixed {
+			// when the user scrolls down, we hide the header right above the viewport
+			position: fixed;
+			top: -61px;
+			background-color: fade(white, 90%);
+			border-bottom: 1px solid darken(white, 5%);
+			transition: transform 0.3s;
+			.navbar-brand {
+				.typical-link(@gray-dark);
+			}
+			.nav {
+				li {
+					a {
+						.typical-link(@gray-dark);
+					}
+				}
+			}
+		}
+		// if the user changes the scrolling direction, we show the header
+		&.is-visible {
+			transform: translate3d(0, 100%, 0);
+		}
+	}
+}

@@ -6,46 +6,49 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 div.highlighter-rouge {
   border: 1px solid #ccc;
   border-radius: 5px;
+  pre {
+    border-style: solid;
+    border-color: #f7f7f7;
+    border-width: 10px 5px 10px 10px;
+    padding: 0;
+    margin-bottom: 0;
+  }
 }
-div.highlighter-rouge pre {
-  border-style: solid;
-  border-color: #f7f7f7;
-  border-width: 10px 5px 10px 10px;
-  padding: 0;
-  margin-bottom: 0;
-}
+
 .hljs {
   display: inline-block;
-  min-width: 100%;
   box-sizing: border-box;
+  min-width: 100%;
+  
   border-radius: 3px;
   padding: 0.5em;
+
   background: #23241f;
-}
-.hljs {
   counter-reset: lines;
+  .line {
+    counter-increment: lines;
+    &::before {
+      user-select: none;
+      content: counter(lines);
+      display: inline-block;
+      width: 2em;
+      margin-right: 0.5em;
+      border-right: solid 1px;
+      padding-right: 0.5em; 
+      color: #BBB;
+      text-align: right;
+    }
+  }
 }
-.hljs .line {
-  counter-increment: lines;
-}
-.hljs .line::before {
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
 
-  -o-user-select: none;
-  user-select: none;
-
-  content: counter(lines); text-align: right;
-  display: inline-block; width: 2em;
-  padding-right: 0.5em; margin-right: 0.5em;
-  color: #BBB; border-right: solid 1px;
-}
-.hljs-comment ~ .line {
-  color: #75715e;
-}
-.hljs-comment ~ .line::before {
-  font-style: normal;
+.hljs-comment {
+  & ~ .line {
+    color: #75715e;
+    &::before {
+      font-style: normal;
+    }
+  }
+  
 }
 
 .hljs,

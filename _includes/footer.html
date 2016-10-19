@@ -43,9 +43,9 @@
 </footer>
 
 
-<script src="{{ "/js/jquery.js " | prepend: site.baseurl }}"></script>
+<script src="{{ "/js/mensu-blog.js" | prepend: site.baseurl }}"></script>
 <script src="{{ "/js/hux-blog.js " | prepend: site.baseurl }}"></script>
-<script src="{{ "/js/bootstrap.js" | prepend: site.baseurl }}"></script>
+<script src="{{ "/js/top-nav.js" | prepend: site.baseurl }}"></script>
 
 <!-- 多说公共JS代码 starts -->
 {% if site.duoshuo-username %}
@@ -64,7 +64,6 @@ var duoshuoQuery = {short_name:"{{site.duoshuo-username}}"};
 {% endif %}
 <!-- 多说公共JS代码 ends -->
 
-<script src="{{ "/js/mensu-blog.js" | prepend: site.baseurl }}"></script>
 
 <!--MathJax.js -->
 <script type="text/x-mathjax-config">
@@ -113,11 +112,8 @@ var duoshuoQuery = {short_name:"{{site.duoshuo-username}}"};
   }
 </script>
 
-<!-- Highlight.js -->
+<!-- tagcloud.js -->
 <script>
-  // async("{{ "/js/highlight.min.js" | prepend: site.baseurl }}", function(){
-  //     hljs.initHighlightingOnLoad();
-  // })
   // only load tagcloud.js in tag.html
   if($('#tag_cloud').length !== 0){
       async("/js/jquery.tagcloud.js",function(){
@@ -129,7 +125,6 @@ var duoshuoQuery = {short_name:"{{site.duoshuo-username}}"};
       })
   }
 </script>
-<!--<link href="{{ "/css/github.min.css" | prepend: site.baseurl }}" rel="stylesheet">-->
 
 <!--fastClick.js -->
 <script>

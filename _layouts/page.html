@@ -11,7 +11,9 @@ layout: default
           {% if page.index == "true" %}
             <h1 class="site-heading-index-small">思考のかけら</h1>
           {% endif %}
-          <h1 {% if page.index == "true" %}class="site-heading-index"{% endif %}>{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</h1>
+          <h1 {% if page.index == "true" %}class="site-heading-index"{% endif %}>
+            {% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}
+          </h1>
           <span class="subheading">{{ page.description }}</span>
         </div>
       </div>
@@ -19,64 +21,66 @@ layout: default
   </div>
 </header>
 
-<!-- previews and potential sidebar -->
-<div class="container">
-  <div class="row">
-    {% if site.sidebar == false %}
-    <!-- NO SIDEBAR -->
-    <!-- page content container -->
-    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1
-                post-container">
-      {{ content }}
-    </div>
-    <!-- sidebar container -->
-    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1
-                sidebar-container">
-      {% include featured-tags.html %}
-      {% include friends.html %}
-    </div>
-    {% else %}
-    <!-- USE SIDEBAR -->
-    <!-- page content ontainer -->
-    <div class="col-lg-8 col-lg-offset-1 col-md-8 col-md-offset-1 col-sm-12 col-xs-12
-                  post-container">
-      {{ content }}
-    </div>
-    <!-- Sidebar Container -->
-    <div class="col-lg-3 col-lg-offset-0 col-md-3 col-md-offset-0 col-sm-12 col-xs-12
-                sidebar-container">
-
-      {% include featured-tags.html %}
-
-      <!-- about me -->
-      <section class="visible-md visible-lg">
-        <hr><h5><a href="{{"/about.html" | prepend: site.baseurl }}">ABOUT ME</a></h5>
-        <div class="short-about">
-          {% if site.sidebar-avatar %}
-            <img src="{{site.sidebar-avatar}}" />
-          {% endif %}
-          {% if site.sidebar-about-description %}
-            <p>{{site.sidebar-about-description}}</p>
-          {% endif %}
-
-          <ul class="list-inline">
-            {% for sites in site.SNS %}
-            <li>
-              <a href="{{ sites.url }}" target="_blank">
-                <span class="fa-stack fa-lg">
-                  <i class="fa fa-circle fa-stack-2x"></i>
-                  <i class="fa fa-{{ sites.site }} fa-stack-1x fa-inverse"></i>
-                </span>
-              </a>
-            </li>
-            {% endfor %}
-          </ul>
+<!-- previews and sidebar -->
+<div class="main-previews">
+  <div class="container">
+    <div class="row">
+      {% if site.sidebar == false %}
+        <!-- NO SIDEBAR -->
+        <!-- page content container -->
+        <div class="post-container
+                    col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+          {{ content }}
         </div>
-      </section>
-      
-      {% include friends.html %}
+        <!-- sidebar container -->
+        <div class="sidebar-container
+                    col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+          {% include featured-tags.html %}
+          {% include friends.html %}
+        </div>
+      {% else %}
+        <!-- USE SIDEBAR -->
+        <!-- page content ontainer -->
+        <div class="col-lg-8 col-lg-offset-1 col-md-8 col-md-offset-1 col-sm-12 col-xs-12
+                      post-container">
+          {{ content }}
+        </div>
+        <!-- Sidebar Container -->
+        <div class="col-lg-3 col-lg-offset-0 col-md-3 col-md-offset-0 col-sm-12 col-xs-12
+                    sidebar-container">
+
+          {% include featured-tags.html %}
+
+          <!-- about me -->
+          <section class="visible-md visible-lg">
+            <hr><h5><a href="{{"/about.html" | prepend: site.baseurl }}">ABOUT ME</a></h5>
+            <div class="short-about">
+              {% if site.sidebar-avatar %}
+                <img src="{{site.sidebar-avatar}}" />
+              {% endif %}
+              {% if site.sidebar-about-description %}
+                <p>{{site.sidebar-about-description}}</p>
+              {% endif %}
+
+              <ul class="list-inline">
+                {% for sites in site.SNS %}
+                <li>
+                  <a href="{{ sites.url }}" target="_blank">
+                    <span class="fa-stack fa-lg">
+                      <i class="fa fa-circle fa-stack-2x"></i>
+                      <i class="fa fa-{{ sites.site }} fa-stack-1x fa-inverse"></i>
+                    </span>
+                  </a>
+                </li>
+                {% endfor %}
+              </ul>
+            </div>
+          </section>
           
-    </div>    
-    {% endif %}
+          {% include friends.html %}
+              
+        </div>    
+      {% endif %}
+    </div>
   </div>
 </div>

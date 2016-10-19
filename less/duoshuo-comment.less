@@ -1,0 +1,37 @@
+@import "variables.less";
+@import "mixins.less";
+
+// Hux customize Style for Duoshuo
+#ds-thread {
+  #ds-reset {
+    li.ds-tab a.ds-current,
+    a.ds-like-thread-button {
+      border: 1px solid #ddd;
+      border-radius: 0;
+      background: white;
+      box-shadow: none;
+      text-shadow: none;
+    }
+    .ds-gradient-bg,
+    .ds-textarea-wrapper {
+      background: none;
+    }
+    .ds-post-button,
+    .ds-post-options {
+      border-bottom: 1px solid #ccc;
+    }
+
+    // v1.6 flatten button
+    .ds-post-button {
+      background: white;
+      box-shadow: none;
+      &:hover {
+        background: @gray-light;
+      }
+    }
+  }
+}
+
+#ds-smilies-tooltip ul.ds-smilies-tabs li a {
+	background: white !important;
+}

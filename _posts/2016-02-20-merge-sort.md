@@ -58,7 +58,7 @@ loop {
 
 仔细观察上面的代码，不难发现条件判断其实是把**不同条件下的不同值**赋给**相同的变量 aftermerger[p]**，以及不同的指针后移，于是可以考虑下面的形式：
 
-~~~cpp
+~~~c
 // C code
 aftermerger[p] = (beforemerger[p1] <= beforemerger[p2]) ? beforemerger[p1] : beforemerger[p2];
 (beforemerger[p1] <= beforemerger[p2]) ? p1++ : p2++;
@@ -68,7 +68,7 @@ p++;
 
 或者更为简洁的
 
-~~~cpp
+~~~c
 // C code
 aftermerger[p++] = (beforemerger[p1] <= beforemerger[p2]) ? beforemerger[p1++] : beforemerger[p2++];
  

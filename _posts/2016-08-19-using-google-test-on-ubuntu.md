@@ -69,7 +69,7 @@ tags:
 
 相关的目录结构为
 
-~~~css
+~~~
   test
     ├── date
     │   ├── Date.hpp
@@ -86,7 +86,7 @@ tags:
 
 在这种目录结构下，编译命令为
 
-~~~trueBash
+~~~bash
 g++ Date.cpp test.cpp -I ../gtest-1.6.0/include -L ../gtest-1.6.0/make -lgtest -lpthread -o test
 ~~~
 
@@ -101,7 +101,7 @@ g++ Date.cpp test.cpp -I ../gtest-1.6.0/include -L ../gtest-1.6.0/make -lgtest -
 
 大功告成！运行下试试
 
-~~~trueBash
+~~~bash
 ./test
 ~~~
 
@@ -109,7 +109,7 @@ g++ Date.cpp test.cpp -I ../gtest-1.6.0/include -L ../gtest-1.6.0/make -lgtest -
 
 本质上，就是在编译过程中要链接好 ``libgtest.a`` 这个库（和线程那个库）。这个库实际上是由 ``gtest_all.o`` 和 ``gtest_main.o`` 组成。因此我们也可以不要链接 ``libgtest.a``，而是按熟悉的 ``g++ 输入文件 -o 输出文件名`` 的方式
 
-~~~trueBash
+~~~bash
 g++ Date.cpp test.cpp ../gtest-1.6.0/make/gtest_all.o ../gtest-1.6.0/make/gtest_main.o -I ../gtest-1.6.0/include -lpthread -o test
 ~~~
 

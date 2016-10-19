@@ -66,6 +66,14 @@ var duoshuoQuery = {short_name:"{{site.duoshuo-username}}"};
 
 <script src="{{ "/js/mensu-blog.js" | prepend: site.baseurl }}"></script>
 
+<!--MathJax.js -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$$','$$'], ['\\(','\\)']]}});
+</script>
+<script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML">
+</script>
+
 <!-- disqus 公共JS代码 starts -->
 {% if site.disqus-username %}
 <script id="dsq-count-scr" src="//mensu.disqus.com/count.js" async></script>

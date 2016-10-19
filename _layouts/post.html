@@ -117,7 +117,7 @@ layout: default
       "language-git": 'language-bash',
       'language-liquid': 'language-django'
     };
-    $('.post-container div.highlighter-rouge, .post-container pre code').each(function(i, e) {
+    $('.post-container > div.highlighter-rouge, .post-container > pre code').each(function(i, e) {
       var code = $(this);
       if (code.prop('tagName').toLowerCase() != 'code') code = code.find('code');
       var result = $(this).prop('className').match(/language-[\w]{1,}/);

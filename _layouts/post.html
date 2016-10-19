@@ -113,7 +113,6 @@ layout: default
   $(document).ready(function() {
     var lanMap = {
       "language-kramdown": 'language-markdown',
-      "language-c": 'language-cpp',
       "language-git": 'language-bash',
       'language-liquid': 'language-django'
     };
@@ -127,7 +126,7 @@ layout: default
         code.text(codeText.slice(0, -1));
       }
       if (result) {
-        var classToAdd = lanMap[result[0]] || result[0];
+        var classToAdd = lanMap[result[0].toLowerCase()] || result[0];
         code.removeClass(result[0]);
         code.addClass(classToAdd);
         hljs.highlightBlock(code[0]);

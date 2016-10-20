@@ -8,10 +8,10 @@ layout: default
     <div class="row">
       <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
         <div class="site-heading">
-          {% if page.index == "true" %}
-            <h1 class="site-heading-index-small">思考のかけら</h1>
+          {% if page.index == true %}
+            <h1 class="site-heading-index-small">{{ page.siteHeadingSmall }}</h1>
           {% endif %}
-          <h1 {% if page.index == "true" %}class="site-heading-index"{% endif %}>
+          <h1 {% if page.index == true %}class="site-heading-index"{% endif %}>
             {% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}
           </h1>
           <span class="subheading">{{ page.description }}</span>
@@ -21,11 +21,11 @@ layout: default
   </div>
 </header>
 
-<!-- previews and sidebar -->
-<div class="main-previews">
+<!-- common-main -->
+<div class="common-main">
   <div class="container">
     <div class="row">
-      {% if site.sidebar == false %}
+      {% if page.nosidebar == true %}
         <!-- NO SIDEBAR -->
         <!-- page content container -->
         <div class="post-container
@@ -41,13 +41,13 @@ layout: default
       {% else %}
         <!-- USE SIDEBAR -->
         <!-- page content ontainer -->
-        <div class="col-lg-8 col-lg-offset-1 col-md-8 col-md-offset-1 col-sm-12 col-xs-12
-                      post-container">
+        <div class="post-container
+                    col-lg-8 col-lg-offset-1 col-md-8 col-md-offset-1 col-sm-12 col-xs-12">
           {{ content }}
         </div>
         <!-- Sidebar Container -->
-        <div class="col-lg-3 col-lg-offset-0 col-md-3 col-md-offset-0 col-sm-12 col-xs-12
-                    sidebar-container">
+        <div class="sidebar-container
+                    col-lg-3 col-lg-offset-0 col-md-3 col-md-offset-0 col-sm-12 col-xs-12">
 
           {% include featured-tags.html %}
 
@@ -64,14 +64,14 @@ layout: default
 
               <ul class="list-inline">
                 {% for sites in site.SNS %}
-                <li>
-                  <a href="{{ sites.url }}" target="_blank">
-                    <span class="fa-stack fa-lg">
-                      <i class="fa fa-circle fa-stack-2x"></i>
-                      <i class="fa fa-{{ sites.site }} fa-stack-1x fa-inverse"></i>
-                    </span>
-                  </a>
-                </li>
+                  <li>
+                    <a href="{{ sites.url }}" target="_blank">
+                      <span class="fa-stack fa-lg">
+                        <i class="fa fa-circle fa-stack-2x"></i>
+                        <i class="fa fa-{{ sites.site }} fa-stack-1x fa-inverse"></i>
+                      </span>
+                    </a>
+                  </li>
                 {% endfor %}
               </ul>
             </div>

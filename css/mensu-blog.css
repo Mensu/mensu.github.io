@@ -76,6 +76,8 @@ a:focus {
 @media screen and (max-width: 768px) {
   select {
     -webkit-appearance: none;
+       -moz-appearance: none;
+            appearance: none;
     margin-top: 15px;
     color: #337ab7;
     border-color: #337ab7;
@@ -960,6 +962,9 @@ img::selection {
   margin-right: 5px;
   bottom: 1px;
 }
+.side-catalog .catalog-toggle:hover {
+  color: #0085A1;
+}
 .side-catalog .catalog-body {
   position: relative;
   list-style: none;
@@ -1143,35 +1148,6 @@ div.highlighter-rouge pre {
 .hljs-comment,
 .hljs-deletion {
   color: #75715e;
-}
-#ds-thread #ds-reset li.ds-tab a.ds-current,
-#ds-thread #ds-reset a.ds-like-thread-button {
-  border: 1px solid #ddd;
-  -webkit-border-radius: 0;
-          border-radius: 0;
-  background: white;
-  -webkit-box-shadow: none;
-          box-shadow: none;
-  text-shadow: none;
-}
-#ds-thread #ds-reset .ds-gradient-bg,
-#ds-thread #ds-reset .ds-textarea-wrapper {
-  background: none;
-}
-#ds-thread #ds-reset .ds-post-button,
-#ds-thread #ds-reset .ds-post-options {
-  border-bottom: 1px solid #ccc;
-}
-#ds-thread #ds-reset .ds-post-button {
-  background: white;
-  -webkit-box-shadow: none;
-          box-shadow: none;
-}
-#ds-thread #ds-reset .ds-post-button:hover {
-  background: #eee;
-}
-#ds-smilies-tooltip ul.ds-smilies-tabs li a {
-  background: white !important;
 }
 .page-fullscreen .intro-header {
   position: fixed;

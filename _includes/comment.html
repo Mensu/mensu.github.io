@@ -5,9 +5,9 @@
 <!-- 多说 Share start -->
 <div class="ds-share"
     style=""
-    data-thread-key="{{page.id}}"
-    data-title="{{page.title}}"
-    data-url="{{site.url}}{{site.baseurl}}{{page.url}}"
+    data-thread-key="{{ page.id }}"
+    data-title="{{ page.title }}"
+    data-url="{{ site.url }}{{ site.baseurl }}{{ page.url }}"
     data-images=""
     data-content="| {{ site.SEOTitle }}" >
     <div class="pseudo-ds-meta"></div>
@@ -39,23 +39,28 @@
     {% endif %}
 </ul>
 
-<!-- 多说评论框 starts -->
+
 {% if site.duoshuo-username %}
+<!-- 多说评论框 starts -->
 <div class="ds-thread"
      data-thread-key="{{page.id}}"
      data-title="{{page.title}}"
      data-url="{{site.url}}{{site.baseurl}}{{page.url}}">
 </div>
-{% endif %}
 <!-- 多说评论框 ends -->
+{% endif %}
 
-<!-- disqus 评论框 start -->
+
+
 {% if site.disqus-username %}
+<!-- disqus 评论框 starts -->
+<div id="disqus_thread"></div>
 <div class="comment">
     <div id="disqus_thread" class="disqus-thread"></div>
 </div>
+<!-- disqus 评论框 ends -->
 {% endif %}
-<!-- disqus 评论框 end -->
+
 
 
 <!-- comment.html ends -->

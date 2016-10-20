@@ -1,8 +1,15 @@
 <!-- Footer -->
+<div id="backtotop">
+  <div class="backtotop-btn">
+    <div class="arrow-upward"></div>
+    <div class="vertical-stick"></div>
+  </div>
+</div>
 <footer>
   <div class="container">
     <div class="row">
-      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <div class="footer
+                  col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
         <ul class="list-inline text-center">
           <!--
           <li>
@@ -42,131 +49,46 @@
   </div>
 </footer>
 
+<script class="site-options">
+  var siteOptions;
+  if (!siteOptions) siteOptions = {};
 
-<script src="{{ "/js/mensu-blog.js" | prepend: site.baseurl }}"></script>
-<script src="{{ "/js/hux-blog.js " | prepend: site.baseurl }}"></script>
-<script src="{{ "/js/top-nav.js" | prepend: site.baseurl }}"></script>
+  // duoshuo
+  {% if site.duoshuo-username %}
+    window.duoshuoQuery = siteOptions.duoshuoQuery = {
+      "short_name": "{{site.duoshuo-username}}"
+    };
+  {% endif %}
 
-<!-- 多说公共JS代码 starts -->
-{% if site.duoshuo-username %}
-<script type="text/javascript">
-var duoshuoQuery = {short_name:"{{site.duoshuo-username}}"};
-  (function() {
-    var ds = document.createElement('script');
-    ds.type = 'text/javascript';ds.async = true;
-    //ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-    ds.src = "{{ "/js/duoshuo-embed.js" | prepend: site.baseurl }}";
-    ds.charset = 'UTF-8';
-    (document.getElementsByTagName('head')[0] 
-     || document.getElementsByTagName('body')[0]).appendChild(ds);
-  })();
-</script>
-{% endif %}
-<!-- 多说公共JS代码 ends -->
+  // disqus
+  {% if site.disqus-username %}
+    siteOptions.disqus = {
+      "page": {
+        "url": '{{ site.url }}{{ page.url }}',
+        "id": '{{ page.url }}'
+      },
+      "src": '//{{site.disqus-username}}.disqus.com/embed.js',
+      "count": {
+        "src": '//{{site.disqus-username}}.disqus.com/count.js',
+        "async": true
+      }
+    };
+  {% endif %}
 
+  // mathjax
+  {% if site.mathjax %}
+    siteOptions.mathjax = true;
+  {% endif %}
 
-<!--MathJax.js -->
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({tex2jax: {inlineMath: [['$$','$$'], ['\\(','\\)']]}});
-</script>
-<script type="text/javascript" async
-  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML">
-</script>
-
-<!-- disqus 公共JS代码 starts -->
-{% if site.disqus-username %}
-<script id="dsq-count-scr" src="//mensu.disqus.com/count.js" async></script>
-<div id="disqus_thread"></div>
-<script>
-  /**
-  * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
-  * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
-  */
-  var disqus_config = function () {
-  this.page.url = "{{site.url}}{{page.url}}"; // Replace PAGE_URL with your page's canonical URL variable
-  this.page.identifier = "{{page.id}}"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
-  };
-
-  (function() { // DON'T EDIT BELOW THIS LINE
-  var d = document, s = d.createElement('script');
-
-  s.src = '//{{site.disqus-username}}.disqus.com/embed.js';
-
-  s.setAttribute('data-timestamp', +new Date());
-  (d.head || d.body).appendChild(s);
-  })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-{% endif %}
-<!-- disqus 公共JS代码 ends -->
-
-<!-- async load function -->
-<script>
-  function async(u, c) {
-  var d = document, t = 'script',
-      o = d.createElement(t),
-      s = d.getElementsByTagName(t)[0];
-  o.src = u;
-  if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
-  s.parentNode.insertBefore(o, s);
-  }
+  // tagcloud
+  {% if page.tagcloud %}
+    siteOptions.tagcloud = true;
+  {% endif %}
+  'use strict'
+  var a = {};
+  a['b'] = 4;
+  delete a.b;
 </script>
 
-<!-- tagcloud.js -->
-<script>
-  // only load tagcloud.js in tag.html
-  if($('#tag_cloud').length !== 0){
-      async("/js/jquery.tagcloud.js",function(){
-          $.fn.tagcloud.defaults = {
-              //size: {start: 1, end: 1, unit: 'em'},
-              color: {start: '#bbbbee', end: '#0085a1'},
-          };
-          $('#tag_cloud a').tagcloud();
-      })
-  }
-</script>
-
-<!--fastClick.js -->
-<script>
-    async("{{ "/js/fastclick.min.js" | prepend: site.baseurl }}", function(){
-        var $nav = document.querySelector("nav");
-        if($nav) FastClick.attach($nav);
-    })
-</script>
-
-
-<!-- Google Analytics -->
-{% if site.ga_track_id %}
-<script>
-    // dynamic User by Hux
-    var _gaId = '{{ site.ga_track_id }}';
-    var _gaDomain = '{{ site.ga_domain }}';
-
-    // Originial
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-    ga('create', _gaId, _gaDomain);
-    ga('send', 'pageview');
-</script>
-{% endif %}
-
-
-<!-- Baidu Tongji -->
-{% if site.ba_track_id %}
-<script>
-    // dynamic User by Hux
-    var _baId = '{{ site.ba_track_id }}';
-
-    // Originial
-    var _hmt = _hmt || [];
-    (function() {
-      var hm = document.createElement("script");
-      hm.src = "//hm.baidu.com/hm.js?" + _baId;
-      var s = document.getElementsByTagName("script")[0];
-      s.parentNode.insertBefore(hm, s);
-    })();
-</script>
-{% endif %}
+<script src="{{ "/js/outputs/commons-sync.js" | prepend: site.baseurl }}"></script>
+<script src="{{ "/js/outputs/commonpage.js" | prepend: site.baseurl }}"></script>

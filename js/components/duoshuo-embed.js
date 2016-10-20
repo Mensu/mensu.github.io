@@ -1,3 +1,20 @@
+(function (factory) {
+  if (typeof module === 'object' && module.exports) {
+    // Node/CommonJS
+    module.exports = function( duoshuoQuery ) {
+      return factory(duoshuoQuery);
+    };
+  } else if (typeof define === 'function' && define.amd) {
+    // AMD. Register as an anonymous module.
+    define([], function() {
+      return factory(duoshuoQuery);
+    });
+  } else {
+    // Browser globals
+    factory(duoshuoQuery);
+  }
+})(function factory(duoshuoQuery) {
+
 ! function(e, t, s) {
   function a() {
     return c.short_name ? g + "//" + c.short_name + "." + S.DOMAIN : S.REMOTE
@@ -1875,3 +1892,5 @@
 if (l.indexOf("service") < 0);
 else e.open(l,"_blank")...
 */
+
+});

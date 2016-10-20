@@ -25,11 +25,16 @@
     top: 60px;
   }
 
-  .catalog-toggle::before {
-    content: "−";
-    position: relative;
-    margin-right: 5px;
-    bottom: 1px;
+  .catalog-toggle {
+    &::before {
+      content: "−";
+      position: relative;
+      margin-right: 5px;
+      bottom: 1px;
+    }
+    &:hover {
+      color: @brand-primary;
+    }
   }
 
   .catalog-body {

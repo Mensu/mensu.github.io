@@ -35,10 +35,10 @@ function getOffsetTop(element) {
         // that require this pattern but the window provided is a noop
         // if it's defined (how jquery works)
         if ( typeof window !== 'undefined' ) {
-          jQuery = require('../jquery.js');
+          jQuery = require('./jquery.js');
         }
         else {
-          jQuery = require('../jquery.js')(root);
+          jQuery = require('./jquery.js')(root);
         }
       }
       factory(jQuery);
@@ -46,7 +46,7 @@ function getOffsetTop(element) {
     };
   } if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['../jquery.js'], factory);
+    define(['./jquery.js'], factory);
   } else {
     // Browser globals
     factory(jQuery);

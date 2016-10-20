@@ -101,7 +101,7 @@
     var MQL = 1170;
 
     // primary navigation slide-in effect
-    if ($(window).width() > MQL) {
+    // if ($(window).width() > MQL) {
       var $catalog = $('.side-catalog');
       var headerHeight = $('.navbar-custom').height();
       var bannerHeight  = $('.intro-header .container').height();     
@@ -140,7 +140,7 @@
         }
       }
       adjustCatalog($(window).scrollTop());
-    }
+    // }
     
 });
 

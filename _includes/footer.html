@@ -84,11 +84,6 @@
   {% if page.tagcloud %}
     siteOptions.tagcloud = true;
   {% endif %}
-  'use strict'
-  var a = {};
-  a['b'] = 4;
-  delete a.b;
 </script>
 
-<script src="{{ "/js/outputs/commons-sync.js" | prepend: site.baseurl }}"></script>
-<script src="{{ "/js/outputs/commonpage.js" | prepend: site.baseurl }}"></script>
+<script src="{{ "/js/outputs/commonpage.min.js" | prepend: site.baseurl }}"></script>

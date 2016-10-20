@@ -8,8 +8,8 @@ module.exports = {
   },
   output: {
     path: path.join(__dirname, 'js', 'outputs'),
-    filename: '[name].js',
-    chunkFilename: 'common-async-[id].js'
+    filename: '[name].min.js',
+    chunkFilename: 'common-async-[id].min.js'
   },
   module: {
     // loaders: [
@@ -18,7 +18,7 @@ module.exports = {
   },
   plugins: [
     new CommonsChunkPlugin({
-      filename: "commons-sync.js",
+      filename: "commons-sync.min.js",
       name: "commons",
       chunks: ['commonpage', 'post']
     }),

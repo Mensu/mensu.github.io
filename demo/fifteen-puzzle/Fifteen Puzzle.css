@@ -1,0 +1,144 @@
+body {
+  cursor: default;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+.title,
+.instruction,
+.result-description {
+  text-align: center;
+}
+.result-description {
+  height: 40px;
+  margin: 10px auto;
+  opacity: 0;
+  -webkit-transition: opacity;
+  transition: opacity;
+}
+.result-description.show {
+  opacity: 1;
+  -webkit-transition-duration: 1s;
+          transition-duration: 1s;
+}
+.fifteen-puzzle-wrapper {
+  margin: 15px auto;
+  width: 400px;
+  height: 400px;
+}
+.fifteen-puzzle-wrapper .fifteen-puzzle {
+  border: 20px solid #d2d2d2;
+  -webkit-border-radius: 3px;
+          border-radius: 3px;
+  background-color: #d2d2d2;
+  font-size: 0;
+  -webkit-transition-duration: 1s;
+          transition-duration: 1s;
+}
+.fifteen-puzzle-wrapper .fifteen-puzzle .fragment {
+  display: inline-block;
+  border: 1px solid #d2d2d2;
+  -webkit-border-radius: 2px;
+          border-radius: 2px;
+  background-image: url("pict.jpg");
+  background-size: 400px 400px;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+  -webkit-transition-property: width, height, left, top, -webkit-transform;
+  transition-property: width, height, left, top, -webkit-transform;
+  transition-property: transform, width, height, left, top;
+  transition-property: transform, width, height, left, top, -webkit-transform;
+  -webkit-transition-timing-function: ease-in;
+          transition-timing-function: ease-in;
+}
+.fifteen-puzzle-wrapper .fifteen-puzzle .fragment:hover {
+  -webkit-transform-origin: center center;
+      -ms-transform-origin: center center;
+          transform-origin: center center;
+  -webkit-transition-duration: 0.2s;
+          transition-duration: 0.2s;
+}
+.fifteen-puzzle-wrapper .fifteen-puzzle .fragment.hidden {
+  visibility: hidden;
+}
+.fifteen-puzzle-wrapper .fifteen-puzzle.moving .fragment {
+  -webkit-transform: scale(1);
+      -ms-transform: scale(1);
+          transform: scale(1);
+  -webkit-transition-duration: 1s;
+          transition-duration: 1s;
+}
+.fifteen-puzzle-wrapper .fifteen-puzzle.moving .fragment:hover {
+  -webkit-transform: scale(1);
+      -ms-transform: scale(1);
+          transform: scale(1);
+}
+.fifteen-puzzle-wrapper .fifteen-puzzle.started {
+  cursor: pointer;
+}
+.fifteen-puzzle-wrapper .fifteen-puzzle.started .fragment:hover {
+  -webkit-transform: scale(1.15);
+      -ms-transform: scale(1.15);
+          transform: scale(1.15);
+}
+.fifteen-puzzle-wrapper .fifteen-puzzle.started .fragment:active {
+  -webkit-transform: scale(1);
+      -ms-transform: scale(1);
+          transform: scale(1);
+  -webkit-transition-duration: 0s;
+          transition-duration: 0s;
+}
+.ctrl-panel {
+  margin: 20px auto;
+  width: 400px;
+  text-align: center;
+}
+.ctrl-panel .button {
+  display: inline-block;
+  border: 0 solid #eee;
+  -webkit-border-radius: 5px;
+          border-radius: 5px;
+  padding: 10px 25px;
+  cursor: pointer;
+  font-size: 18px;
+  color: #fff;
+  -webkit-box-shadow: 0 0 10px #ccc;
+          box-shadow: 0 0 10px #ccc;
+  background: rgba(71, 158, 162, 0.5);
+  outline: none;
+  -webkit-transition: background-color 0.2s ease-in-out;
+  transition: background-color 0.2s ease-in-out;
+}
+.ctrl-panel .button:hover {
+  background: #4797B1;
+}
+.ctrl-panel .button:disabled {
+  background-color: #ccc;
+}
+.ctrl-panel .button:disabled:hover {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+.ctrl-panel .button:first-of-type {
+  margin-right: 50px;
+}
+.size-ctrl {
+  text-align: left;
+  margin-top: 20px;
+  position: relative;
+  font-size: 14px;
+}
+.size-ctrl .title {
+  margin-bottom: 20px;
+}
+.size-ctrl input:disabled:hover {
+  cursor: not-allowed;
+}
+.size-ctrl .size-n-input {
+  position: absolute;
+  right: 0;
+  padding-top: 5px;
+}
+/*# sourceMappingURL=Fifteen Puzzle.css.map */

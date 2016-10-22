@@ -1,0 +1,133 @@
+@pict-width: 400px;
+@move-time: 1s;
+@scaler: 1.15;
+@bg-color: rgb(210, 210, 210);
+
+body {
+  cursor: default;
+  user-select: none;
+}
+
+.title,
+.instruction,
+.result-description {
+  text-align: center;
+}
+.result-description {
+  height: 40px;
+  margin: 10px auto;
+  opacity: 0;
+  transition: opacity;
+  
+  &.show {
+    opacity: 1;
+    transition-duration: @move-time;
+  }
+}
+
+
+.fifteen-puzzle-wrapper {
+  margin: 15px auto;
+  width: @pict-width;
+  height: @pict-width;
+  .fifteen-puzzle {
+    border: 20px solid @bg-color;
+    border-radius: 3px;
+    background-color: @bg-color;
+    font-size: 0;
+    transition-duration: @move-time;
+    .fragment {
+      display: inline-block;
+      border: 1px solid @bg-color;
+      border-radius: 2px;
+      background-image: url("./pict.jpg");
+      background-size: @pict-width @pict-width;
+      box-sizing: border-box;
+      transition-property: transform, width, height, left, top;
+      transition-timing-function: ease-in;
+      &:hover {
+        transform-origin: center center;
+        transition-duration: 0.2s;
+      }
+      &.hidden {
+        visibility: hidden;
+      }
+    }
+    &.moving {
+      .fragment {
+        &:hover {
+          transform: scale(1);
+        }
+        transform: scale(1);
+        transition-duration: @move-time;
+      }
+    }
+    &.started {
+      cursor: pointer;
+      .fragment {
+        &:hover {
+          transform: scale(@scaler);
+        }
+        &:active {
+          transform: scale(1);
+          transition-duration: 0s;
+        }
+      }
+    }
+  }
+    
+}
+
+.ctrl-panel {
+  margin: 20px auto;
+  width: @pict-width;
+  text-align: center;
+  .button {
+    display: inline-block;
+    border: 0 solid #eee;
+    border-radius: 5px;
+    padding: 10px 25px;
+    cursor: pointer;
+    font-size: 18px;
+    color: #fff;
+    box-shadow: 0 0 10px #ccc;
+    background: rgba(71,158,162,.5);
+    outline: none;
+    transition: background-color .2s ease-in-out;
+    &:hover {
+      background: #4797B1;
+    }
+    &:disabled {
+      background-color: #ccc;
+      &:hover {
+        background-color: #ccc;
+        cursor: not-allowed;
+      }
+    }
+    &:first-of-type {
+      margin-right: 50px;
+    }
+  }
+}
+
+.size-ctrl {
+  text-align: left;
+  margin-top: 20px;
+  position: relative;
+  font-size: 14px;
+  .title {
+    margin-bottom: 20px;
+  }
+  input {
+    &:disabled {
+      &:hover {
+        cursor: not-allowed;
+      }
+    }
+  }
+  .size-n-input {
+    position: absolute;
+    right: 0;
+    padding-top: 5px;
+  }
+}

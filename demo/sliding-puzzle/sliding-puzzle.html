@@ -2,25 +2,25 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Fifteen Puzzle</title>
+    <title>Sliding Puzzle</title>
     <link rel="stylesheet" href="./Fifteen Puzzle.css">
   </head>
   <body>
-    <h1 class="title">Fifteen Puzzle</h1>
-    <h2 class="instruction">Fifteen Puzzle</h2>
+    <h1 class="title">Sliding Puzzle</h1>
+    <h2 class="instruction">Click the pieces to establish a pict on the right!</h2>
     <h2 class="result-description">You Win</h2>
-    <div class="fifteen-puzzle-wrapper">
-      <div class="fifteen-puzzle"></div>
+    <div class="sliding-puzzle-wrapper">
+      <div class="sliding-puzzle game"></div>
+      <div class="sliding-puzzle demo"></div>
     </div>
     <div class="ctrl-panel">
-      <input type="button" class="button start" value="Start">
+      <input type="button" class="button start" value="Scramble">
       <input type="button" class="button solve-it" value="See Solution">
       <div class="size-ctrl">
         <span class="title">Choose a size to play</span><br><br>
         <label for="size-2"><input type="radio" id="size-2" name="size"> 2 × 2</label>
         <label for="size-3"><input type="radio" id="size-3" name="size"> 3 × 3</label>
         <label for="size-4"><input type="radio" id="size-4" name="size"> 4 × 4</label>
-        <label for="size-5"><input type="radio" id="size-5" name="size"> 5 × 5</label>
         <label for="size-n"><input type="radio" id="size-n" name="size"> n × n</label>
         <br>
         <label class="size-n-input" for="size-n-input">Iuput n here: <input type="text" id="size-n-input"></label>

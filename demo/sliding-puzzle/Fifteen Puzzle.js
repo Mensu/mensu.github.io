@@ -1,6 +1,6 @@
 (function() {
   'use strict';
-  var puzzleEle = document.querySelector('.fifteen-puzzle');
+  var puzzleEle = document.querySelector('.sliding-puzzle.game');
   var start = document.querySelector('.start');
   var solve = document.querySelector('.solve-it');
   var sizeRadios = Array.prototype.slice.apply(document.querySelectorAll('input[name="size"]'));
@@ -13,15 +13,16 @@
     moveTime = 1;
   }
   var started = false;
-  function Fragment(bgImgCorrectIndex, fifteenPuzzleObj) {
+  var solving = false;
+  function Fragment(bgImgCorrectIndex, slidingPuzzleObj) {
     var self = this;
     self['element'] = createElementWith('div', 'fragment');
     self.element['fragmentObj'] = self;
     self['isEmpty'] = false;
     self['bgImgCorrectIndex'] = bgImgCorrectIndex;
-    self['fifteenPuzzleObj'] = fifteenPuzzleObj;
+    self['slidingPuzzleObj'] = slidingPuzzleObj;
     self['curIndex'] = bgImgCorrectIndex;
-    fifteenPuzzleObj.fragments.push(self);
+    slidingPuzzleObj.fragments.push(self);
   }
   Fragment.prototype = {
     "constructor": Fragment,
@@ -29,13 +30,13 @@
       var self = this;
       self.element.classList.add('hidden');
       self.isEmpty = true;
-      self.fifteenPuzzleObj.hidingFragmentObj = self;
+      self.slidingPuzzleObj.hidingFragmentObj = self;
     },
     "show": function() {
       var self = this;
       self.element.classList.remove('hidden');
       self.isEmpty = false;
-      self.fifteenPuzzleObj.hidingFragmentObj = null;
+      self.slidingPuzzleObj.hidingFragmentObj = null;
     },
     "toggle": function() {
       var self = this;
@@ -44,7 +45,7 @@
     },
     "indexIsValid": function(index) {
       var self = this;
-      return 0 <= index && index < self.fifteenPuzzleObj.size;
+      return 0 <= index && index < self.slidingPuzzleObj.size;
     },
     "canMoveTo": function(direction) {
       var self = this;
@@ -80,13 +81,13 @@
     }
   };
   
-  function getIndexInRandomDirection(fifteenPuzzleObj, fragmentObj) {
+  function getIndexInRandomDirection(slidingPuzzleObj, fragmentObj) {
     var possibleIndices = [];
     for (var direction in directionMap) {
       if (!fragmentObj.canMoveTo(direction)) {
         continue;
       }
-      var indexAfterMove = fifteenPuzzleObj.hidingFragmentObj.curIndex + directionMap[direction].x + directionMap[direction].y * fifteenPuzzleObj.size;
+      var indexAfterMove = slidingPuzzleObj.hidingFragmentObj.curIndex + directionMap[direction].x + directionMap[direction].y * slidingPuzzleObj.size;
       possibleIndices.push({
           "direction": directionMap[direction].opposite,
           "index": indexAfterMove
@@ -96,13 +97,13 @@
     return possibleIndices[selected];
   }
   
-  function FifteenPuzzle(size) {
+  function SlidingPuzzle(size) {
     var self = this;
     self['size'] = size;
     self.init();
   }
-  FifteenPuzzle.prototype = {
-    "constructor": FifteenPuzzle,
+  SlidingPuzzle.prototype = {
+    "constructor": SlidingPuzzle,
     "init": init,
     "win": win,
     "updateCorrectCount": updateCorrectCount,
@@ -198,21 +199,22 @@
   }
 
   function clickHandler(event) {
-    if (!started) return;
+    if (!started || solving) return;
     var element = this;
     var fragmentObj = element.fragmentObj;
-    var fifteenPuzzleObj = fragmentObj.fifteenPuzzleObj;
+    var slidingPuzzleObj = fragmentObj.slidingPuzzleObj;
+    if (slidingPuzzleObj.state.backing) return;
     var direction = fragmentObj.getMoveDirection();
     if (!direction) return;
     fragmentObj.move(direction, function afterMoving() {
       fragmentObj.unmove();
-      fragmentObj.interchange(fifteenPuzzleObj.hidingFragmentObj, direction);
-      if (fifteenPuzzleObj.win()) {
+      fragmentObj.interchange(slidingPuzzleObj.hidingFragmentObj, direction);
+      if (slidingPuzzleObj.win()) {
         result.classList.add('show');
         setTimeout(function() {
-          fifteenPuzzleObj.hidingFragmentObj.show();
+          slidingPuzzleObj.hidingFragmentObj.show();
         }, moveTime * 1000);
-        fragmentObj.fifteenPuzzleObj.stepStack = [];
+        fragmentObj.slidingPuzzleObj.stepStack = [];
         solve.click();
       }
     });
@@ -221,13 +223,13 @@
 
   function getMoveDirection() {
     var self = this;
-    var fifteenPuzzleObj = self.fifteenPuzzleObj;
+    var slidingPuzzleObj = self.slidingPuzzleObj;
     for (var direction in directionMap) {
       if (!self.canMoveTo(direction)) {
         continue;
       }
-      var indexOffset = directionMap[direction].x + directionMap[direction].y * self.fifteenPuzzleObj.size;
-      if (self.curIndex + indexOffset == fifteenPuzzleObj.hidingFragmentObj.curIndex) {
+      var indexOffset = directionMap[direction].x + directionMap[direction].y * self.slidingPuzzleObj.size;
+      if (self.curIndex + indexOffset == slidingPuzzleObj.hidingFragmentObj.curIndex) {
         return direction;
       }
     }
@@ -237,7 +239,7 @@
   function interchange(another, direction) {
     var self = this;
     var element = self.element;
-    var fifteenPuzzleObj = self.fifteenPuzzleObj;
+    var slidingPuzzleObj = self.slidingPuzzleObj;
     propInterchange(self, another, ['bgImgCorrectIndex']);
     propInterchange(element.style, another.element.style, ['backgroundPosition']);
 
@@ -250,36 +252,36 @@
       });
     }
     var isReverse = false;
-    if (fifteenPuzzleObj.state.randomizing && fifteenPuzzleObj.stepStack.length) {
-      var last = fifteenPuzzleObj.stepStack[fifteenPuzzleObj.stepStack.length - 1];
+    if (slidingPuzzleObj.state.randomizing && slidingPuzzleObj.stepStack.length) {
+      var last = slidingPuzzleObj.stepStack[slidingPuzzleObj.stepStack.length - 1];
       isReverse = (direction == directionMap[last.direction].opposite &&
                       last['from'] == another.curIndex && last['to'] == self.curIndex);
       if (isReverse) {
-        fifteenPuzzleObj.stepStack.pop();
+        slidingPuzzleObj.stepStack.pop();
       }
     }
-    if (!isReverse && !fifteenPuzzleObj.state.backing) {
-      fifteenPuzzleObj.stepStack.push({
+    if (!isReverse && !slidingPuzzleObj.state.backing) {
+      slidingPuzzleObj.stepStack.push({
         "from": self.curIndex,
         "to": another.curIndex,
         "direction": direction
       });
     }
     self.toggle(), another.toggle();
-    fifteenPuzzleObj.updateCorrectCount([self, another]);
-    fifteenPuzzleObj.hidingFragmentObj = self;
+    slidingPuzzleObj.updateCorrectCount([self, another]);
+    slidingPuzzleObj.hidingFragmentObj = self;
   }
 
   function move(direction, callback) {
     var self = this;
     var element = self.element;
-    var fifteenPuzzleObj = self.fifteenPuzzleObj;
-    if (fifteenPuzzleObj.state.moving) return;
-    var randomizing = fifteenPuzzleObj.state.randomizing;
-    fifteenPuzzleObj.state.moving = direction;
+    var slidingPuzzleObj = self.slidingPuzzleObj;
+    if (slidingPuzzleObj.state.moving) return;
+    var randomizing = slidingPuzzleObj.state.randomizing;
+    slidingPuzzleObj.state.moving = direction;
     if (randomizing) {
-      self.interchange(fifteenPuzzleObj.hidingFragmentObj, direction);
-      fifteenPuzzleObj.state.moving = false;
+      self.interchange(slidingPuzzleObj.hidingFragmentObj, direction);
+      slidingPuzzleObj.state.moving = false;
       return;
     }
     element.parentNode.classList.add('moving');
@@ -288,7 +290,7 @@
     element.style.transform += 'translate(' + x + 'px, ' + y + 'px)';
     setTimeout(function afterMoving() {
       element.parentNode.classList.remove('moving');
-      fifteenPuzzleObj.state.moving = false;
+      slidingPuzzleObj.state.moving = false;
       callback.apply(element);
     }, moveTime * 1000);
     
@@ -305,7 +307,7 @@
   function randomize() {
     var self = this;
     self.state.randomizing = true;
-    var times = Math.floor(Math.random() * randomTime);
+    var times = Math.floor(30 + Math.random() * randomTime);
     for (var timesCount = 0; timesCount < times; ++timesCount) {
       var hidingFragmentObj = self.hidingFragmentObj;
       var randomResult = getIndexInRandomDirection(self, hidingFragmentObj);
@@ -323,9 +325,9 @@
     self.state.randomizing = false;
   }
   var config = {};
-  if (localStorage.fifteenPuzzle) {
+  if (localStorage.slidingPuzzle) {
     try {
-      config = JSON.parse(localStorage.getItem('fifteenPuzzle'));
+      config = JSON.parse(localStorage.getItem('slidingPuzzle'));
     } catch (e) {
       config = {};
     }
@@ -333,9 +335,9 @@
   var size = config.size || 4;
   var limit = 8;
   config.size = size;
-  localStorage.setItem('fifteenPuzzle', JSON.stringify(config));
+  localStorage.setItem('slidingPuzzle', JSON.stringify(config));
   var randomTime = getRandomTime();
-  window.fifteenPuzzle = new FifteenPuzzle(size);
+  window.slidingPuzzle = new SlidingPuzzle(size);
 
   function getRandomTime() {
     var ret = Math.pow(5, size);
@@ -347,11 +349,11 @@
   }
   
   start.addEventListener('click', function() {
-    if (started && fifteenPuzzle.state.backing) {
+    if (started && slidingPuzzle.state.backing) {
       return;
     }
-    fifteenPuzzle.init();
-    fifteenPuzzle.randomize();
+    slidingPuzzle.init();
+    slidingPuzzle.randomize();
     puzzleEle.classList.add('started');
     result.classList.remove('show');
     solve.disabled = undefined;
@@ -359,14 +361,16 @@
   }, false);
   solve.disabled = true;
   solve.addEventListener('click', function() {
-    if (!started || fifteenPuzzle.state.backing) return;
+    if (!started || solving || slidingPuzzle.state.backing) return;
     start.disabled = true;
+    solving = true;
     sizeRadios.forEach(function(one) {
       one.disabled = true;
     });
     userInputN.disabled = true;
-    fifteenPuzzle.restore(function() {
+    slidingPuzzle.restore(function() {
       started = false;
+      solving = false;
       start.disabled = undefined;
       userInputN.disabled = undefined;
       solve.disabled = true;
@@ -378,11 +382,11 @@
   }, false);
 
   sizeRadios.forEach(function(one, index, self) {
-    one.fifteenPuzzleSize = parseInt(one.id.substring('size-'.length));
-    if (isNaN(one.fifteenPuzzleSize)) {
-      userInputN['FifteenPuzzleRadio'] = one;
+    one.slidingPuzzleSize = parseInt(one.id.substring('size-'.length));
+    if (isNaN(one.slidingPuzzleSize)) {
+      userInputN['SlidingPuzzleRadio'] = one;
     }
-    if (one.fifteenPuzzleSize == config.size
+    if (one.slidingPuzzleSize == config.size
         || (index + 1 == self.length && config.size && config.size > 5)) {
       one.checked = true;
     }
@@ -390,10 +394,10 @@
   });
 
   function changeSize() {
-    fifteenPuzzle.size = config.size = size = this.fifteenPuzzleSize || config.size;
+    slidingPuzzle.size = config.size = size = this.slidingPuzzleSize || config.size;
     randomTime = getRandomTime();
-    localStorage.setItem('fifteenPuzzle', JSON.stringify(config));
-    fifteenPuzzle.init();
+    localStorage.setItem('slidingPuzzle', JSON.stringify(config));
+    slidingPuzzle.init();
     result.classList.remove('show');
   }
   
@@ -413,9 +417,9 @@
       this.select();
       return;
     }
-    this.FifteenPuzzleRadio.fifteenPuzzleSize = newSize;
-    if (this.FifteenPuzzleRadio.checked) {
-      this.FifteenPuzzleRadio.click();
+    this.SlidingPuzzleRadio.slidingPuzzleSize = newSize;
+    if (this.SlidingPuzzleRadio.checked) {
+      this.SlidingPuzzleRadio.click();
     }
   }, false);
 

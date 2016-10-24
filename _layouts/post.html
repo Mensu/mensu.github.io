@@ -84,7 +84,9 @@ layout: default
   {% endif %}
   {% if site.sidenav %}
     // sidenav, Doc: http://github.com/davist11/jQuery-One-Page-Nav
-    siteOptions.useSideNav = true;
+    siteOptions.useSideNav = {
+      "onlyH1": false
+    };
   {% endif %}
 </script>
 

@@ -11,14 +11,16 @@ $(document).ready(function() {
     articleObj.anchors.add(getH1ToH6Selector('.post-container '));
   }
   if (siteOptions.useSideNav) {
-    articleObj.generateCatalog('.catalog-body', getH1ToH6Selector(''));
+    articleObj.generateCatalog('.catalog-body', getH1ToH6Selector('', siteOptions.useSideNav.onlyH1));
   }
 });
 
-function getH1ToH6Selector(prefix) {
+function getH1ToH6Selector(prefix, onlyH1) {
   var selector = prefix + 'h1';
-  for (var i = 2; i <= 6; ++i) {
-    selector += ', ' + prefix + 'h' + i;
+  if (!onlyH1) {
+    for (var i = 2; i <= 6; ++i) {
+      selector += ', ' + prefix + 'h' + i;
+    }
   }
   return selector;
 }

@@ -35,18 +35,21 @@ $(document).ready(function() {
     scriptLoader(siteOptions.disqus.count);
     scriptLoader({
       "src": siteOptions.disqus.src,
-      "name": 'disqus comment'
+      "name": 'Disqus Comment'
     }, function($script) {
       $script.attr('data-timetamp', new Date());
     }); 
   }
   if (siteOptions.mathjax) {
     scriptLoader({
-      "type": 'text/x-mathjax-config'
+      "type": 'text/x-mathjax-config',
+      "name": 'Mathjax Config'
+    }, function($script) {
+      $script.text("window.MathJax.Hub.Config({tex2jax: {inlineMath: [['$$','$$'], ['\\(','\\)']]}});");
     });
-    window.MathJax.Hub.Config({tex2jax: {inlineMath: [['$$','$$'], ['\\(','\\)']]}});
     scriptLoader({
-      "src": siteOptions.mathjax.src,
+      "src": 'https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML',
+      "name": 'Mathjax Src',
       "async": true
     });
   }
@@ -63,7 +66,9 @@ function scriptLoader(options, callback) {
     $script.prop('async', options.async);
     $script.prop('defer', options.async);
   }
-  callback($script);
+  if (callback) {
+    callback($script);
+  }
   $('body').append('<!-- ' + options.name + ' starts -->')
            .append($script)
            .append('<!-- ' + options.name + ' ends -->');

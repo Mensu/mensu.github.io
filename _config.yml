@@ -61,6 +61,7 @@ ga_domain:
 
 anchorjs: true                          # if you want to customize anchor. check out line:? of `post.html`
 sidenav: true
+mathjax: true
 
 # Sidebar settings
 sidebar: true                           # whether or not using Sidebar.

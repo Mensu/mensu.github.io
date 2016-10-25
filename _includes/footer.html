@@ -52,16 +52,14 @@
 <script class="site-options">
   var siteOptions;
   if (!siteOptions) siteOptions = {};
-
-  // duoshuo
   {% if site.duoshuo-username %}
+    // duoshuo
     window.duoshuoQuery = siteOptions.duoshuoQuery = {
       "short_name": "{{site.duoshuo-username}}"
     };
   {% endif %}
-
-  // disqus
   {% if site.disqus-username %}
+    // disqus
     siteOptions.disqus = {
       "page": {
         "url": '{{ site.url }}{{ page.url }}',
@@ -74,16 +72,13 @@
       }
     };
   {% endif %}
-
-  // mathjax
   {% if site.mathjax %}
+    // mathjax
     siteOptions.mathjax = true;
   {% endif %}
-
-  // tagcloud
   {% if page.tagcloud %}
+    // tagcloud
     siteOptions.tagcloud = true;
   {% endif %}
 </script>
-
 <script src="{{ "/js/outputs/commonpage.min.js" | prepend: site.baseurl }}"></script>

@@ -45,7 +45,7 @@ $(document).ready(function() {
       "type": 'text/x-mathjax-config',
       "name": 'Mathjax Config'
     }, function($script) {
-      $script.text("window.MathJax.Hub.Config({tex2jax: {inlineMath: [['$$','$$'], ['\\(','\\)']]}});");
+      $script.text("window.MathJax.Hub.Config({tex2jax: {inlineMath: [['$$','$$'], ['\\\\(','\\\\)']]}});");
     });
     scriptLoader({
       "src": 'https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML',

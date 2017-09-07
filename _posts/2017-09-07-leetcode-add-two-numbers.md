@@ -22,12 +22,11 @@ You are given two **non-empty** linked lists representing two non-negative integ
 
 You may assume the two numbers do not contain any leading zero, except the number 0 itself.
 
-**Input:** `` (2 -> 4 -> 3) + (5 -> 6 -> 4) ``
-
+**Input:** `` (2 -> 4 -> 3) + (5 -> 6 -> 4) ``  
 **Output:** `` 7 -> 0 -> 8 ``
 
 
-# 简要解答
+# Solution
 
 按照加法的计算规则，从头开始同步遍历两个输入链表，结点和进位相加形成输出的链表结点，直到其中一个链表到了尽头。
 
@@ -35,9 +34,9 @@ You may assume the two numbers do not contain any leading zero, except the numbe
 
 链表都迭代完毕时，考虑进位。如果存在进位，则还需要再加一个输出节点。
 
-# 源代码
+# Source Code
 
-## 提交
+## submission
 ```c
 /**
  * Definition for singly-linked list.
@@ -98,7 +97,7 @@ ListNodePtr addTwoNumbers(ListNodePtr l1, ListNodePtr l2) {
 
 ```
 
-## 测试框架
+## framework
 
 ```c
 struct ListNode {

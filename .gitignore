@@ -1,9 +1,5 @@
-
+.vscode
 _site/*
-
 .DS_Store
-
-
 *.db
-
 *.db-wal

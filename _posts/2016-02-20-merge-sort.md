@@ -21,7 +21,7 @@ tags:
 
 具体的想法很好理解，有点类似于两个队伍打比赛
 
-队伍都按照**由弱到强**的顺序派出队员，每次都是1v1的个人赛，赢的人留在台上做擂主，输的人排入休息队伍【别问为啥&nbsp;\|･ω･｀)  
+队伍都按照**由弱到强**的顺序派出队员，每次都是1v1的个人赛，赢的人留在台上做擂主，输的人排入休息队伍【别问为啥&nbsp;\|･ω･｀)
 然后，输者的队伍继续派出队员，直到有一个队伍的人都派完了，才把另一个队伍的人按顺序接到输者休息队伍的后面
 
 这样以后，休息队伍就是按由弱到强的顺序排的啦
@@ -63,7 +63,7 @@ loop {
 aftermerger[p] = (beforemerger[p1] <= beforemerger[p2]) ? beforemerger[p1] : beforemerger[p2];
 (beforemerger[p1] <= beforemerger[p2]) ? p1++ : p2++;
 p++;
- 
+
 ~~~
 
 或者更为简洁的
@@ -71,7 +71,7 @@ p++;
 ~~~ c
 // C code
 aftermerger[p++] = (beforemerger[p1] <= beforemerger[p2]) ? beforemerger[p1++] : beforemerger[p2++];
- 
+
 ~~~
 
 当然，简洁的另一面，代码的可读性在一定程度上会有所下降
@@ -81,7 +81,7 @@ aftermerger[p++] = (beforemerger[p1] <= beforemerger[p2]) ? beforemerger[p1++] :
 ~~~ c
 // C code
 while (p1 <= end1 && p2 <= end2) aftermerger[p++] = (beforemerger[p1] <= beforemerger[p2]) ? beforemerger[p1++] : beforemerger[p2++];
- 
+
 ~~~
 
 ## 移入
@@ -97,7 +97,7 @@ if (p1 <= end1) {                            // p1所在组有剩余的情况
 }
 else if (p2 <= end2) {                       // p2所在组有剩余的情况，同理
     loop {
-        aftermerger[p] = beforemerger[p2];  
+        aftermerger[p] = beforemerger[p2];
         p2++, p++;
     } until (p2 > end2);
 }
@@ -117,7 +117,7 @@ while (p2 <= end2) aftermerger[p++] = beforemerger[p2++];
 ~~~ c
 // C code
 while (p1 <= end1 || p2 <= end2) aftermerger[p++] = (p1 <= end1) ? beforemerger[p1++] : beforemerger[p2++];
- 
+
 ~~~
 
 ## 核心部分的代码
@@ -126,7 +126,7 @@ while (p1 <= end1 || p2 <= end2) aftermerger[p++] = (p1 <= end1) ? beforemerger[
 while (p1 <= end1 && p2 <= end2) aftermerger[p++] = (beforemerger[p1] <= beforemerger[p2]) ? beforemerger[p1++] : beforemerger[p2++];
 while (p1 <= end1) aftermerger[p++] = beforemerger[p1++];
 while (p2 <= end2) aftermerger[p++] = beforemerger[p2++];
- 
+
 ~~~
 
 可以看出，核心部分用到了5个关键的下标：
@@ -185,8 +185,8 @@ end2 = end1 + seg;
 #### 两种特殊情况
 现在考虑末尾的特殊情况。因为标准小组的长度 seg 是 2 的 n 次方，而原数组的长度不一定恰好为 2 * seg 的倍数，也就是说最后可能剩下一些数，数量不足以凑成 2 个标准小组参与合并。不用害怕，我们要做的，还是**让每组的首尾指针指向正确的位置**。这样一来，如前面所说，就可以正确地进行核心部分。有如下两种特殊情况
 
-一种是**最后有两组**能参与合并排序，但第二组里的数少于标准小组。这时只要**把第二组的尾指针调整向** rightmost——**下标最大值**  
-这种情况的本质是 正常情况下的 end2（= end1 + seg） 超过了 rightmost，此时要将 end2 调整为 rightmost  
+一种是**最后有两组**能参与合并排序，但第二组里的数少于标准小组。这时只要**把第二组的尾指针调整向** rightmost——**下标最大值**
+这种情况的本质是 正常情况下的 end2（= end1 + seg） 超过了 rightmost，此时要将 end2 调整为 rightmost
 我们力求修改后的代码也能用于前面的正常情况
 
 ~~~ c
@@ -223,9 +223,9 @@ end1 = ((p2 - 1 > rightmost) ? rightmost : p2 - 1);
 
 ~~~ c
 // C code
-while (p1 <= end1) aftermerger[p++] = beforemerger[p1++]; 
+while (p1 <= end1) aftermerger[p++] = beforemerger[p1++];
 ~~~
- 
+
 那么，破坏其他两句的条件 `` p2 <= end2 `` ，让 p2 > end2 就行了。很幸运，如果沿用第一种特殊情况的
 
 ~~~ c
@@ -248,9 +248,9 @@ end2 = ((end1 + seg > rightmost) ? rightmost : end1 + seg);
 ~~~
 
 ### for循环
-从左到右内循环的主体就这样搭建完成了：“小组指针初始化” + “核心部分“  
-考虑内循环的开始——要为五指针声明，然后要把 aftermerger 中的 p 初始化为 0  
-而内循环的终止条件，便是 p 指针遍历了所有的元素，溢出 aftermerger 数组的最右 rightmost 。反过来内循环还要继续的条件，是p指针尚未越过 rightmost。  
+从左到右内循环的主体就这样搭建完成了：“小组指针初始化” + “核心部分“
+考虑内循环的开始——要为五指针声明，然后要把 aftermerger 中的 p 初始化为 0
+而内循环的终止条件，便是 p 指针遍历了所有的元素，溢出 aftermerger 数组的最右 rightmost 。反过来内循环还要继续的条件，是p指针尚未越过 rightmost。
 由此可以构造 for 循环：
 
 ~~~ c
@@ -270,13 +270,13 @@ for (int p = 0, p1, p2, end1, end2; p <= rightmost;) {
     p2 = p + seg;
     end1 = ((p2 - 1 > rightmost) ? rightmost : p2 - 1);
     end2 = ((end1 + seg > rightmost) ? rightmost : end1 + seg);
-    
+
     /*----- 核心部分 -----*/
     while (p1 <= end1 && p2 <= end2) aftermerger[p++] = (beforemerger[p1] <= beforemerger[p2]) ? beforemerger[p1++] : beforemerger[p2++];
     while (p1 <= end1) aftermerger[p++] = beforemerger[p1++];
     while (p2 <= end2) aftermerger[p++] = beforemerger[p2++];
 }
- 
+
 ~~~
 
 ## 从上到下
@@ -287,7 +287,7 @@ for (int p = 0, p1, p2, end1, end2; p <= rightmost;) {
 
 每进行一次从左到右，就会两组两组合并，得到一些更大的组。不考虑特殊情况的话，每一轮，每组的长度 seg 都会翻倍。最开始我们是一个数一组，seg = 1，这是初始条件。然后每轮 seg 翻倍，seg = seg * 2 。这便是每轮结束时要为下一轮做的事情
 
-那什么时候合并得只剩一个组——排序后的数组呢？不妨从另一个角度考虑：什么时候还得继续合并呢？当然是仍剩下多个小组的时候啦！此时每个小组长度必然小于原数组，这对应条件：`seg ≤ rightmost`  
+那什么时候合并得只剩一个组——排序后的数组呢？不妨从另一个角度考虑：什么时候还得继续合并呢？当然是仍剩下多个小组的时候啦！此时每个小组长度必然小于原数组，这对应条件：`seg ≤ rightmost`
 由此可以构造 for 循环：
 
 ~~~ c
@@ -324,13 +324,13 @@ for (int seg = 1; seg <= rightmost; seg <<= 1) {
         p1 = p, p2 = p + seg;
         end1 = ((p2 - 1 > rightmost) ? rightmost : p2 - 1);
         end2 = ((end1 + seg > rightmost) ? rightmost : end1 + seg);
-        
+
         while (p1 <= end1 && p2 <= end2) aftermerger[p++] = (beforemerger[p1] <= beforemerger[p2]) ? beforemerger[p1++] : beforemerger[p2++];
         while (p1 <= end1) aftermerger[p++] = beforemerger[p1++];
         while (p2 <= end2) aftermerger[p++] = beforemerger[p2++];
     }
 }
- 
+
 ~~~
 
 # 合并排序前后
@@ -343,7 +343,7 @@ for (int seg = 1; seg <= rightmost; seg <<= 1) {
 void mergesort(int rightmost, int *array) {
     int *beforemerger, *aftermerger, *temp;
     beforemerger = malloc(sizeof(int) * (rightmost + 1)), aftermerger = array;
-    
+
     // 合并排序（从上到下循环）
 }
 ~~~
@@ -373,7 +373,7 @@ else free(beforemerger);
 /*----- 合并排序（从上到下外循环） -----*/
 for (int seg = 1; seg <= rightmost; seg <<= 1) {
     // 交换 beforemerger 和 aftermerger
-        
+
 	/*----- 从左到右内循环 -----*/
     for (int p = 0, p1, p2, end1, end2; p <= rightmost;) {
         /*----- 小组指针初始化 -----*/
@@ -414,7 +414,7 @@ void mergesort(int rightmost, int *array) {
     }
     else free(beforemerger);
 }
- 
+
 ~~~
 
 # 参考文献

@@ -20,7 +20,7 @@ authors:
     twitter: mensuhamesu
     QQ: 805495207
 
-SNS: 
+SNS:
   - site: github
     username: Mensu
     url: https://github.com/Mensu
@@ -45,19 +45,19 @@ kramdown:
   syntax_highlighter: highlight
 
 # Disqus settings
-#disqus-username: 
+#disqus-username:
 
 # Duoshuo settings
 duoshuo-username: mensu
 # Share component is depend on Comment so we can NOT use share only.
-duoshuo-share: true                     # set to false if you want to use Comment without Sharing
+duoshuo-share: false                     # set to false if you want to use Comment without Sharing
 
 # Analytics settings
 # Baidu Analytics
-ba_track_id: 
+ba_track_id:
 # Google Analytics
 ga_track_id:          # Format: UA-xxxxxx-xx
-ga_domain: 
+ga_domain:
 
 anchorjs: true                          # if you want to customize anchor. check out line:? of `post.html`
 sidenav: true

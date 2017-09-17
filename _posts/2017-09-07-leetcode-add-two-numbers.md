@@ -37,7 +37,8 @@ You may assume the two numbers do not contain any leading zero, except the numbe
 # Source Code
 
 ## submission
-```c
+
+~~~c
 /**
  * Definition for singly-linked list.
  * struct ListNode {
@@ -95,11 +96,11 @@ ListNodePtr addTwoNumbers(ListNodePtr l1, ListNodePtr l2) {
   return head;
 }
 
-```
+~~~
 
 ## framework
 
-```c
+~~~c
 struct ListNode {
   int val;
   struct ListNode *next;
@@ -214,4 +215,4 @@ int main() {
   result = NULL;
 }
 
-```
+~~~

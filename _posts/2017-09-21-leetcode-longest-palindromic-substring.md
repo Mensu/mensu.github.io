@@ -91,25 +91,25 @@ char *longestPalindrome(char *s) {
 同样，可以通过 ``当前最长子串长度`` 提高效率。扩张时，直接从 ``当前最长子串长度`` 的一半开始扩张，从而跳过一些检不检查都无所谓的子串。
 
 ~~~
-当前最长子串的长度为 6 的话 -> 6 / 2 - 1 = 2，从 offset 为 2 开始扩张
+当前最长子串的长度为 5 的话 -> 5 / 2 - 1 = 1，从 offset 为 1 开始扩张
 
-cda(babab)add
+cdab(aba)badd
       |
 
 从括号两端开始尝试扩张
-cda(babab)add
+cdab(aba)badd
+   ^  |  ^
+cdab(aba)badd
   ^   |   ^
-cda(babab)add
- ^         ^
+cdab(aba)badd
+ ^    |    ^
 
 若成功扩张出去，再检查里面是不是回文子串
-cda(babab)add
+cdab(aba)badd
      ^|^
-cda(babab)add
-    ^ | ^
 
 最终得到
-c[da(babab)ad]d -> dabababad
+c[dab(aba)bad]d -> dabababad
 
 ~~~
 
@@ -167,6 +167,27 @@ Slice getMaxSlice(char *s, size_t length, int start, int end, int maxLen) {
   return ret;
 }
 
+char *longestPalindrome(char *s) {
+  Slice maxSlice = {0, 0};
+  if (s[1] == 0) return s;
+  size_t length = strnlen(s, MAXLENGTH);
+  for (int i = 0; i < length; ++i) {
+    Slice curSlice = getMaxSlice(s, length, i, i, len(maxSlice));
+    if (len(maxSlice) < len(curSlice)) {
+      maxSlice = curSlice;
+    }
+    if (i + 1 < length && s[i] == s[i + 1]) {
+      curSlice = getMaxSlice(s, length, i, i + 1, len(maxSlice));
+      if (len(maxSlice) < len(curSlice)) {
+        maxSlice = curSlice;
+      }
+    }
+  }
+  s[maxSlice.end + 1] = '\0';
+  s += maxSlice.start;
+  return s;
+}
+
 ~~~
 
 ## framework
@@ -221,6 +242,27 @@ Slice getMaxSlice(char *s, size_t length, int start, int end, int maxLen) {
   }
   // 不是回文子串
   return ret;
+}
+
+char *longestPalindrome(char *s) {
+  Slice maxSlice = {0, 0};
+  if (s[1] == 0) return s;
+  size_t length = strnlen(s, MAXLENGTH);
+  for (int i = 0; i < length; ++i) {
+    Slice curSlice = getMaxSlice(s, length, i, i, len(maxSlice));
+    if (len(maxSlice) < len(curSlice)) {
+      maxSlice = curSlice;
+    }
+    if (i + 1 < length && s[i] == s[i + 1]) {
+      curSlice = getMaxSlice(s, length, i, i + 1, len(maxSlice));
+      if (len(maxSlice) < len(curSlice)) {
+        maxSlice = curSlice;
+      }
+    }
+  }
+  s[maxSlice.end + 1] = '\0';
+  s += maxSlice.start;
+  return s;
 }
 
 /* ================== submission ends ===================== */

@@ -2,7 +2,7 @@
 layout: post
 title: "LeetCode: 2. Add Two Numbers"
 description: "链表数加法"
-subtitle: ""
+subtitle: "week 1"
 create-date: 2017-09-07
 update-date: 2017-09-07
 header-img: ""

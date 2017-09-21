@@ -1,10 +1,10 @@
 ---
 layout: post
 title: "LeetCode: 3. Longest Substring Without Repeating Characters"
-description: "链表数加法"
-subtitle: ""
+description: "最长不重复字符子串"
+subtitle: "week 2"
 create-date: 2017-09-17
-update-date: 2017-09-17
+update-date: 2017-09-21
 header-img: ""
 author: "Mensu"
 tags:
@@ -31,15 +31,11 @@ Given ``"pwwkew"``, the answer is ``"wke"``, with the length of 3. Note that the
 
 # Solution
 
-## my naive solution
+## my naive solution (22ms)
 
-大概就是维护一个数组，每个字符对应数组里的每个数 ``n``，表示从该字符开始长度为 ``n`` 的子字符串不包含重复的字符。
+大概就是通过一个双重循环维护一个数组，每个字符对应的数组里的每个数 ``n`` 表示从该字符开始长度为 ``n`` 的子字符串不包含重复的字符。
 
-以 ``abcbb`` 为例，假如当前字符 ``str[curPos]`` 是 ``c``，即 ``curPos == 2``
-
-从开始位 ``startPos == 0`` 开始查找 ``[startPos, curPos)`` 之间的每个字符 ``str[cmpPtr]`` 是否是当前字符 ``c``
-
-不是的话，则将 ``cmpPtr`` 对应的数组数字 ``n`` + 1，表示期待从 ``cmpPtr`` 开始长为 ``n`` 的子串不包含重复字符，如 (1) (2) 所示。最后 ``curPos`` 对应的数组的数字也 + 1，如 (3) 所示
+以 ``abcbb`` 为例，数组大概是这样变化的
 
 <style>
 table td, th {
@@ -50,19 +46,13 @@ table td, th {
 
 | # | a | b | c | b | b |
 |:-:|:-:|:-:|:-:|:-:|:-:|
-|(1)| 1 | 0 | 0 | 0 | 0 |
-|(2)| 2 | 1 | 0 | 0 | 0 |
-|(3)| 3 | 2 | 1 | 0 | 0 |
-
-``str[cmpPtr]`` 是是当前字符 ``c`` 的话，则要将开始位 ``startPos`` 对应的数组的数 - 1，这个数便是从 ``startPos`` 到 ``curPos - 1`` 之间的长度，如刚才的例子，当前字符是 ``c`` 后面的 ``b``，扫到 ``c`` 前面的 ``b`` 时，发现 ``str[cmpPtr]`` 是当前字符 ``b``。于是计算 ``4 - 1 = 3``，表示从 ``a`` 到 ``b`` 的前一位 ``c`` 的子串长度 (5)。这个长度可能就是不重复子串的最大值，比较并储存。然后将开始位置于 ``b`` 后面的 ``c``，继续扫描 (6) (7)
-
-| # | a | b | c | b | b |
-|:-:|:-:|:-:|:-:|:-:|:-:|
-|(3)| 3 | 2 | 1 | 0 | 0 |
-|(4)| 4 | 2 | 1 | 0 | 0 |
-|(5)| 3 | 2 | 1 | 0 | 0 |
-|(6)| 3 | 2 | 2 | 0 | 0 |
-|(7)| 3 | 2 | 2 | 1 | 0 |
+|(1)| 1* | 0 | 0 | 0 | 0 |
+|(2)| 2* | 1* | 0 | 0 | 0 |
+|(3)| 3* | 2* | 1* | 0 | 0 |
+|(4)| 4* | 2 | 1 | 0 | 0 |
+|(5)| 3* | 2 | 1 | 0 | 0 |
+|(6)| 3 | 2 | 2* | 0 | 0 |
+|(7)| 3 | 2 | 2 | 1* | 0 |
 
 ~~~c
 #include <stdio.h>
@@ -79,15 +69,19 @@ int lengthOfLongestSubstring(const char *str) {
   size_t longestLength = 0;
   for (size_t curPos = 0; str[curPos] && curPos <= length; ++curPos) {
     const char curChar = str[curPos];
+    // 内层循环检查 [startPos, curPos - 1] 范围内是否有重复字符
     for (size_t cmpPtr = startPos; cmpPtr < curPos; ++cmpPtr) {
-      if (str[cmpPtr] == curChar) {
+      if (str[cmpPtr] == curChar) {  // 有重复字符
+        // startPos 的计数--（刚才误加了）
         if (startPos < cmpPtr) {
           counts[startPos] -= 1;
         }
         longestLength = counts[startPos] > longestLength ? counts[startPos] : longestLength;
+        // startPos 移动到重复字符的后面
         startPos = cmpPtr + 1;
         continue;
-      } else {
+      } else {  // 没有重复字符
+        // 计数++
         counts[cmpPtr] += 1;
       }
     }
@@ -100,9 +94,9 @@ int lengthOfLongestSubstring(const char *str) {
 
 ~~~
 
-## better solution
+## better solution (19ms)
 
-使用两个指针不同步地向右移动，如果区间内没有重复字符，则右指针++。否则如果有，则左指针++。重复字符的判定使用数组当集合。每一步移动都计算下左右指针之间的字符串长度，取最大值。
+使用两个指针相继向右移动，如果区间内没有重复字符，则右指针++。如果有，则左指针++。通过维护一个区间内所有字符的集合来判定，接下来的字符是不是重复字符。每一步移动都计算下左右指针之间的字符串长度，统计最大值，并且相应地向集合加入或去掉元素。
 
 # Source Code
 

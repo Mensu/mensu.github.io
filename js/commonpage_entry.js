@@ -5,7 +5,8 @@ require(componentsPath + 'bootstrap.js')(this, $);
 var mensuBlogJs = require(componentsPath + 'mensu-blog.js');
 var huxBlogJs = require(componentsPath + 'hux-blog.js');
 var tagcloudJs = require(componentsPath + 'jquery.tagcloud.js');
-var duoshuoJs = require(componentsPath + 'duoshuo-embed.js');
+// var duoshuoJs = require(componentsPath + 'duoshuo-embed.js');
+function duoshuoJs() {}
 
 $(document).ready(function() {
   huxBlogJs(this, $);
@@ -48,7 +49,7 @@ $(document).ready(function() {
       $script.text("window.MathJax.Hub.Config({tex2jax: {inlineMath: [['$$','$$'], ['\\\\(','\\\\)']]}});");
     });
     scriptLoader({
-      "src": 'https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML',
+      "src": 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_CHTML',
       "name": 'Mathjax Src',
       "async": true
     });

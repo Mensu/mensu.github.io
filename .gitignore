@@ -3,3 +3,5 @@ _site/*
 .DS_Store
 *.db
 *.db-wal
+node_modules
+package-lock.json

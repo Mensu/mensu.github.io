@@ -36,7 +36,7 @@ SNS:
 # Build settings
 gems: [jekyll-paginate]
 paginate: 5
-exclude: ["less","node_modules","Gruntfile.js","package.json","README.md"]
+exclude: ["less","node_modules","package.json","README.md"]
 
 # Markdown settings
 markdown: kramdown

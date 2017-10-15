@@ -9,6 +9,7 @@ header-img: ""
 author: "Mensu"
 tags:
     - LeetCode
+    - LeetCode - Medium
 ---
 
 > The article was initially posted on **{{ page.create-date | date: "%Y-%m-%d" }}**.

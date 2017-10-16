@@ -4,7 +4,7 @@ title: "LeetCode: 10. Regular Expression Matching"
 description: "实现带 '.' 和 '*' 的正则匹配"
 subtitle: "week 6"
 create-date: 2017-10-15
-update-date: 2017-10-15
+update-date: 2017-10-16
 header-img: ""
 author: "Mensu"
 tags:
@@ -61,7 +61,7 @@ too naive to figure out a solution...
 - ``.``
 - ``.*``
 
-我们可以建立一张表格 ``match_table``，用 ``match_table[i][j]`` 表示子字符串 ``str[0:i]`` 和子表达式 ``pattern[0:j]`` 是否匹配
+我们可以建立一张表格 ``match_table``，用 ``match_table[i][j]`` 表示子字符串 ``str[:i]`` 和子表达式 ``pattern[:j]`` 是否匹配
 
 然后按 ``i``、``j`` 从小到大的顺序，用两层循环遍历填充这张表格，填完以后的 ``match_table[str_len][p_len]`` 即为所求：``str`` 和 ``pattern`` 是否匹配
 
@@ -93,8 +93,8 @@ too naive to figure out a solution...
 结合上述 (1)、(2)、(3)，我们可以得到下面的填法：
 
 ~~~c
-// match_table[str_pos][p_pos] 表示 str[0:str_pos] 和 pattern[0:p_pos] 是否匹配
-bool cur_pos_match = cur_char == '.' || cur_char == cur_node.character
+// match_table[str_pos][p_pos] 表示 str[:str_pos] 和 pattern[:p_pos] 是否匹配
+bool cur_pos_match = cur_char == '.' || cur_char == cur_node.character;
 if (cur_pos_match && match_table[i - 1][j - 1]) {  // (1)
   result = true;
 } else if (cur_node.stared) {  // (2), (3)
@@ -123,7 +123,7 @@ match_table[i][j] = result;
 
 再考虑字符串 ``a`` 和正则 ``b*c*a`` 是否匹配。当前字符和当前结点是匹配的，但 ``[]a`` 和 ``[b*c*]a`` 要是不匹配的话，就会得到 ``a`` 和 ``b*c*a`` 不匹配的错误结论。所以，所以当非空正则都是 ``*`` 结点时，``match_table[0][p_pos]`` 应当初始化为 ``true``
 
-也就是说，在初始化 ``match_table[0][p_pos]`` 时，要看 ``pattern[0:p_pos]`` 是不是都是 ``*`` 结点
+也就是说，在初始化 ``match_table[0][p_pos]`` 时，要看 ``pattern[:p_pos]`` 是不是都是 ``*`` 结点
 
 最后考虑**空字符串**和**空正则**，也就是 ``match_table[0][0]``。考虑字符串 ``a`` 和正则 ``a`` 是否匹配。当前字符和当前结点是匹配的，但 ``[]a`` 和 ``[]a`` 要是不匹配的话，就会得到 ``a`` 和 ``a`` 不匹配的错误结论。所以 ``match_table[0][0]`` 应该为 ``true``
 

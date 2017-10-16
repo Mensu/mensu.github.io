@@ -19,7 +19,7 @@ tags:
 
 > [Regular Expression Matching - LeetCode](https://leetcode.com/problems/regular-expression-matching/description/){:target="_blank"}
 
-Implement regular expression matching with support for '.' and '*'.
+Implement regular expression matching with support for ``'.'`` and ``'*'``.
 
 ~~~
 '.' Matches any single character.

@@ -39,9 +39,9 @@ too naive to figure out a solution, albeit Easy...
 
 ``arr[0:i]`` 的连续子数组有两种：以 ``arr[i]`` 结尾、不以 ``arr[i]`` 结尾
 
-最大和就是他们之中的最大值，即以 ``arr[i]`` 结尾的连续子数组的最大和、不以 ``arr[i]`` 结尾的连续子数组的最大和 (1)
+最大和就是他们之中的最大值，即以 ``arr[i]`` 结尾的连续子数组的最大和、不以 ``arr[i]`` 结尾的连续子数组的最大和，这二者之中的最大值 (1)
 
-假设已经有了以 ``arr[0:i-1]`` 的情报，那对于新来的 ``arr[i]``，想得到 ``arr[0:i]`` 的连续子数组的最大和：
+假设已经有了 ``arr[0:i-1]`` 的情报，那对于新来的 ``arr[i]``，想得到 ``arr[0:i]`` 的连续子数组的最大和：
 
 - 如果取到最大和的连续子数组以 ``arr[i]`` 结尾，那会有两种情况：加上包含 ``arr[i-1]`` 的 ``arr[0:i-1]`` 的最大和 ``arr[0:i-1] + arr[i]``，或者，另起炉灶只使用 ``arr[i]`` (2)
 - 如果取到最大和的连续子数组不以 ``arr[i]`` 结尾，那就是看 ``arr[0:i-1]`` 的最大和了 (3)
@@ -58,9 +58,9 @@ int maxSubArray(const int *nums, int nums_size) {
   int max_sum_without_prev = nums[0];
   int max_sum_with_prev = nums[0];
   for (int index = 1; index < nums_size; ++index) {
-    // (2) (3)
-    max_sum_without_prev = max_sum_without_prev > max_sum_with_prev ? max_sum_without_prev : max_sum_with_prev;
     // (1)
+    max_sum_without_prev = max_sum_without_prev > max_sum_with_prev ? max_sum_without_prev : max_sum_with_prev;
+    // (2) (3)
     max_sum_with_prev = nums[index] + (max_sum_with_prev > 0 ? max_sum_with_prev : 0);
   }
   // (3)
@@ -83,9 +83,9 @@ int maxSubArray(const int *nums, int nums_size) {
   int max_sum_without_prev = nums[0];
   int max_sum_with_prev = nums[0];
   for (int index = 1; index < nums_size; ++index) {
-    // (2) (3)
-    max_sum_without_prev = max_sum_without_prev > max_sum_with_prev ? max_sum_without_prev : max_sum_with_prev;
     // (1)
+    max_sum_without_prev = max_sum_without_prev > max_sum_with_prev ? max_sum_without_prev : max_sum_with_prev;
+    // (2) (3)
     max_sum_with_prev = nums[index] + (max_sum_with_prev > 0 ? max_sum_with_prev : 0);
   }
   // (3)

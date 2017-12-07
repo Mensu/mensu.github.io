@@ -53,6 +53,8 @@ Note: m and n will be at most 100.
 ## submission
 
 ~~~c
+#include <stdlib.h>
+
 int uniquePathsWithObstacles(int** obstacleGrid, int obstacleGridRowSize, int obstacleGridColSize) {
   int *cur = calloc(sizeof(int), obstacleGridColSize);
   int *prev = malloc(sizeof(int) * obstacleGridColSize);
@@ -85,6 +87,7 @@ int uniquePathsWithObstacles(int** obstacleGrid, int obstacleGridRowSize, int ob
 #include <stdio.h>
 
 /* ================== submission begins ===================== */
+#include <stdlib.h>
 
 int uniquePathsWithObstacles(int** obstacleGrid, int obstacleGridRowSize, int obstacleGridColSize) {
   int *cur = calloc(sizeof(int), obstacleGridColSize);

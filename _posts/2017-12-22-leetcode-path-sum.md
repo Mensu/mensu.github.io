@@ -48,7 +48,7 @@ return true, as there exist a root-to-leaf path ``5->4->11->2`` which sum is 22.
 
 ## submission
 
-~~~cpp
+~~~c
 bool hasPathSum(struct TreeNode *root, int sum) {
   if (root == NULL) {
     return false;

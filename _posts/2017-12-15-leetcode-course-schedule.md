@@ -132,7 +132,7 @@ class Solution {
 
 ## framework
 
-~~~c
+~~~cpp
 #include <iostream>
 
 /* ================== submission begins ===================== */

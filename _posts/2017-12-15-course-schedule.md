@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "207. Course Schedule"
+title: "LeetCode: 207. Course Schedule"
 description: "有向图判断是否有环"
 subtitle: "week 15"
 create-date: 2017-12-15

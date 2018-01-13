@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "309. Best Time to Buy and Sell Stock with Cooldown"
+title: "LeetCode: 309. Best Time to Buy and Sell Stock with Cooldown"
 description: "在合适的时机买卖股票，求最大利润"
 subtitle: "week 19"
 create-date: 2018-01-11

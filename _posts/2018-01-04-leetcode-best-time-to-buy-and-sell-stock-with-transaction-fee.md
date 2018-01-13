@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "714. Best Time to Buy and Sell Stock with Transaction Fee"
+title: "LeetCode: 714. Best Time to Buy and Sell Stock with Transaction Fee"
 description: "在合适的时机买卖股票，求最大利润"
 subtitle: "week 18"
 create-date: 2018-01-04

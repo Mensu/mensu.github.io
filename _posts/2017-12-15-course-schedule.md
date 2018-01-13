@@ -17,7 +17,7 @@ tags:
 
 # Description
 
-> [Maximal Rectangle - LeetCode](https://leetcode.com/problems/maximal-rectangle/description/){:target="_blank"}
+> [Course Schedule - LeetCode](https://leetcode.com/problems/course-schedule/description/){:target="_blank"}
 
 There are a total of n courses you have to take, labeled from ``0`` to ``n - 1``.
 

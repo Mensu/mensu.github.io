@@ -19,7 +19,7 @@ tags:
 
 > [Largest Divisible Subset - LeetCode](https://leetcode.com/problems/largest-divisible-subset/description/){:target="_blank"}
 
-Given a set of **distinct** positive integers, find the largest subset such that every pair $$(S_i, S_j)$$ of elements in this subset satisfies: $$S_i % S_j = 0$$ or $$S_j % S_i = 0$$.
+Given a set of **distinct** positive integers, find the largest subset such that every pair $$(S_i, S_j)$$ of elements in this subset satisfies: {% raw %} $$S_i % S_j = 0$$ or $$S_j % S_i = 0$$. {% endraw %}
 
 If there are multiple solutions, return any subset is fine.
 
@@ -49,7 +49,7 @@ Special thanks to @Stomach_ache for adding this problem and creating all test ca
 
 一个集合内所有整数可以互相整除，那么这些整数从小到大排序的话，是可以串成一条链的。
 
-如果把 $$a % b = 0, a \neq b$$ 作为 ``b -> a`` 的边，给定集合里每个数为一个结点，那么题目求的实际上是有向无环图中点和点之间的最长距离。
+如果把 {% raw %} $$a % b = 0, a \neq b$$ {% endraw %} 作为 ``b -> a`` 的边，给定集合里每个数为一个结点，那么题目求的实际上是有向无环图中点和点之间的最长距离。
 
 可以模拟 Dijkstra 算法的思路。先对集合中的整数排序，然后选一个到距某个起点最小的点（用 ``.dist`` 记录这个距离），观察它射出去的各个边的端点（即比它大的那些能整除它的点），看看是某个起点到新端点的已有距离大（即新端点的 ``.dist``），还是通过当前端点到新端点的距离大。
 

@@ -72,7 +72,7 @@
         var time = distanceFromTop / 30;
         if (time > 1500) time = 1500;
         else if (time < 200) time = 200;
-        $('body').animate({
+        $('html, body').animate({
           scrollTop: 0
         }, time, 'swing');
         // window.requestAnimationFrame((function() {

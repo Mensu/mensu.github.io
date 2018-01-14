@@ -4,7 +4,7 @@ title: "LeetCode: 309. Best Time to Buy and Sell Stock with Cooldown"
 description: "在合适的时机买卖股票，求最大利润"
 subtitle: "week 19"
 create-date: 2018-01-11
-update-date: 2018-01-11
+update-date: 2018-01-14
 header-img: ""
 author: "Mensu"
 tags:
@@ -100,7 +100,7 @@ int maxProfit(int *prices, int pricesSize) {
 
 int main() {
   int prices[] = {1, 3, 2, 8, 4, 9};
-  printf("%d\n", maxProfit(prices, sizeof(prices) / sizeof(int), 2));
+  printf("%d\n", maxProfit(prices, sizeof(prices) / sizeof(int)));
 }
 
 ~~~

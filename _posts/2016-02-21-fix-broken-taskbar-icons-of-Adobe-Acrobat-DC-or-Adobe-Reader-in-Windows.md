@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "Adobe Acrobat DC/Adobe Reader任务栏图标出错、异常、不显示 (Windows下)"
-description: "如何处理Windows下Adobe产品任务栏图标异常"
+title: "Adobe Acrobat DC/Adobe Reader 任务栏图标出错、异常、不显示 (Windows下)"
+description: "如何处理 Windows 下 Adobe 产品任务栏图标异常"
 subtitle: "fix broken taskbar icons of Adobe products in Windows"
 create-date: 2016-02-21
 update-date: 2016-03-27
@@ -17,7 +17,7 @@ tags:
 
 以管理员身份运行 cmd ，*具体方法见文末
 
-复制粘贴以下命令，回车  
+复制粘贴以下命令，回车
 有些 Windows 系统 cmd 下粘贴需要在 cmd 中右键 - 粘贴
 
 ~~~ bash
@@ -42,13 +42,13 @@ del "IconCache.db"
 ## 打开任务管理器
 
   右键任务栏，任务管理器，或按下组合键 Ctrl + Shift + Esc
-  
+
   ![launch task manager](http://7xrahq.com1.z0.glb.clouddn.com/fix-broken-icon-Adobe-launch-task-manager.png)
 
 ## 以管理员身份运行cmd
 
 A. 可以搜索cmd，右键以管理员身份运行
-  
+
 B. 也可以右键开始图标，选择命令提示符(管理员)
 
 ![launch cmd as an administrator](http://7xrahq.com1.z0.glb.clouddn.com/fix-broken-icon-Adobe-launch-cmd-as-administrator.png)
@@ -59,20 +59,20 @@ D. 还可以打开任务管理器，运行cmd，记得选中以管理员身份
 ## 重启Windows资源管理器
 
 A. 可以打开我的电脑和任务管理器，右键Windows资源管理器，重新启动
-  
+
 B. 也可以打开我的电脑和任务管理器，右键Windows资源管理器，结束任务，再运行explorer
 
 ![restart Windows system resource manager](http://7xrahq.com1.z0.glb.clouddn.com/fix-broken-icon-Adobe-restart-windows-system-resource-manager.png)
 
 ## 替换更新开始菜单里的快捷方式
 1, 右键要更新的项目，打开文件所在位置，记作文件夹A
-  
+
 2 A. 再在文件夹A中右键该项目打开文件所在位置
-    
+
 &nbsp;&nbsp;&nbsp;B. 或右键属性-打开文件位置
-   
+
 3, 右键要更新的项目，发送到桌面快捷方式
 
 4, 重命名桌面的那个快捷方式，拖至文件夹A覆盖，或者复制桌面的那个快捷方式，在文件夹A中粘贴，覆盖
-   
+
 ![update shortcut's icon on start menu](http://7xrahq.com1.z0.glb.clouddn.com/fix-broken-icon-Adobe-update-shortcut-s-icon-on-start-menu.png)

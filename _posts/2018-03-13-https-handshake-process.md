@@ -8,12 +8,13 @@ update-date: 2018-03-13
 header-img: ""
 author: "Mensu"
 tags:
-    - Frontend
+    - 前端
+    - 个人理解
 ---
 
 > The article was initially posted on **{{ page.create-date | date: "%Y-%m-%d" }}**.
 
-> 仅个人理解，有疏漏
+> 个人浅薄和粗糙的理解，忽略了大量细节，必有疏漏，仅供参考
 
 ## 安全传输数据
 

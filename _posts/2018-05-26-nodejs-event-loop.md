@@ -3,7 +3,7 @@ layout: post
 title: "Node.js 事件循环"
 description: "Node.js 是如何与 V8、libuv 协作的"
 subtitle: "node.js event loop"
-create-date: 2018-05-26
+create-date: 2018-05-27
 update-date: 2018-05-27
 header-img: ""
 author: "Mensu"
@@ -25,10 +25,13 @@ V8 负责执行 JavaScript，并提供相应的 binding API，允许 JS 层的�
 Node.js 的主干是 C++ 的代码，大意如下：
 
 ~~~cpp
+// 默认事件循环
 auto loop = uv_default_loop();
 
 v8Init();
+// v8 实例
 auto isolate = v8::Isolate::New(...);
+// 上下文（global、builtin）
 auto context = v8::Context::New(isolate, ...);
 
 // 建立运行环境，例如：
@@ -86,7 +89,7 @@ libuv 的事件循环分为 7 个阶段
 
 ## setTimeout / setInterval
 
-每次调用时会在 JS 层将回调函数加入相同 timeout（多少毫秒后过期）的 `TimerList`。在 Node.js 启动时会有一个 timer handle 注册到事件循环，这个 handle 的回调函数负责从优先队列中拿出过期的 `TimerList`，调用里面过期了的回调函数，更新 `TimerList` 的过期时间并给 timer handle 定新的超时时间。在 [单例化 timer handle 的 PR](https://github.com/nodejs/node/pull/20555) 之前，每个 `TimerList` 会注册一个相应的 timer handle 到事件循环。`setInterval` 几乎可以看作是用 `setTimeout` 迭代实现的。
+每次调用时会在 JS 层将回调函数加入相同 timeout（多少毫秒后过期）的 `TimerList`。在 Node.js 启动时会有一个 timer handle 注册到事件循环，这个 handle 的回调函数负责从优先队列中拿出过期的 `TimerList`，调用里面过期了的回调函数，更新 `TimerList` 的过期时间并给 timer handle 定新的超时时间。在 <>单例化 timer handle 的 PR](https://github.com/nodejs/node/pull/20555){:target="_blank"} 之前，每个 `TimerList` 会注册一个相应的 timer handle 到事件循环。`setInterval` 几乎可以看作是用 `setTimeout` 迭代实现的。
 
 ## setImmediate
 
@@ -140,7 +143,7 @@ setTimeout 2
 
 ~~~
 
-由于两次读文件是两个不同的 handle（更准确来说是 request）回调，所以第 6～9 行表现出来的就是 `handle 回调` -> `nextTick` -> `handle 回调` -> `nextTick` 的顺序。而第 10～11 行的两个 `setImmediate` 证明了上面两个 handle 回调是在同一个 poll 阶段发生的。
+由于两次读文件是两个不同的 handle（更准确来说是 request）回调，所以第 6～9 行表现出来的就是 `handle 回调` -> `nextTick` -> `handle 回调` -> `nextTick` 的顺序。而第 10～11 行的两个 `setImmediate` 证明了上面两个 `handle 回调` 是在同一个 poll 阶段发生的。
 
 这里想说的是，`process.nextTick` 不是在每个事件循环阶段后才执行回调函数的，而是在每个 handle 回调时。包括 `setTimeout`、`setImmediate`、I/O 等的 handle。
 
@@ -151,3 +154,10 @@ setTimeout 2
 微任务主要是指 `Promise` 的 `then`、`catch` 的回调函数，一般是在 `resolve` 和 `reject` 时由 V8 将微任务塞入微任务队列。
 
 `_tickCallback`  清空完 tock 队列后，就会调用 V8 的接口执行微任务队列，然后循环这两步直到 tock 队列清空。也就是说微任务的执行其实也是 Node.js 控制的。
+
+# 参考资料
+
+[Node.js 官网文档中潜藏多年错误的修复](https://github.com/nodejs/nodejs.org/pull/1603/files){:target="_blank"}
+[libuv 设计概览](http://docs.libuv.org/en/v1.x/design.html){:target="_blank"}
+[Node.js 源码](https://github.com/nodejs/node/blob/v10.2.1/src/node.cc){:target="_blank"}
+[libuv 源码](https://github.com/libuv/libuv/blob/v1.x/src/unix/core.c){:target="_blank"}

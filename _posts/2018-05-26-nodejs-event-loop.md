@@ -35,7 +35,7 @@ auto isolate = v8::Isolate::New(...);
 auto context = v8::Context::New(isolate, ...);
 
 // 建立运行环境，例如：
-// - 从命令行解析参数，保存各种选项，例如确定是要运行某个文件还是 REPL
+// - 从命令行解析参数，保存各种选项，方便确定是要运行某个文件还是 REPL
 // - 调用 V8 的 binding API 建立各种 binding，例如 global.process 对象
 // - 往 libuv 默认事件循环注册各种 handle，例如注册 check 阶段的 handle 以实现 setImmediate
 setupEnv(loop, isolate, context, ...);
@@ -74,7 +74,7 @@ libuv 的事件循环分为 7 个阶段
 - poll
   * socket、pipe 等可以直接多路复用的
   * fs 等使用多线程通信的
-  * 使用数组储存 handle，用完后就丢掉
+  * 使用队列储存 handle
 - check
   * `setImmediate`
   * 关闭 V8's CPU profiler
@@ -97,7 +97,7 @@ libuv 的事件循环分为 7 个阶段
 
 ## process.nextTick
 
-`process.nextTick` 并不是在下一轮事件循环调用回调函数。Node.js 一般是在 **每个 handle** 的 C++ 回调函数被触发，经过 JS 层的回调后，回到 C++ 层，最终返回事件循环前，通过 `_tickCallback` 调用 tock 队列中的回调函数。
+`process.nextTick` 并不是在下一轮事件循环调用回调函数。Node.js 一般是在 **每个 handle** 的 C++ 回调函数被触发，经过 JS 层的回调后回到 C++ 层，最终返回事件循环前，通过 `_tickCallback` 调用 tock 队列中的回调函数。
 
 为方便解释，不妨看看下面的例子。监听了 `data` 事件，在回调函数中又注册了 `process.nextTick`、`setImmediate` 和 `setTimeout`
 
@@ -119,14 +119,14 @@ function callback(id) {
 
 ~~~
 
-可能的输出如下（虚线不是输出的一部分）。我们关心的是第 6～9 行的部分。每次读完文件数据，从 poll 阶段调用 Node.js 注册的 C++ 回调函数，C++ 回调函数再调用 JS 回调函数，分发 `data` 事件。 JS 回调函数返回到 C++ 层之后，Node.js 就会运行 `_tickCallback` 调用 tock 队列中的回调函数。
+可能的输出如下（虚线不是输出的一部分）。我们关心的是虚线中间的部分。每次读完文件数据，从 poll 阶段调用 Node.js 注册的 C++ 回调函数，C++ 回调函数再调用 JS 回调函数分发 `data` 事件。 JS 回调函数返回到 C++ 层之后，Node.js 就会运行 `_tickCallback` 调用 tock 队列中的回调函数。
 
 ~~~plain
 data 1
 process.nextTick 1
 setImmediate 1
----------------------
 setTimeout 1
+---------------------
 data 2
 process.nextTick 2
 data 1
@@ -143,9 +143,9 @@ setTimeout 2
 
 ~~~
 
-由于两次读文件是两个不同的 handle（更准确来说是 request）回调，所以第 6～9 行表现出来的就是 `handle 回调` -> `nextTick` -> `handle 回调` -> `nextTick` 的顺序。而第 10～11 行的两个 `setImmediate` 证明了上面两个 `handle 回调` 是在同一个 poll 阶段发生的。
+由于两次读文件是两个不同的 handle 回调（更准确来说是 request），所以虚线中间表现出来的就是 `handle 回调` -> `nextTick` -> `handle 回调` -> `nextTick` 的顺序。而虚线后面的两个 `setImmediate` 证明了上面两个 `handle 回调` 是在同一个 poll 阶段发生的。
 
-这里想说的是，`process.nextTick` 不是在每个事件循环阶段后才执行回调函数的，而是在每个 handle 回调时。包括 `setTimeout`、`setImmediate`、I/O 等的 handle。
+这里想说的是，`process.nextTick` 不是在每个阶段才执行回调函数的，而是在每个 handle 回调时。这包括 `setTimeout`、`setImmediate`、I/O 等的 handle。
 
 当然，Node.js 还会在启动脚本加载完主模块等时机执行 `_tickCallback`。
 
@@ -157,7 +157,7 @@ setTimeout 2
 
 # 参考资料
 
-- [Node.js 官网文档中潜藏多年错误的修复](https://github.com/nodejs/nodejs.org/pull/1603/files){:target="_blank"}
+- [修复 Node.js 官网文档中潜藏多年错误的 PR](https://github.com/nodejs/nodejs.org/pull/1603/files){:target="_blank"}
 - [libuv 设计概览](http://docs.libuv.org/en/v1.x/design.html){:target="_blank"}
 - [Node.js 源码](https://github.com/nodejs/node/blob/v10.2.1/src/node.cc){:target="_blank"}
 - [libuv 源码](https://github.com/libuv/libuv/blob/v1.x/src/unix/core.c){:target="_blank"}

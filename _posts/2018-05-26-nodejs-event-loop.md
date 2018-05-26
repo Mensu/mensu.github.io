@@ -20,7 +20,7 @@ tags:
 
 libuv 提供事件循环，并提供一些系统调用和 I/O 操作的函数（API）。这些 API 封装了相应的 I/O 操作，并可以通过多路复用等方式避免阻塞。I/O 操作完成后，下一轮事件循环（下一个 tick）调用传入 API 的回调函数。
 
-V8 负责执行 JavaScript，并提供相应的 binding API，允许 JS 层的函数绑定到 C++ 层的函数。
+V8 负责执行 JavaScript，并提供相应的 binding API，允许 JS 层的函数与 C++ 层的函数绑定。
 
 Node.js 的主干是 C++ 的代码，大意如下：
 

@@ -89,7 +89,7 @@ libuv 的事件循环分为 7 个阶段
 
 ## setTimeout / setInterval
 
-每次调用时会在 JS 层将回调函数加入相同 timeout（多少毫秒后过期）的 `TimerList`。在 Node.js 启动时会有一个 timer handle 注册到事件循环，这个 handle 的回调函数负责从优先队列中拿出过期的 `TimerList`，调用里面过期了的回调函数，更新 `TimerList` 的过期时间并给 timer handle 定新的超时时间。在 <>单例化 timer handle 的 PR](https://github.com/nodejs/node/pull/20555){:target="_blank"} 之前，每个 `TimerList` 会注册一个相应的 timer handle 到事件循环。`setInterval` 几乎可以看作是用 `setTimeout` 迭代实现的。
+每次调用时会在 JS 层将回调函数加入相同 timeout（多少毫秒后过期）的 `TimerList`。在 Node.js 启动时会有一个 timer handle 注册到事件循环，这个 handle 的回调函数负责从优先队列中拿出过期的 `TimerList`，调用里面过期了的回调函数，更新 `TimerList` 的过期时间并给 timer handle 定新的超时时间。在 [单例化 timer handle 的 PR](https://github.com/nodejs/node/pull/20555){:target="_blank"} 之前，每个 `TimerList` 会注册一个相应的 timer handle 到事件循环。`setInterval` 几乎可以看作是用 `setTimeout` 迭代实现的。
 
 ## setImmediate
 
@@ -157,7 +157,7 @@ setTimeout 2
 
 # 参考资料
 
-[Node.js 官网文档中潜藏多年错误的修复](https://github.com/nodejs/nodejs.org/pull/1603/files){:target="_blank"}
-[libuv 设计概览](http://docs.libuv.org/en/v1.x/design.html){:target="_blank"}
-[Node.js 源码](https://github.com/nodejs/node/blob/v10.2.1/src/node.cc){:target="_blank"}
-[libuv 源码](https://github.com/libuv/libuv/blob/v1.x/src/unix/core.c){:target="_blank"}
+- [Node.js 官网文档中潜藏多年错误的修复](https://github.com/nodejs/nodejs.org/pull/1603/files){:target="_blank"}
+- [libuv 设计概览](http://docs.libuv.org/en/v1.x/design.html){:target="_blank"}
+- [Node.js 源码](https://github.com/nodejs/node/blob/v10.2.1/src/node.cc){:target="_blank"}
+- [libuv 源码](https://github.com/libuv/libuv/blob/v1.x/src/unix/core.c){:target="_blank"}

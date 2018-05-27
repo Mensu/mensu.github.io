@@ -80,7 +80,7 @@ libuv 的事件循环分为 7 个阶段
   * 关闭 V8's CPU profiler
   * 使用队列储存 handle，拿出来后会塞回队尾
 - close
-  * 大部分 close 的 C++ 回调函数
+  * 大部分 handle close 的 C++ 回调函数
   * 使用栈储存 handle，拿出来后就丢掉
 
 为了避免 handle 过多导致频繁的 C++ 层与 JS 层切换，Node.js 会在 JS 层尽量合并回调函数，实现一个 C++ handle 回调时对应调用多个 JS 回调函数。
@@ -89,11 +89,13 @@ libuv 的事件循环分为 7 个阶段
 
 ## setTimeout / setInterval
 
-每次调用时会在 JS 层将回调函数加入相同 timeout（多少毫秒后过期）的 `TimerList`。在 Node.js 启动时会有一个 timer handle 注册到事件循环，这个 handle 的回调函数负责从优先队列中拿出过期的 `TimerList`，调用里面过期了的回调函数，更新 `TimerList` 的过期时间并给 timer handle 定新的超时时间。在 [单例化 timer handle 的 PR](https://github.com/nodejs/node/pull/20555){:target="_blank"} 之前，每个 `TimerList` 会注册一个相应的 timer handle 到事件循环。`setInterval` 几乎可以看作是用 `setTimeout` 迭代实现的。
+每次调用时会在 JS 层将回调函数加入相同 timeout（多少毫秒后过期）的 `TimerList`。在第一个 `setTimeout` 或 `setInterval` 被调用时注册一个 timer handle 到事件循环，这个 handle 的回调函数负责从优先队列中得到过期的 `TimerList`，调用里面过期了的回调函数，并给 timer handle 定下新的超时时间或者 `unref`。在 [单例化 timer handle 的 PR](https://github.com/nodejs/node/pull/20555){:target="_blank"} 之前，每个 `TimerList` 会注册一个相应的 timer handle 到事件循环。`setInterval` 几乎可以看作是用 `setTimeout` 迭代实现的。
+
+`unref` 意味着事件循环在判断是否要继续下一个 tick 和是否能卡在 poll 阶段时都不会考虑该 handle。
 
 ## setImmediate
 
-每次调用时会在 JS 层将回调函数加入链表 `immediateList`。在 Node.js 启动时会有一个被 `unref` 的 check handle 注册到事件循环，这个 handle 的回调函数负责调用 `immediateList` 中的 JS 回调函数。`unref` 意味着事件循环在判断是否要继续下一个 tick 和是否能卡在 poll 阶段时都不会考虑该 handle。
+每次调用时会在 JS 层将回调函数加入链表 `immediateList`。在 Node.js 启动时会有一个被 `unref` 的 check handle 注册到事件循环，这个 handle 的回调函数负责调用 `immediateList` 中的 JS 回调函数。
 
 ## process.nextTick
 

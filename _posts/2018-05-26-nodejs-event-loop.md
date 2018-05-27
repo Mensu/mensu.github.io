@@ -3,7 +3,7 @@ layout: post
 title: "Node.js 事件循环"
 description: "Node.js 是如何与 V8、libuv 协作的"
 subtitle: "node.js event loop"
-create-date: 2018-05-27
+create-date: 2018-05-26
 update-date: 2018-05-27
 header-img: ""
 author: "Mensu"

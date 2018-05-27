@@ -22,7 +22,7 @@ $(document).ready(function() {
     $('#tag_cloud a').tagcloud();
   }
 
-  if (siteOptions.disqus) {
+  if (siteOptions.disqus && document.getElementById('disqus_thread')) {
     window.disqus_config = function() {
       window.page = {
         url: siteOptions.disqus.page.url,
@@ -32,23 +32,23 @@ $(document).ready(function() {
     siteOptions.disqus.count['name'] = 'disqus count';
     scriptLoader(siteOptions.disqus.count);
     scriptLoader({
-      "src": siteOptions.disqus.src,
-      "name": 'Disqus Comment'
+      src: siteOptions.disqus.src,
+      name: 'Disqus Comment'
     }, function($script) {
       $script.attr('data-timetamp', new Date());
     });
   }
   if (siteOptions.mathjax) {
     scriptLoader({
-      "type": 'text/x-mathjax-config',
-      "name": 'Mathjax Config'
+      type: 'text/x-mathjax-config',
+      name: 'Mathjax Config'
     }, function($script) {
       $script.text("window.MathJax.Hub.Config({tex2jax: {inlineMath: [['$$','$$'], ['\\\\(','\\\\)']]}});");
     });
     scriptLoader({
-      "src": 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_CHTML',
-      "name": 'Mathjax Src',
-      "async": true
+      src: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_CHTML',
+      name: 'Mathjax Src',
+      async: true
     });
   }
 

@@ -62,7 +62,7 @@ libuv 的事件循环分为 7 个阶段
   * `setInterval`
   * 使用最小堆储存 handle，拿出来后就丢掉
 - pending
-  * 某些被故意推迟到下一个 tick 的回调函数，例如 socket、pipe 的 connect error
+  * 某些被故意推迟到下一个 tick 的回调函数，例如 socket、pipe 的某些 connect error
   * 使用队列储存 handle，拿出来后就丢掉
 - idle
   * 如果有 `setImmediate` 的回调函数待处理，则注册 idle handle，使得事件循环不会卡在 poll 阶段，从而能够进入接下来的 check 阶段运行 `setImmediate` 的回调函数
@@ -145,9 +145,9 @@ setTimeout 2
 
 ~~~
 
-由于两次读文件是两个不同的 handle 回调（更准确来说是 request），所以虚线中间表现出来的就是 `handle 回调` -> `nextTick` -> `handle 回调` -> `nextTick` 的顺序。而虚线后面的两个 `setImmediate` 证明了上面两个 `handle 回调` 是在同一个 poll 阶段发生的。
+由于两次读文件是两个不同的 handle 回调（更准确来说是 request），所以虚线中间表现出来的就是 `handle 回调` -> `nextTick` -> `handle 回调` -> `nextTick` 的顺序。而后面的两个 `setImmediate` 证明了上面两个 `handle 回调` 是在同一个 poll 阶段发生的。
 
-这里想说的是，`process.nextTick` 不是在每个阶段才执行回调函数的，而是在每个 handle 回调时。这包括 `setTimeout`、`setImmediate`、I/O 等的 handle。
+这里想说的是，`process.nextTick` 不是在每个阶段结束时才执行回调函数的，而是在每个 handle 回调时。这包括 `setTimeout`、`setImmediate`、I/O 等的 handle。
 
 当然，Node.js 还会在启动脚本加载完主模块等时机执行 `_tickCallback`。
 

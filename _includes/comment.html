@@ -1,31 +1,6 @@
 <!-- comment.html starts -->
 <hr class="hr-below-something">
 
-{% if site.duoshuo-share && site.duoshuo-username %}
-<!-- 多说 Share start -->
-<div class="ds-share"
-    style=""
-    data-thread-key="{{ page.id }}"
-    data-title="{{ page.title }}"
-    data-url="{{ site.url }}{{ site.baseurl }}{{ page.url }}"
-    data-images=""
-    data-content="| {{ site.SEOTitle }}" >
-    <div class="pseudo-ds-meta"></div>
-    <div class="ds-share-inline">
-      <ul  class="ds-share-icons-16">
-        <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">Share on</a></li>
-        <li><a class="ds-wechat flat" href="javascript:;" data-service="wechat">Wechat</a></li>
-        <li><a class="ds-weibo flat" href="javascript:;" data-service="weibo">Weibo</a></li>
-        <li> <a class="ds-twitter flat" href="javascript:;" data-service="twitter">Twitter</a> </li>
-      </ul>
-      <div class="ds-share-icons-more">
-      </div>
-    </div>
-</div>
-<!-- 多说 Share end-->
-{% endif %}
-
-
 <ul class="pager">
     {% if page.previous.url %}
     <li class="previous">
@@ -39,19 +14,6 @@
     {% endif %}
 </ul>
 
-
-{% if site.duoshuo-username %}
-<!-- 多说评论框 starts -->
-<div class="ds-thread"
-     data-thread-key="{{page.id}}"
-     data-title="{{page.title}}"
-     data-url="{{site.url}}{{site.baseurl}}{{page.url}}">
-</div>
-<!-- 多说评论框 ends -->
-{% endif %}
-
-
-
 {% if site.disqus-username %}
 <!-- disqus 评论框 starts -->
 <div id="disqus_thread"></div>
@@ -60,7 +22,5 @@
 </div>
 <!-- disqus 评论框 ends -->
 {% endif %}
-
-
 
 <!-- comment.html ends -->

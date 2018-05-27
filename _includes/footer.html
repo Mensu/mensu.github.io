@@ -52,23 +52,17 @@
 <script class="site-options">
   var siteOptions;
   if (!siteOptions) siteOptions = {};
-  {% if site.duoshuo-username %}
-    // duoshuo
-    window.duoshuoQuery = siteOptions.duoshuoQuery = {
-      "short_name": "{{site.duoshuo-username}}"
-    };
-  {% endif %}
   {% if site.disqus-username %}
     // disqus
     siteOptions.disqus = {
-      "page": {
-        "url": '{{ site.url }}{{ page.url }}',
-        "id": '{{ page.url }}'
+      page: {
+        url: '{{ site.url }}{{ page.url }}',
+        id: '{{ page.url }}'
       },
-      "src": '//{{site.disqus-username}}.disqus.com/embed.js',
-      "count": {
-        "src": '//{{site.disqus-username}}.disqus.com/count.js',
-        "async": true
+      src: '//{{site.disqus-username}}.disqus.com/embed.js',
+      count: {
+        src: '//{{site.disqus-username}}.disqus.com/count.js',
+        async: true
       }
     };
   {% endif %}

@@ -5,32 +5,29 @@ require(componentsPath + 'bootstrap.js')(this, $);
 var mensuBlogJs = require(componentsPath + 'mensu-blog.js');
 var huxBlogJs = require(componentsPath + 'hux-blog.js');
 var tagcloudJs = require(componentsPath + 'jquery.tagcloud.js');
-// var duoshuoJs = require(componentsPath + 'duoshuo-embed.js');
-function duoshuoJs() {}
 
 $(document).ready(function() {
   huxBlogJs(this, $);
   mensuBlogJs(this, $);
-  
+
   if (siteOptions.tagcloud) {
     tagcloudJs(this, $);
     $.fn.tagcloud.defaults = {
         // size: {start: 1, end: 1, unit: 'em'},
-        "color": {
-          "start": '#bbbbee',
-          "end": '#0085a1'
+        color: {
+          start: '#bbbbee',
+          end: '#0085a1'
         }
     };
     $('#tag_cloud a').tagcloud();
   }
 
-  if (siteOptions.duoshuoQuery) {
-    duoshuoJs();
-  }
   if (siteOptions.disqus) {
     window.disqus_config = function() {
-      window.page.url = siteOptions.disqus.page.url;
-      window.page.identifier = siteOptions.disqus.page.id;
+      window.page = {
+        url: siteOptions.disqus.page.url,
+        identifier: siteOptions.disqus.page.id,
+      };
     };
     siteOptions.disqus.count['name'] = 'disqus count';
     scriptLoader(siteOptions.disqus.count);
@@ -39,7 +36,7 @@ $(document).ready(function() {
       "name": 'Disqus Comment'
     }, function($script) {
       $script.attr('data-timetamp', new Date());
-    }); 
+    });
   }
   if (siteOptions.mathjax) {
     scriptLoader({
@@ -54,7 +51,7 @@ $(document).ready(function() {
       "async": true
     });
   }
-  
+
 });
 
 function scriptLoader(options, callback) {

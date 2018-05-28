@@ -4,7 +4,7 @@ title: "Node.js 事件循环"
 description: "Node.js 是如何与 V8、libuv 协作的"
 subtitle: "node.js event loop"
 create-date: 2018-05-26
-update-date: 2018-05-27
+update-date: 2018-05-28
 header-img: ""
 author: "Mensu"
 tags:
@@ -18,7 +18,7 @@ tags:
 
 # Node.js 与 V8、libuv 的协作
 
-libuv 提供事件循环，并提供一些系统调用和 I/O 操作的函数（API）。这些 API 封装了相应的 I/O 操作，并可以通过多路复用等方式避免阻塞。I/O 操作完成后，下一轮事件循环（下一个 tick）调用传入 API 的回调函数。
+libuv 提供事件循环，并提供一些系统调用和 I/O 操作的函数（API）。这些 API 封装了相应的 I/O 操作，并可以通过多路复用等方式避免阻塞。I/O 操作完成后，事件循环就可以调用传入 API 的回调函数。
 
 V8 负责执行 JavaScript，并提供相应的 binding API，允许 JS 层的函数与 C++ 层的函数绑定。
 
@@ -62,7 +62,7 @@ libuv 的事件循环分为 7 个阶段
   * `setInterval`
   * 使用最小堆储存 handle，拿出来后就丢掉
 - pending
-  * 某些被故意推迟到下一个 tick 的回调函数，例如 socket、pipe 的某些 connect error
+  * 某些被故意推迟到下一轮事件循环（下一个 tick）的回调函数，例如 socket、pipe 的某些 connect error
   * 使用队列储存 handle，拿出来后就丢掉
 - idle
   * 如果有 `setImmediate` 的回调函数待处理，则注册 idle handle，使得事件循环不会卡在 poll 阶段，从而能够进入接下来的 check 阶段运行 `setImmediate` 的回调函数

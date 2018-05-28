@@ -158,7 +158,7 @@ auto isolate = v8::Isolate::GetCurrent();
 // 创建新的 v8::Local<T> 需要有一个 active 的 scope。如果能确保已经有了，则不必写这句。
 v8::HandleScope scope(isolate);
 // 就这么简单
-auto js_function = v8::Function::New(isolate, cpp_function)
+auto js_function = v8::Function::New(isolate, cpp_function);
 ~~~
 
 其中的 `cpp_function` 的签名必须是
@@ -229,38 +229,38 @@ libuv 提供了其他线程与主线程通信的 API [`uv_async_t`](http://docs.
 
 ```cpp
 // 计算密集型的任务，在另一个线程运行
-void number_crunching_work(uv_async_t *async);
+void number_crunching_work(uv_async_t *handle);
 
 // 绑定到 JS 函数的异步接口
 void async_api(const v8::FunctionCallbackInfo<v8::Value> &info) {
   /* ---------- 运行于事件循环主线程 ---------- */
-  auto async = new uv_async_t();
+  auto handle = new uv_async_t();
   // 保存整个异步任务所需要的数据，如输入参数、JS 回调函数
-  async->data = ...;
+  handle->data = ...;
 
   // 初始化 async handle
-  uv_async_init(uv_default_loop(), async, [](uv_async_t *async) {
+  uv_async_init(uv_default_loop(), handle, [](uv_async_t *handle) {
     /* ---------- 在 uv_async_send 之后，运行于事件循环主线程 ---------- */
-    // 从 async->data 拿回异步任务结果、JS 回调函数等
+    // 从 handle->data 拿回异步任务结果、JS 回调函数等
     auto js_callback = ...;
 
     // 调用 JS 回调函数
     js_callback->Call(thisArg, argc, argv);
 
     // 取消注册 async handle
-    uv_close(reinterpret_cast<uv_handle_t *>(async), [](uv_handle_t *async) {
+    uv_close(reinterpret_cast<uv_handle_t *>(handle), [](uv_handle_t *handle) {
       /* ---------- 取消注册完成后，运行于事件循环主线程 ---------- */
       // 释放内存
-      delete async->data;
-      delete async;
+      delete handle->data;
+      delete handle;
     });
   });
 
   // 在其他线程运行 number_crunching_work，传入 async handle
-  std::thread(number_crunching_work, async).detach();
+  std::thread(number_crunching_work, handle).detach();
 }
 
-void number_crunching_work(uv_async_t *async) {
+void number_crunching_work(uv_async_t *handle) {
   /* ---------- 运行于其他线程 ---------- */
   // 从 async->data 拿回输入参数
   auto input = ...;
@@ -268,15 +268,13 @@ void number_crunching_work(uv_async_t *async) {
   // ... 密集计算任务 ...
     
   // 保存异步任务结果
-  async->data = ...;
+  handle->data = ...;
 
   // 使得传入 uv_async_init 的回调函数在主线程运行。该 API 是线程安全的。
-  // 虽然这里也能从 async->data 拿到 JS 回调函数，但不能在主线程以外的线程直接执行
-  uv_async_send(async);
+  // 虽然这里也能从 handle->data 拿到 JS 回调函数，但不能在主线程以外的线程直接执行
+  uv_async_send(handle);
 }
 ```
-
-
 
 这样就可以把 `isOdd` 函数改造为异步的 `isOddAsync` 了。下面是完整的例子
 
@@ -296,12 +294,12 @@ addon.isOddAsync(1, console.log)
 struct Context {
   std::int32_t number;
   v8::Persistent<v8::Function> cb;
-  uv_async_t async;
+  uv_async_t handle;
   bool result = false;
 
   Context(std::int32_t number, v8::Local<v8::Function> cb)
     : number(number), cb(cb->GetIsolate(), cb) {
-    async.data = this;
+    handle.data = this;
   }
 };
 
@@ -316,10 +314,10 @@ void is_odd_async(const v8::FunctionCallbackInfo<v8::Value> &info) {
   auto ctx = new Context(number, cb);
 
   // 初始化 async handle
-  uv_async_init(uv_default_loop(), &ctx->async, [](uv_async_t *async) {
+  uv_async_init(uv_default_loop(), &ctx->handle, [](uv_async_t *handle) {
     /* ---------- 在 uv_async_send 之后，运行于事件循环主线程 ---------- */
-    // 从 async->data 拿回异步上下文
-    auto ctx = reinterpret_cast<Context *>(async->data);
+    // 从 handle->data 拿回异步上下文
+    auto ctx = reinterpret_cast<Context *>(handle->data);
 
     // 这个回调函数是事件循环调用的，所以要记得手动创建 scope
     auto isolate = v8::Isolate::GetCurrent();
@@ -327,7 +325,7 @@ void is_odd_async(const v8::FunctionCallbackInfo<v8::Value> &info) {
 
     // 这些是调用回调函数所需的参数，将 C++ 对象转回 V8 对象
     auto thisArg = isolate->GetCurrentContext()->Global();
-    const auto argc = 1;
+    auto argc = 1;
     auto result = v8::Boolean::New(isolate, ctx->result);
     v8::Local<v8::Value> args[] = {result};
 
@@ -336,7 +334,7 @@ void is_odd_async(const v8::FunctionCallbackInfo<v8::Value> &info) {
     cb->Call(thisArg, argc, args);
 
     // 取消注册 async handle
-    uv_close(reinterpret_cast<uv_handle_t *>(async), [](uv_handle_t *handle) {
+    uv_close(reinterpret_cast<uv_handle_t *>(handle), [](uv_handle_t *handle) {
       /* ---------- 取消注册完成后，运行于事件循环主线程 ---------- */
       // 释放 ctx
       auto ctx = reinterpret_cast<Context *>(handle->data);
@@ -346,6 +344,7 @@ void is_odd_async(const v8::FunctionCallbackInfo<v8::Value> &info) {
 
   // 在其他线程运行计算密集型的任务，通过值捕获来得到堆上的 ctx
   auto thread = std::thread([=]() {
+    /* ---------- 运行于其他线程 ---------- */
     using namespace std::literals::chrono_literals;
 
     // 计算并保存异步任务结果
@@ -354,7 +353,7 @@ void is_odd_async(const v8::FunctionCallbackInfo<v8::Value> &info) {
     std::this_thread::sleep_for(2s);
 
     // 使得传入 uv_async_init 的回调函数在主线程运行
-    uv_async_send(&ctx->async);
+    uv_async_send(&ctx->handle);
   });
   // 不阻塞当前线程
   thread.detach();
@@ -373,4 +372,98 @@ NODE_MODULE(module_name, ModuleInit);
 
 # 最佳实践
 
-待填坑...
+## 头文件
+
+可以考虑给编辑器提供 `node.h` 等头文件的路径来增强自动补全。
+
+通过 `npm run gyp configure` 生成的 `build` 目录下有一个 `my_addon.target.mk` 文件，里面的 `INCS_Debug`、`INCS_Release` 变量便提供了头文件的所在路径。
+
+另外，linux 下可以考虑 `/usr/include/node` 路径，nvm 用户还可以考虑 `$NVM_DIR/versions/node/版本/include/node`，但就要注意那些头文件的 API 是否和 `my_addon.target.mk` 文件一致了。
+
+##线程池
+
+自己使用 `uv_async_t` 通信比较繁琐，而且无限制地开线程反而会对性能有影响。因此不妨考虑使用 libuv 提供的线程池 API `uv_queue_work`
+
+```cpp
+// 异步上下文，封装输入参数、JS 回调函数、执行结果、work handle
+struct Context {
+  std::int32_t number;
+  v8::Persistent<v8::Function> cb;
+  uv_work_t handle;
+  bool result = false;
+
+  Context(std::int32_t number, v8::Local<v8::Function> cb)
+    : number(number), cb(cb->GetIsolate(), cb) {
+    handle.data = this;
+  }
+};
+
+void number_crunching_work(uv_work_t *handle);
+
+void is_odd_async(const v8::FunctionCallbackInfo<v8::Value> &info) {
+  /* ---------- 运行于事件循环主线程 ---------- */
+  // 取出参数，将 V8 对象转成 C++ 对象。这里忽略了各种类型检查
+  auto isolate = v8::Isolate::GetCurrent();
+  auto number = info[0]->Int32Value();
+  auto cb = info[1].As<v8::Function>();
+
+  // 创建我们的异步上下文，保存整个异步任务所需要的数据
+  auto ctx = new Context(number, cb);
+
+  // 将 number_crunching_work 提交到线程池
+  uv_queue_work(uv_default_loop(), &ctx->handle, number_crunching_work, [](uv_work_t *handle, int status) {
+    /* ---------- 在工作线程结束后，运行于事件循环主线程 ---------- */
+    // 这里忽略了 status < 0 时的处理
+    // 从 handle->data 拿回异步上下文
+    auto ctx = reinterpret_cast<Context *>(handle->data);
+
+    // 这个回调函数是事件循环调用的，所以要记得手动创建 scope
+    auto isolate = v8::Isolate::GetCurrent();
+    v8::HandleScope scope(isolate);
+
+    // 这些是调用回调函数所需的参数，将 C++ 对象转回 V8 对象
+    auto thisArg = isolate->GetCurrentContext()->Global();
+    auto argc = 1;
+    auto result = v8::Boolean::New(isolate, ctx->result);
+    v8::Local<v8::Value> args[] = {result};
+
+    // 调用 JS 回调函数
+    auto cb = v8::Local<v8::Function>::New(isolate, ctx->cb);
+    cb->Call(thisArg, argc, args);
+
+    // 在这个回调里就可以释放 ctx 了。uv_work_t 没有关闭的操作
+    delete ctx;
+  });
+}
+
+void number_crunching_work(uv_work_t *handle) {
+  /* ---------- 运行于其他线程 ---------- */
+  using namespace std::literals::chrono_literals;
+  // 从 handle->data 拿回异步上下文
+  auto ctx = reinterpret_cast<Context *>(handle->data);
+
+  // 计算并保存异步任务结果
+  ctx->result = ctx->number % 2 == 1;
+  // 模拟密集计算的阻塞效果
+  std::this_thread::sleep_for(2s);
+}
+```
+
+## 大数据输入输出
+
+V8 对象与 C++ 对象的转换往往需要复制数据。若数据量比较大，数据的复制反而会降低性能。Node.js 提供了 `Buffer`，直接对应一段 C++ 层的内存，这段内存的访问不在 V8 的控制下，因此也没有同线程访问的要求。所以在数据量较大的时候，也可以考虑将数据序列化为 `Buffer` 作为 C++ 接口的输入输出，C++ 层便可以直接操纵那段 `Buffer` 内存而不必复制了。
+
+## nan
+
+全称是 [Native Abstractions for Node.js](https://github.com/nodejs/nan){:target="_blank"}，主要是为了填平 V8 和 Node.js 不同版本间的 API 差异。随着 V8 以及 Node.js 版本的不断迭代，V8 也在不断废弃旧 API 和引入新 API。为了能尽量让同样一份 C++ addon 能在不同版本的 Node.js 下编译，第三方库 `nan` 登上了历史舞台。它主要是通过条件编译，尝试填补不同 V8 间 API 的差距（类似于 web 前端常用的 polyfill 的作用）。另外，它还提供了许多方便的 API，代替原生 V8 和原生 Node.js API 的写法：例如统一的工厂 `Nan::New<T>(cpp_obj)` ，不必每次都传入 `isolate`。还有 `Nan::AsyncWorker` 抽象类，用面向对象的方式封装 `uv_queue_work` 的使用。
+
+## N-API
+
+[N-API](https://nodejs.org/api/n-api.html){:target="_blank"} 主要是为了将 addon 编程与具体的 JavaScript 解释器 API（V8）解耦。就是说在使用 N-API 时，我们就看不到 V8 的 API 了，而是 Node.js 提供的 N-API。这是一套 C API。
+
+## 常用的 Node.js API
+
+- `NODE_SET_METHOD(js_obj, "key", js_value)`
+- `NODE_SET_PROTOTYPE_METHOD(js_obj, "key", js_value)`
+- [`node::ObjectWrap`](https://nodejs.org/api/addons.html#addons_wrapping_c_objects){:target="_blank"}
+

@@ -227,7 +227,7 @@ addon.isOdd(1)
 
 libuv 提供了其他线程与主线程通信的 API [`uv_async_t`](http://docs.libuv.org/en/v1.x/async.html){:target="_blank"}
 
-```cpp
+~~~cpp
 // 计算密集型的任务，在另一个线程运行
 void number_crunching_work(uv_async_t *handle);
 
@@ -264,9 +264,9 @@ void number_crunching_work(uv_async_t *handle) {
   /* ---------- 运行于其他线程 ---------- */
   // 从 async->data 拿回输入参数
   auto input = ...;
-  
+
   // ... 密集计算任务 ...
-    
+
   // 保存异步任务结果
   handle->data = ...;
 
@@ -274,17 +274,17 @@ void number_crunching_work(uv_async_t *handle) {
   // 虽然这里也能从 handle->data 拿到 JS 回调函数，但不能在主线程以外的线程直接执行
   uv_async_send(handle);
 }
-```
+~~~
 
 这样就可以把 `isOdd` 函数改造为异步的 `isOddAsync` 了。下面是完整的例子
 
-```js
+~~~js
 const addon = require('bindings')('my_addon')
 addon.isOddAsync(0, console.log)
 addon.isOddAsync(1, console.log)
-```
+~~~
 
-```cpp
+~~~cpp
 #include <chrono>
 #include <node.h>
 #include <thread>
@@ -368,7 +368,7 @@ static void ModuleInit(v8::Local<v8::Object> exports, v8::Local<v8::Value> modul
 }
 
 NODE_MODULE(module_name, ModuleInit);
-```
+~~~
 
 # 最佳实践
 
@@ -380,11 +380,11 @@ NODE_MODULE(module_name, ModuleInit);
 
 另外，linux 下可以考虑 `/usr/include/node` 路径，nvm 用户还可以考虑 `$NVM_DIR/versions/node/版本/include/node`，但就要注意那些头文件的 API 是否和 `my_addon.target.mk` 文件一致了。
 
-##线程池
+## 线程池
 
 自己使用 `uv_async_t` 通信比较繁琐，而且无限制地开线程反而会对性能有影响。因此不妨考虑使用 libuv 提供的线程池 API `uv_queue_work`
 
-```cpp
+~~~cpp
 // 异步上下文，封装输入参数、JS 回调函数、执行结果、work handle
 struct Context {
   std::int32_t number;
@@ -447,11 +447,11 @@ void number_crunching_work(uv_work_t *handle) {
   // 模拟密集计算的阻塞效果
   std::this_thread::sleep_for(2s);
 }
-```
+~~~
 
 ## 大数据输入输出
 
-V8 对象与 C++ 对象的转换往往需要复制数据。若数据量比较大，数据的复制反而会降低性能。Node.js 提供了 `Buffer`，直接对应一段 C++ 层的内存，这段内存的访问不在 V8 的控制下，因此也没有同线程访问的要求。所以在数据量较大的时候，也可以考虑将数据序列化为 `Buffer` 作为 C++ 接口的输入输出，C++ 层便可以直接操纵那段 `Buffer` 内存而不必复制了。
+V8 对象与 C++ 对象的转换往往需要复制数据。若数据量比较大，数据的复制反而会影响性能，抵消掉多线程带来的性能提升。为克服这个问题，Node.js 提供了 `Buffer`，可以直接引用一段 C++ 层的内存，这段内存的访问不在 V8 的控制下，因此也没有同线程访问的要求。所以在数据量较大的时候，也可以考虑将数据序列化为 `Buffer` 作为 C++ 接口的输入输出，C++ 层便可以直接操纵那段 `Buffer` 内存而不必复制了。
 
 ## nan
 
@@ -459,7 +459,7 @@ V8 对象与 C++ 对象的转换往往需要复制数据。若数据量比较大
 
 ## N-API
 
-[N-API](https://nodejs.org/api/n-api.html){:target="_blank"} 主要是为了将 addon 编程与具体的 JavaScript 解释器 API（V8）解耦。就是说在使用 N-API 时，我们就看不到 V8 的 API 了，而是 Node.js 提供的 N-API。这是一套 C API。
+[N-API](https://nodejs.org/api/n-api.html){:target="_blank"} 主要是为了将 addon 编程与具体的 JavaScript 解释器 API（V8）解耦，抽象出一层与解释器无关的 API。换句话说在使用 N-API 时，我们用的就不是具体的 V8 API 了，而是 Node.js 提供的 N-API。这是一套 C API。
 
 ## 常用的 Node.js API
 
@@ -467,3 +467,8 @@ V8 对象与 C++ 对象的转换往往需要复制数据。若数据量比较大
 - `NODE_SET_PROTOTYPE_METHOD(js_obj, "key", js_value)`
 - [`node::ObjectWrap`](https://nodejs.org/api/addons.html#addons_wrapping_c_objects){:target="_blank"}
 
+# 参考资料
+
+- [Writing Native Node.js Modules | @RisingStack](https://blog.risingstack.com/writing-native-node-js-modules/){:target="_blank"}
+- [C++ processing from Node.js - Part 4 - Asynchronous addons](https://nodeaddons.com/c-processing-from-node-js-part-4-asynchronous-addons/){:target="_blank"}
+- [Using Buffers to share data between Node.js and C++ | @RisingStack](https://community.risingstack.com/using-buffers-node-js-c-plus-plus/){:target="_blank"}

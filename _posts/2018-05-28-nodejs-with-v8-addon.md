@@ -122,7 +122,7 @@ addon = require('bindings')('my_addon')
 
 - `Context`：表示一套 global、builtin 等，例如不同 iframe 用的就是不同的 context
 
-- `Handle<T>`：像 `shared_ptr` 一样，负责包装某个对象，便于垃圾回收机制的运行。V8 对外开放的接口是它的两个子模板 `Local<T>` 和 `Persistent<T>`
+- `Handle<T>`：像 `std::shared_ptr<T>` 一样，负责包装某个对象，便于垃圾回收机制的运行。V8 对外开放的接口是它的两个子模板 `Local<T>` 和 `Persistent<T>`
 
 - `HandleScope`：表示 handle 的作用域。同一时间只有一个 active 的作用域。析构时会减少挂在该作用域上的 `Local<T>` 的引用
 
@@ -130,7 +130,7 @@ addon = require('bindings')('my_addon')
 
 - `Persistent<T>`：是 `Handle<T>` 的子模板，包装生命周期需要跨越 `HandleScope` 的对象，构造和析构时分别添加和减少对象的引用。在实现异步接口时经常需要用它保存 JS 传来的回调函数
 
-- `Maybe`：例如 `MaybeLocal<T>` ：某些应该返回 `Local<T>` 的接口，可能因为抛出了 JS 层的异常（但不是 C++ 层的异常）而得到空的 `Local<T>`（可以理解为 `nullptr`）。这时 V8 就会让这些 API 返回  `MaybeLocal<T>` 。`Maybe` 这一层的目的就是强制要求在使用前检查相应的内容是否为空。空的话则不允许取出 `T`，否则 `MaybeLocal<T>` 便可以通过 `.ToLocalChecked()` 得到不为空的（安全的） `Local<T>`
+- `Maybe`：例如 `MaybeLocal<T>` ：某些应该返回 `Local<T>` 的接口，可能因为抛出了 JS 层的异常（但不是 C++ 层的异常）而得到空的 `Local<T>`（可以类比 `nullptr`）。这时 V8 就会让这些接口返回  `MaybeLocal<T>` 。`Maybe` 这一层的目的就是强制要求在使用前检查相应的内容是否为空。`MaybeLocal<T>` 为空的话则不允许取出 `Local<T>`，否则便可以通过 `.ToLocalChecked()` 得到不为空的（安全的） `Local<T>`
 
 - `Value`：大概继承关系是
 

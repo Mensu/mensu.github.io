@@ -469,6 +469,6 @@ V8 对象与 C++ 对象的转换往往需要复制数据。若数据量比较大
 
 # 参考资料
 
-- [Writing Native Node.js Modules | @RisingStack](https://blog.risingstack.com/writing-native-node-js-modules/){:target="_blank"}
+- [Writing Native Node.js Modules \| @RisingStack](https://blog.risingstack.com/writing-native-node-js-modules/){:target="_blank"}
 - [C++ processing from Node.js - Part 4 - Asynchronous addons](https://nodeaddons.com/c-processing-from-node-js-part-4-asynchronous-addons/){:target="_blank"}
-- [Using Buffers to share data between Node.js and C++ | @RisingStack](https://community.risingstack.com/using-buffers-node-js-c-plus-plus/){:target="_blank"}
+- [Using Buffers to share data between Node.js and C++ \| @RisingStack](https://community.risingstack.com/using-buffers-node-js-c-plus-plus/){:target="_blank"}

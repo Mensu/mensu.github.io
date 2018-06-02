@@ -4,7 +4,7 @@ title: "Node.js 与 V8 addon"
 description: "Node.js 如何与 V8 addon 协作"
 subtitle: "node.js with v8 addon"
 create-date: 2018-05-28
-update-date: 2018-05-28
+update-date: 2018-06-02
 header-img: ""
 author: "Mensu"
 tags:
@@ -118,7 +118,7 @@ addon = require('bindings')('my_addon')
 
 # V8 基本概念
 
-- `Isolate`：一个 V8 实例，包括堆内存、垃圾回收器什么的。一个 isolate 同一时间只能在一个线程上执行 JS，否则会在新建 `HandleScope` 等时候出现段错误
+- `Isolate`：一个 V8 实例，包括堆内存、垃圾回收器什么的。一个 isolate 同一时间只能在一个线程上执行 JS，否则会在新建 `HandleScope` 等时候会被 abort 掉
 
 - `Context`：表示一套 global、builtin 等，例如不同 iframe 用的就是不同的 context
 
@@ -219,8 +219,8 @@ addon.isOdd(1)
   - 因为 isolate 不是线程安全的，不要在多个线程同时操作 isolate
   - 可以使用 libuv 的 API，将任务完成后的回调函数注册到事件循环
 - 持久化：JS 回调函数需要用 `Persistent<Function>` 持久化
-  - 因为 `Local<Function>` 在调用绑定的 C++ 函数后，会随着相应 `HandleScope` 的析构而无效（例如，可能被垃圾回收）
-- 局部变量无效：使用 lambda 表达式时，要小心那些绑定的 C++ 函数运行时的局部变量，在**线程运行**和**事件循环回调函数执行**时它们可能已经无效了
+  - 因为 `Local<Function>` 在调用绑定的 C++ 函数后，会随着相应 `HandleScope` 的析构而无效（例如，指向的 JS 函数可能被垃圾回收而无效）
+- 局部变量无效：使用 lambda 表达式时，要小心那些绑定的 C++ 函数的局部变量，在**线程运行**和**事件循环回调函数执行**时它们可能已经无效了
   - 需要在线程访问的变量要考虑用 `new` 之类的分配到堆上。用 lambda 表达式的话，还可以考虑用**值捕获** `[=]`
 
 

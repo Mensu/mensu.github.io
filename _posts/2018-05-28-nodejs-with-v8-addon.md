@@ -459,7 +459,7 @@ V8 对象与 C++ 对象的转换往往需要复制数据。若数据量比较大
 
 ## N-API
 
-[N-API](https://nodejs.org/api/n-api.html){:target="_blank"} 主要是为了将 addon 编程与具体的 JavaScript 解释器（V8）API 解耦，抽象出一层与解释器无关的 API。换句话说就是我们不再用具体的 V8 API 了，而是 Node.js 封装的 N-API 去做原本用 V8 API 完成的事。这是一套 C API（所以写起来不是很舒服...）
+全称是 [Node.js API](https://nodejs.org/api/n-api.html){:target="_blank"}，主要是为了将 addon 编程与具体的 JavaScript 解释器（V8）API 解耦，抽象出一层与解释器无关的 API。换句话说就是我们不再用具体的 V8 API 了，而是 Node.js 封装的 N-API 去做原本用 V8 API 完成的事。这是一套 C API，官方也提供了相应的 [C++ wrapper](https://github.com/nodejs/node-addon-api)
 
 ## 其他常用的 Node.js API
 

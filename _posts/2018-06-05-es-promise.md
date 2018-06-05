@@ -53,29 +53,29 @@ Promise.prototype.then = function then(onfulfilled, onrejected) {
 定义 `PromiseReactionJob`。
 
 ~~~javascript
-// const np = new Promise((resolve, reject) => {
-// ...
+  // const np = new Promise((resolve, reject) => {
+    // ...
 
-/**
- * @param {function} reaction - onfulfilled 或 onrejected
- * @param {any} result - fulfill_result 或 reject_reason
- */
-function PromiseReactionJob(reaction, result) {
-  try {
-    // p.then(() => thenResult, () => thenResult)
-    // 即 onfulfilled 和 onrejected 调用后的返回值
-    const thenResult = reaction(result)
-    // resolve 掉 np
-    resolve(thenResult)
-  } catch (e) {
-    // e 是 reaction(result) 抛出的异常
-    // reject 掉 np
-    reject(e)
-  }
-}
+    /**
+     * @param {function} reaction - onfulfilled 或 onrejected
+     * @param {any} result - fulfill_result 或 reject_reason
+     */
+    function PromiseReactionJob(reaction, result) {
+      try {
+        // p.then(() => thenResult, () => thenResult)
+        // 即 onfulfilled 和 onrejected 调用后的返回值
+        const thenResult = reaction(result)
+        // resolve 掉 np
+        resolve(thenResult)
+      } catch (e) {
+        // e 是 reaction(result) 抛出的异常
+        // reject 掉 np
+        reject(e)
+      }
+    }
 
-// ...
-// }
+    // ...
+  // }
 ~~~
 
 如果 `p` 的状态是 `pending`，将 `PromiseReactionJob` 加入 fulfill 和 reject 的回调函数列表暂时保存起来。
@@ -132,7 +132,7 @@ class Promise {
     }
     const resolve = (result) => {
 
-		}
+    }
     try {
       executor(resolve, reject)
     } catch (e) {

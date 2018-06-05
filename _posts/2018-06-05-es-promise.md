@@ -271,7 +271,7 @@ Promise.prototype.finally = function finally_(onfinally) {
 
 ## 链式调用
 
-链式调用的实现在 `.then` 中，通过在原 Promise 的回调函数中调用新 Promise 的 resolve，将原 Promise 的状态传给新 Promise。
+链式调用的实现在 `.then` 中，通过在原 Promise 的回调函数中调用新 Promise 的 `resolve`、`reject`，将原 Promise 的状态传给新 Promise。
 
 例如
 

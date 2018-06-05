@@ -407,7 +407,7 @@ await log(i)
 
 所以，从 `p0`、`p1`、`p2` 完成定义注册好回调函数，到 `it.next(val)` 的调用，即从 `log(i)` 开始被 `await`，到 `await log(i)` 表达式整个返回，应该要间隔 2 轮微任务才对。由此可见，Firefox 先打出 `log(0)`，然后间隔 2 轮微任务后再打出 `log(1)`，才符合标准。
 
-Node 8 的输出是因为当时的 V8 在步骤 [1] 上做了些 fastpath，实现了有点像 `Promise.resolve(p0)` 的效果，从而违背了标准。
+Node 8 的输出是因为当时的 V8 在 `new Promise(resolve => resolve(p0))` 时，看到 `p0` 是 fulfilled 了，就直接把返回的 `new Promise(resolve => resolve(p0))` 给 fulfilled 了。结果弄巧成拙，不合标准。
 
 # 参考资料
 

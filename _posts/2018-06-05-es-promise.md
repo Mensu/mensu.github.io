@@ -382,7 +382,7 @@ const p2 = p1.then(console.log)
 - 第 3 轮微任务 `PromiseReactionJob` 执行 `reaction(p1._fulfill_result)`，即 `console.log(p1._fulfill_result)`。
   - 此后还会把 `reaction(p1._fulfill_result)` 的返回值 `undefined` 交给 `resolve`，这个 `resolve` fulfill 的是 `p1.then()` 返回的 `p2`
 
-另一方面， `async` 函数实质上是 `Promise` 和生成器函数的语法糖
+另一方面， `async` 函数实质上是 `Promise` 和生成器函数的语法糖（忽略一些细节）
 
 ~~~javascript
 await log(i)
@@ -391,7 +391,7 @@ await log(i)
 => {
   // yield Promise.resolve(i) 时，it.next() 返回 Promise.resolve(i)
   const result = it.next()
-  new Promise(resolve => resolve(result)).then(val => it.next(val))
+  new Promise(resolve => resolve(result)).then(val => it.next(val))  // it.next(val) 标志着 yield 返回
 }
 => {
   // 令 p0 = result = Promise.resolve(i)，标志着开始 await
@@ -405,7 +405,7 @@ await log(i)
 
 步骤 [1] 是标准要求的，参见 [Await 算法](https://tc39.github.io/ecma262/#await){:target="_blank"} 的第 2、3 步。
 
-所以，从 `p0`、`p1`、`p2` 完成定义注册好回调函数，到 `it.next(val)` 的调用，即从 `log(i)` 返回开始被 `await`，到 `await log(i)` 表达式整个恢复执行，应该要间隔两轮微任务才对。由此可见，Firefox 先打出 `log(0)`，然后间隔两轮微任务后才打出 `log(1)`，才符合标准。
+所以，从 `p0`、`p1`、`p2` 完成定义注册好回调函数，到 `it.next(val)` 的调用，即从 `log(i)` 开始被 `await`，到 `await log(i)` 表达式整个返回，应该要间隔 2 轮微任务才对。由此可见，Firefox 先打出 `log(0)`，然后间隔 2 轮微任务后再打出 `log(1)`，才符合标准。
 
 Node 8 的输出是因为当时的 V8 在步骤 [1] 上做了些 fastpath，实现了有点像 `Promise.resolve(p0)` 的效果，从而违背了标准。
 

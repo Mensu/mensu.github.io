@@ -287,15 +287,15 @@ Promise.resolve()
 实际上是
 
 ~~~javascript
-Promise.resolve()                    // [1]
-  .then(() => { throw e })           // [2]
-  .then(() => 1, e => { throw e })   // [3]
-  .then(() => 2, e => { throw e })   // [4]
-  .catch(() => 3)                    // [5]
-  .then(() => 4)                     // [6]
+Promise.resolve()                      // [1]
+  .then(() => { throw e })             // [2]
+  .then(() => 1, (e) => { throw e })   // [3]
+  .then(() => 2, (e) => { throw e })   // [4]
+  .catch(() => 3)                      // [5]
+  .then(() => 4)                       // [6]
 ~~~
 
-也就是说，[2] 中主动抛出异常，将 [2] reject，调用了注册在上面的 [3] 的 onrejected，即 `e => { throw e }`，继续抛异常将 [3] reject，调用了注册在上面的 [4] 的 onrejected，继续抛异常将 [4] reject，调用了注册在上面的 [5] 的 onrejected，正常返回了数字 3 将 [5] fulfill，调用了注册在上面的 [6] 的 onfulfilled，正常返回了数字 4 将 [6] fulfill
+也就是说，[2] 中主动抛出异常，将 [2] reject，调用了注册在上面的 [3] 的 onrejected，即 `(e) => { throw e }`，继续抛异常将 [3] reject，调用了注册在上面的 [4] 的 onrejected，继续抛异常将 [4] reject，调用了注册在上面的 [5] 的 onrejected，正常返回了数字 3 将 [5] fulfill，调用了注册在上面的 [6] 的 onfulfilled，正常返回了数字 4 将 [6] fulfill
 
 
 

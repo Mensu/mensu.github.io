@@ -4,7 +4,7 @@ title: "ES Promise"
 description: "ES Promise 的工作机制的理解"
 subtitle: "ES Promise"
 create-date: 2018-06-05
-update-date: 2018-06-05
+update-date: 2018-06-06
 header-img: ""
 author: "Mensu"
 tags:
@@ -34,7 +34,7 @@ p.then(function onfulfilled(result) {
 })
 ~~~
 
-核心思想如上所示，用户在异步操作结束后调用 Promise 提供的 `resolve` 函数传入 fulfill 的结果 `result`，然后内部就会安排调用用户通过 `.then` 注册的 onfulfilled 回调函数将 `result` 交回给用户。
+核心思想如上所示，用户在需要的时候（同步地/异步地）调用 Promise 提供的 `resolve` 函数传入 fulfill 的结果 `result`，然后内部就会安排调用用户通过 `.then` 注册的 onfulfilled 回调函数将 `result` 交回给用户。
 
 ## then
 
@@ -44,7 +44,7 @@ p.then(function onfulfilled(result) {
 Promise.prototype.then = function then(onfulfilled, onrejected) {
   const p = this
   const np = new Promise((resolve, reject) => {
-
+    // TODO
   })
   return np
 }
@@ -84,31 +84,31 @@ Promise.prototype.then = function then(onfulfilled, onrejected) {
 
 ~~~javascript
 Promise.prototype.then = function then(onfulfilled, onrejected) {
-  const p = this
+  const op = this
   const np = new Promise((resolve, reject) => {
     // 1. 看看 reaction 是否 callable，否的话就使用默认的
     if (!isCallable(onfulfilled)) onfulfilled = x => x
     if (!isCallable(onrejected)) onrejected = (e) => { throw e }
 
     // 2. 定义 PromiseReactionJob
-    function PromiseReactionJob(reaction, result) { /* ... use resolve / reject ... */ }
+    function PromiseReactionJob(reaction, result) { /* ... resolve or reject np ... */ }
 
     // 3. 加入回调函数列表/直接加入微任务队列
-    if (p._state === 'pending') {
-      p._fulfill_reactions.push(() => {
+    if (op._state === 'pending') {
+      op._fulfill_reactions.push(() => {
         // 等到 fulfill 时才将 PromiseReactionJob 加入微任务队列
-        enqueueJob(() => PromiseReactionJob(onfulfilled, p._fulfill_result))
+        enqueueJob(() => PromiseReactionJob(onfulfilled, op._fulfill_result))
       })
-      p._reject_reactions.push(() => {
+      op._reject_reactions.push(() => {
         // 等到 reject 时才将 PromiseReactionJob 加入微任务队列
-        enqueueJob(() => PromiseReactionJob(onrejected, p._reject_reason))
+        enqueueJob(() => PromiseReactionJob(onrejected, op._reject_reason))
       })
-    } else if (p._state === 'fulfilled') {
+    } else if (op._state === 'fulfilled') {
       // 直接将 PromiseReactionJob 加入微任务队列
-      enqueueJob(() => PromiseReactionJob(onfulfilled, p._fulfill_result))
-    } else if (p._state === 'rejected') {
+      enqueueJob(() => PromiseReactionJob(onfulfilled, op._fulfill_result))
+    } else if (op._state === 'rejected') {
       // 直接将 PromiseReactionJob 加入微任务队列
-      enqueueJob(() => PromiseReactionJob(onrejected, p._reject_reason))
+      enqueueJob(() => PromiseReactionJob(onrejected, op._reject_reason))
     }
   })
   return np
@@ -126,18 +126,21 @@ class Promise {
   _reject_reactions = []
 
   constructor(executor) {
+    // 专门弄个 createResolvingFunctions 主要是为了
+    // 给每对 reject、resolve 配一个 _already_resolved 变量
     const createResolvingFunctions = () => {
       let _already_resolved = false
       const reject = (reason) => {
-
+        // TODO
       }
       const resolve = (result) => {
-
+        // TODO
       }
       return { resolve, reject }
     }
     const { resolve, reject } = createResolvingFunctions()
     try {
+      // executor 是用户 `new Promise(executor)` 时传进来的
       executor(resolve, reject)
     } catch (e) {
       reject(e)

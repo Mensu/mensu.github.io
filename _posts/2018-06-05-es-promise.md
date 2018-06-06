@@ -223,12 +223,12 @@ Promise.prototype._reject = function reject(reason) {
 
 `new Promise(resolve => resolve(x))` 和 `Promise.resolve(x)` 有什么区别呢？
 
-如果 x 不是 `instanceof Promise`，则二者可以看作是等价的
+如果 x 的 constructor 不是 Promise，则二者可以看作是等价的
 
-然而，当 x 是 `instanceof Promise` 时：
+然而，当 x 的 constructor 是 Promise 时，即 `Reflect.getPrototypeOf(x)?.constructor === Promise`
 
 - `new Promise(resolve => resolve(x))` 返回新的 Promise，而且新的 Promise 要等两轮微任务才会调用它的 `.then` 回调
-- `Promise.resolve(x) === x`
+- 而 `Promise.resolve(x) === x`
 
 ## Promise.reject
 

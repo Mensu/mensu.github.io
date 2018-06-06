@@ -34,7 +34,7 @@ p.then(function onfulfilled(result) {
 })
 ~~~
 
-核心思想如上所示，调用 Promise 提供的 `resolve` 函数传入 fulfill 的结果 `result`，然后内部就会安排调用 onfulfilled 回调函数将 `result` 交回给用户。用户可以通过 `.then` 函数注册 onfulfilled 回调函数。
+核心思想如上所示，用户在异步操作结束后调用 Promise 提供的 `resolve` 函数传入 fulfill 的结果 `result`，然后内部就会安排调用用户通过 `.then` 注册的 onfulfilled 回调函数将 `result` 交回给用户。
 
 ## then
 
@@ -50,7 +50,7 @@ Promise.prototype.then = function then(onfulfilled, onrejected) {
 }
 ~~~
 
-定义 `PromiseReactionJob`。
+定义 `PromiseReactionJob`，负责 resolve 或 reject 掉返回的新 Promise。
 
 ~~~javascript
   // const np = new Promise((resolve, reject) => {
@@ -126,13 +126,17 @@ class Promise {
   _reject_reactions = []
 
   constructor(executor) {
-    const _already_resolved = false
-    const reject = (reason) => {
+    const createResolvingFunctions = () => {
+      let _already_resolved = false
+      const reject = (reason) => {
 
-    }
-    const resolve = (result) => {
+      }
+      const resolve = (result) => {
 
+      }
+      return { resolve, reject }
     }
+    const { resolve, reject } = createResolvingFunctions()
     try {
       executor(resolve, reject)
     } catch (e) {
@@ -142,41 +146,49 @@ class Promise {
 }
 ~~~
 
-如果 `result` 不是 thenable 的，则直接 fulfill 掉这个 Promise。
+如果 `result` 不是 thenable，则直接 fulfill 掉这个 Promise。
 
-否则， `result` 是 thenable 的，则要将 `PromiseResolveThenableJob` 加入微任务队列。**在 `PromiseResolveThenableJob` 中，才调用 `result.then` 注册该 thenable 的回调函数**
+否则， `result` 是 thenable，则要将 `PromiseResolveThenableJob` 加入微任务队列。**在 `PromiseResolveThenableJob` 中，才调用 `result.then` 注册该 thenable 的回调函数**
 
 ~~~javascript
-const _already_resolved = false
-const reject = (reason) => {
-  // 防止重复调用
-  if (_already_resolved) return
-  _already_resolved = true
+// const createResolvingFunctions = () => {
 
-  // reject 掉自己
-  return this._reject(reason)
-}
-const resolve = (result) => {
-  // 防止重复调用
-  if (_already_resolved) return
-  _already_resolved = true
+  let _already_resolved = false
+  const reject = (reason) => {
+    // 防止重复调用
+    if (_already_resolved) return
+    _already_resolved = true
 
-  // 不能 resolve 自己，会造成死循环
-  if (result === this) return this._reject(new TypeError("selfResolutionError"))
+    // reject 掉自己
+    return this._reject(reason)
+  }
+  const resolve = (result) => {
+    // 防止重复调用
+    if (_already_resolved) return
+    _already_resolved = true
 
-  if (isThenable(result)) {
-    // 将 PromiseResolveThenableJob 加入微任务队列
-    const PromiseResolveThenableJob = () => {
-      // resolve 时并不调用 .then，而是在 resolve 之后的微任务中才调用 .then
-      result.then(res => this._fulfill(res), reason => this._reject(reason))
+    // 不能 resolve 自己，会造成死循环
+    if (result === this) return this._reject(new TypeError("selfResolutionError"))
+
+    if (isThenable(result)) {
+      // 将 PromiseResolveThenableJob 加入微任务队列
+      // resolve 时并不调用 result.then
+      const PromiseResolveThenableJob = () => {
+        const rf = createResolvingFunctions()
+        // 而是在 resolve 之后的微任务 PromiseResolveThenableJob 中才调用 result.then
+        result.then(rf.resolve, rf.reject)
+      }
+      enqueueJob(() => PromiseResolveThenableJob())
+      return
     }
-    enqueueJob(PromiseResolveThenableJob)
+
+    // is not thenable
+    // 直接用 non-thenable resolve 掉自己
+    return this._fulfill(result)
   }
 
-  // is not thenable
-  // 直接用 non-thenable resolve 掉自己
-  return this._fulfill(result)
-}
+  // return { resolve, reject }
+// }
 ~~~
 
 ## \_fulfill、\_reject
@@ -187,18 +199,18 @@ const resolve = (result) => {
 Promise.prototype._fulfill = function fulfill(result) {
   const { _fulfill_reactions } = this
   this._fulfill_result = result
-  this._state = 'fulfilled'
   // 清空队列，防止内存泄漏
   this._fulfill_reactions = this._reject_reactions = undefined
+  this._state = 'fulfilled'
   // 将 PromiseReactionJob 加入微任务队列
   _fulfill_reactions.forEach(reaction => reaction())
 }
 Promise.prototype._reject = function reject(reason) {
   const { _reject_reactions } = this
   this._reject_reason = reason
-  this._state = 'rejected'
   // 清空队列，防止内存泄漏
   this._fulfill_reactions = this._reject_reactions = undefined
+  this._state = 'rejected'
   // 将 PromiseReactionJob 加入微任务队列
   _reject_reactions.forEach(reaction => reaction())
 }
@@ -242,12 +254,8 @@ Promise.prototype.finally = function finally_(onfinally) {
   const onfulfilled = onfinally
   const onrejected = onfinally
   if (isCallable(onfinally)) {
-    onfulfilled = (result) => {
-      return Promise.resolve(onfinally()).then(_ => result)
-    }
-    onrejected = (reason) => {
-      return Promise.resolve(onfinally()).then((_) => { throw reason })
-    }
+    onfulfilled = result => Promise.resolve(onfinally()).then(_ => result)
+    onrejected = reason => Promise.resolve(onfinally()).then((_) => { throw reason })
   }
   return this.then(onfulfilled, onrejected)
 }
@@ -260,18 +268,16 @@ Promise.prototype.finally = function finally_(onfinally) {
 ## 推论
 
 - `const np = p.then(function cb() { return ret })` 中，回调函数 `cb()` 返回后，才调用 `np.resolve(ret)`
-- 顺序是 `fulfill p` -> `call cb` -> `fulfill p.then()`
+- 顺序是 `fulfill p` -> `call cb` -> `fulfill p.then() using cb()`
 - `p.resolve(thenable)` 时，要间隔 2 轮微任务（在第 3 轮）才调用 `p.then` 注册的回调函数
   - `p.resolve(nonThenable)` 和`p.reject(x)` 时不需要隔微任务，下一轮就调用 `p.then` 注册的回调函数了
-- `p.then((x) => { ... }, (y) => {...})` 中，`x` 即 `p._fulfill_result` 不可能是 thenable 的
-  - 因为 `_fulfill_result` 的值只在 `p._fulfill(result)` 中设置，而 `p._fulfill` 的调用只在 `resolve` 中的两个地方，(1) `.then(res => this._fulfill(res), ...)`，(2) `if (!isThenable(result)) this._fulfill(result)`。(1) 是递归的，`res` 有没有可能是 thenable 决定了问题中的 `x` 有没有可能是 thenable，而递归终点终将是 (2)，即无法通过不是 (1) 的方式创造出  `.then(x => x is thenable)`
+- `p.then((x) => { ... }, (y) => {...})` 中，`x` 即 `p._fulfill_result` 不可能是 thenable
+  - 因为 `_fulfill_result` 的值只在 `p._fulfill(result)` 中设置，而 `p._fulfill(result)` 的调用只在 `resolve` 中的 `result` 不是 thenable 时
   - `y` 就不一样了：它可以是 thenable
-
-
 
 ## 链式调用
 
-链式调用的实现在 `.then` 中，通过在原 Promise 的回调函数中调用新 Promise 的 `resolve`、`reject`，将原 Promise 的状态传给新 Promise。
+链式调用的实现在 `.then` 中的 `PromiseReactionJob`，通过在原 Promise 的回调函数中调用新 Promise 的 `resolve`、`reject`，将原 Promise 的状态传给新 Promise。
 
 例如
 
@@ -293,9 +299,12 @@ Promise.resolve()                      // [1]
   .then(() => 2, (e) => { throw e })   // [4]
   .catch(() => 3)                      // [5]
   .then(() => 4)                       // [6]
+
+  // .then(onfulfilled, onrejected)
+  // .catch(onrejected)
 ~~~
 
-也就是说，[2] 中主动抛出异常，将 [2] reject，调用了注册在上面的 [3] 的 onrejected，即 `(e) => { throw e }`，继续抛异常将 [3] reject，调用了注册在上面的 [4] 的 onrejected，继续抛异常将 [4] reject，调用了注册在上面的 [5] 的 onrejected，正常返回了数字 3 将 [5] fulfill，调用了注册在上面的 [6] 的 onfulfilled，正常返回了数字 4 将 [6] fulfill
+也就是说，[2] 的 onfulfilled 中主动抛出异常，将 [2] 返回的 Promise reject 掉，调用了注册在那上面的 [3] 的 onrejected，即 `(e) => { throw e }`，继续抛异常将 [3] 返回的 Promise reject 掉，调用了注册在那上面的 [4] 的 onrejected，继续抛异常将 [4] 返回的 Promise reject 掉，调用了注册在那上面的 [5] 的 onrejected，正常返回了数字 3 将 [5] 返回的 Promise fulfill 掉，调用了注册在那上面的 [6] 的 onfulfilled，正常返回了数字 4 将 [6] 返回的 Promise fulfill
 
 
 
@@ -375,14 +384,14 @@ const p2 = p1.then(console.log)
 根据上面的工作机制可知，要等到第 3 轮微任务才会调用 `console.log`：
 
 - `new` 时的 `resolve` 将微任务 `PromiseResolveThenableJob` 加入队列
-- 第 1 轮微任务 `PromiseResolveThenableJob` 执行 `p0.then(res => p1._fulfill(res))` ，由于 `p0` 不是 `pending`，所以将微任务 `PromiseReactionJob(onfulfilled, p0._fulfill_result)` 加入队列
-- 第 2 轮微任务 `PromiseReactionJob` 执行 `reaction(p0._fulfill_result)`，即 `p1._fulfill(p0._fulfill_result)`，也就是把 p1 用 `p0._fulfill_result` 给 fulfill 了。
+- 第 1 轮微任务 `PromiseResolveThenableJob` 执行 `p0.then(rf.resolve)` ，由于 `p0` 不是 `pending`，所以将微任务 `PromiseReactionJob(rf.resolve, p0._fulfill_result)` 加入队列
+- 第 2 轮微任务 `PromiseReactionJob` 执行 `reaction(p0._fulfill_result)`，即 `rf.resolve(p0._fulfill_result)`。`p0._fulfill_result` 是 `1` 不是 thenable，那就变成 `p1._fulfill(p0._fulfill_result)`，也就是把 p1 用 `p0._fulfill_result` 给 fulfill 了。
   - p1 fulfill 时，会调用 `p1._fulfill_reactions` 里保存的回调函数，将微任务 `PromiseReactionJob(console.log, p1._fulfill_result)` 加入微任务队列。
   - 此后还会把 `reaction(p0._fulfill_result)` 的返回值 `undefined` 交给 `resolve`，但这个 `resolve` fulfill 的是 `p0.then()` 返回的 Promise。鉴于这个返回的 Promise 没有继续 then 下去，在这里可以忽略它的影响
 - 第 3 轮微任务 `PromiseReactionJob` 执行 `reaction(p1._fulfill_result)`，即 `console.log(p1._fulfill_result)`。
   - 此后还会把 `reaction(p1._fulfill_result)` 的返回值 `undefined` 交给 `resolve`，这个 `resolve` fulfill 的是 `p1.then()` 返回的 `p2`
 
-另一方面， `async` 函数实质上是 `Promise` 和生成器函数的语法糖（忽略一些细节）
+另一方面， `async` 函数实质上是 `Promise` 和生成器函数的语法糖（忽略一些异常处理的细节）
 
 ~~~javascript
 await log(i)
@@ -407,7 +416,7 @@ await log(i)
 
 所以，从 `p0`、`p1`、`p2` 完成定义注册好回调函数，到 `it.next(val)` 的调用，即从 `log(i)` 开始被 `await`，到 `await log(i)` 表达式整个返回，应该要间隔 2 轮微任务才对。由此可见，Firefox 先打出 `log(0)`，然后间隔 2 轮微任务后再打出 `log(1)`，才符合标准。
 
-Node 8 的输出是因为当时的 V8 在 `new Promise(resolve => resolve(p0))` 时，看到 `p0` 是 fulfilled 了，就直接把返回的 `new Promise(resolve => resolve(p0))` 给 fulfilled 了。结果弄巧成拙，不合标准。
+Node 8 的输出是因为当时的 V8 在 `new Promise(resolve => resolve(p0))` 时，看到 `p0` 是 fulfilled 了，就直接把返回的 `new Promise(resolve => resolve(p0))` 给 fulfilled 了，结果弄巧成拙，不合标准。
 
 # 参考资料
 

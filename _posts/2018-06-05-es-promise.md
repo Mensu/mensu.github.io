@@ -138,12 +138,12 @@ class Promise {
       }
       return { resolve, reject }
     }
-    const { resolve, reject } = createResolvingFunctions()
+    const rf = createResolvingFunctions()
     try {
       // executor 是用户 `new Promise(executor)` 时传进来的
-      executor(resolve, reject)
+      executor(rf.resolve, rf.reject)
     } catch (e) {
-      reject(e)
+      rf.reject(e)
     }
   }
 }

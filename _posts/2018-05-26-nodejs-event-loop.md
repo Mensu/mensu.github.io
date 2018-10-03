@@ -4,7 +4,7 @@ title: "Node.js 事件循环"
 description: "Node.js 是如何与 V8、libuv 协作的"
 subtitle: "node.js event loop"
 create-date: 2018-05-26
-update-date: 2018-05-28
+update-date: 2018-10-03
 header-img: ""
 author: "Mensu"
 tags:
@@ -157,6 +157,46 @@ setTimeout 2
 微任务主要是指 `Promise` 的 `then`、`catch` 的回调函数，一般是在 `resolve` 和 `reject` 时由 V8 将微任务塞入微任务队列。
 
 `_tickCallback`  清空完 tock 队列后，就会调用 V8 的接口执行微任务队列，然后循环这两步直到 tock 队列清空。也就是说微任务的执行其实也是 Node.js 控制的。
+
+# 推论与应用
+
+## setTimeout 顺序问题
+
+下面的代码 0、1、2 的输出顺序是什么？
+
+~~~javascript
+setTimeout(() => console.log(2), 2)  // [2]
+setTimeout(() => console.log(1), 1)  // [1]
+setTimeout(() => console.log(0), 0)  // [0]
+~~~
+
+在浏览器上的输出我不敢下定论，但在 Node.js 中，输出可能是 `2 1 0`、`1 2 0` 或 `1 0 2`。但 `1 0` 的顺序绝对是固定的。为什么？
+
+首先，要知道这几点：
+- `setTimeout(..., 0)` 等价于 `setTimeout(..., 1)`
+- `setTimeout` 会把 `expire = libuvNow + timeout` 作为超时的标准，如果 `expire > libuvNow`，则认为超时
+- 每次 `setTimeout` 都会执行 `env->GetNow()`，这会先更新一下 libuvNow
+  + 就是说每个 setTimeout 拿到的 libuvNow 可能不同
+- timer handle 是用最小堆储存的，每次拿出来的都是最小 expire 的 handle。expire 相同则先加入堆的先被拿出
+
+接着，分情况讨论。假设 [2] 执行时的 libuvNow 是 100，那么就会有如下三种情况
+
+- [2] now = 100; [1] now = 100; [0] now = 100
+- [2] now = 100; [1] now = 100; [0] now = 101
+- [2] now = 100; [1] now = 101; [0] now = 101
+
+每一种算得的 expire 和最终输出如下
+
+- [2] now = 100; [1] now = 100; [0] now = 100
+  + [2] expire = 102; [1] expire = 101; [0] expire = 101
+  + 输出 1 0 2
+- [2] now = 100; [1] now = 100; [0] now = 101
+  + [2] expire = 102; [1] expire = 101; [0] expire = 102
+  + 输出 1 2 0
+- [2] now = 100; [1] now = 101; [0] now = 101
+  + [2] expire = 102; [1] expire = 102; [0] expire = 102
+  + 输出 2 1 0
+
 
 # 参考资料
 

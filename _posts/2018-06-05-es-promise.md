@@ -4,7 +4,7 @@ title: "ES Promise"
 description: "ES Promise 的工作机制的理解"
 subtitle: "ES Promise"
 create-date: 2018-06-05
-update-date: 2018-06-06
+update-date: 2018-10-03
 header-img: ""
 author: "Mensu"
 tags:
@@ -38,7 +38,7 @@ p.then(function onfulfilled(result) {
 
 ## then
 
-首先，`p.then` 一定会返回新的 Promise。
+首先，`p.then` 一定会返回新的 Promise，得到如下的框架。
 
 ~~~javascript
 Promise.prototype.then = function then(onfulfilled, onrejected) {
@@ -50,14 +50,14 @@ Promise.prototype.then = function then(onfulfilled, onrejected) {
 }
 ~~~
 
-定义 `PromiseReactionJob`，负责 resolve 或 reject 掉返回的新 Promise。
+接着在 TODO 中，定义一个 `PromiseReactionJob`，负责 resolve 或 reject 掉返回的新 Promise。
 
 ~~~javascript
   // const np = new Promise((resolve, reject) => {
     // ...
 
     /**
-     * @param {function} reaction - onfulfilled 或 onrejected
+     * @param {function} reaction - 用户传来的 onfulfilled 或 onrejected
      * @param {any} result - fulfill_result 或 reject_reason
      */
     function PromiseReactionJob(reaction, result) {
@@ -65,7 +65,7 @@ Promise.prototype.then = function then(onfulfilled, onrejected) {
         // p.then(() => thenResult, () => thenResult)
         // 即 onfulfilled 和 onrejected 调用后的返回值
         const thenResult = reaction(result)
-        // resolve 掉 np
+        // resolve 掉 .then 返回出去的 np
         resolve(thenResult)
       } catch (e) {
         // e 是 reaction(result) 抛出的异常
@@ -78,7 +78,7 @@ Promise.prototype.then = function then(onfulfilled, onrejected) {
   // }
 ~~~
 
-如果 `p` 的状态是 `pending`，将 `PromiseReactionJob` 加入 fulfill 和 reject 的回调函数列表暂时保存起来。
+接着是 `.then` 的核心逻辑：如果 `p` 的状态是 `pending`，则将 `PromiseReactionJob` 加入 fulfill 和 reject 的回调函数列表暂时保存起来。
 
 否则就将 `PromiseReactionJob` 直接加入微任务队列。
 
@@ -119,6 +119,8 @@ Promise.prototype.then = function then(onfulfilled, onrejected) {
 
 `resolve` 函数传给用户，由用户决定什么时候（同步地/异步地）调用。用户调用时传入一个结果 `result`。
 
+先给出构造函数的框架。
+
 ~~~javascript
 class Promise {
   _state = 'pending'
@@ -149,9 +151,9 @@ class Promise {
 }
 ~~~
 
-如果 `result` 不是 thenable，则直接 fulfill 掉这个 Promise。
+`resolve` 的逻辑是：如果 `result` 不是 thenable，则直接 fulfill 掉这个 Promise。
 
-否则， `result` 是 thenable，则要将 `PromiseResolveThenableJob` 加入微任务队列。**在 `PromiseResolveThenableJob` 中，才调用 `result.then` 注册该 thenable 的回调函数**
+否则， `result` 就是 thenable，则要将 `PromiseResolveThenableJob` 加入微任务队列。**在 `PromiseResolveThenableJob` 中，才调用 `result.then` 注册该 thenable 的回调函数**
 
 ~~~javascript
 // const createResolvingFunctions = () => {
@@ -196,7 +198,7 @@ class Promise {
 
 ## \_fulfill、\_reject
 
-主要是调用之前注册的回调函数
+主要做的事是调用之前注册的回调函数
 
 ~~~javascript
 Promise.prototype._fulfill = function fulfill(result) {
@@ -271,11 +273,11 @@ Promise.prototype.finally = function finally_(onfinally) {
 ## 推论
 
 - `const np = p.then(function cb() { return ret })` 中，回调函数 `cb()` 返回后，才调用 `np.resolve(ret)`
-- 顺序是 `fulfill p` -> `call cb` -> `fulfill p.then() using cb()`
-- `p.resolve(thenable)` 时，要间隔 2 轮微任务（在第 3 轮）才调用 `p.then` 注册的回调函数
-  - `p.resolve(nonThenable)` 和`p.reject(x)` 时不需要隔微任务，下一轮就调用 `p.then` 注册的回调函数了
+- 顺序是 `fulfill p` -> `call cb` -> `fulfill p.then() using cb()'s ret`
+- `p.resolve(nonPendingThenable)` 时，要间隔 2 轮微任务（在第 3 轮）才调用 `p.then` 注册的回调函数
+  - `p.resolve(nonThenable)` 和 `p.reject(x)` 时不需要隔微任务，下一轮就调用 `p.then` 注册的回调函数了
 - `p.then((x) => { ... }, (y) => {...})` 中，`x` 即 `p._fulfill_result` 不可能是 thenable
-  - 因为 `_fulfill_result` 的值只在 `p._fulfill(result)` 中设置，而 `p._fulfill(result)` 的调用只在 `resolve` 中的 `result` 不是 thenable 时
+  - 因为 `_fulfill_result` 的值只在 `p._fulfill(result)` 中设置，而 `p._fulfill(result)` 只在 `resolve` 中的 `result` 不是 thenable 时才会调用
   - `y` 就不一样了：它可以是 thenable
 
 ## 链式调用
@@ -420,6 +422,8 @@ await log(i)
 所以，从 `p0`、`p1`、`p2` 完成定义注册好回调函数，到 `it.next(val)` 的调用，即从 `log(i)` 开始被 `await`，到 `await log(i)` 表达式整个返回，应该要间隔 2 轮微任务才对。由此可见，Firefox 先打出 `log(0)`，然后间隔 2 轮微任务后再打出 `log(1)`，才符合标准。
 
 Node 8 的输出是因为当时的 V8 在 `new Promise(resolve => resolve(p0))` 时，看到 `p0` 是 fulfilled 了，就直接把返回的 `new Promise(resolve => resolve(p0))` 给 fulfilled 了，结果弄巧成拙，不合标准。
+
+> 不过在 2018 年 7 月的 tc39 会议上，有人指出了 3 轮微任务的问题，[认为应该采用 Node 8 的做法，改成 1 轮微任务](https://github.com/tc39/tc39-notes/blob/master/es9/2018-07/july-25.md#reduce-the-number-of-ticks-in-asyncawait){:target="_blank"}
 
 # 参考资料
 
